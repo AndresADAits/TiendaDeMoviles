@@ -55,83 +55,109 @@ public class registro extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("Usuario:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNewLabel.setBounds(105, 24, 46, 14);
 		contentPane.add(lblNewLabel);
-		
+
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(161, 22, 138, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
-		
+
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblContrasea.setBounds(86, 55, 65, 14);
 		contentPane.add(lblContrasea);
-		
+
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(161, 53, 138, 20);
 		contentPane.add(txtPassword);
-		
+
 		JLabel lblConfirmarContrasea = new JLabel("Confirmar  Contrase\u00F1a:");
 		lblConfirmarContrasea.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblConfirmarContrasea.setBounds(26, 86, 124, 14);
 		contentPane.add(lblConfirmarContrasea);
-		
+
 		txtConfirmaPassword = new JPasswordField();
 		txtConfirmaPassword.setBounds(161, 84, 138, 20);
 		contentPane.add(txtConfirmaPassword);
-		
+
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblNombre.setBounds(105, 117, 57, 14);
 		contentPane.add(lblNombre);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setBounds(161, 115, 138, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		JLabel lblCorreo = new JLabel("Correo:");
 		lblCorreo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblCorreo.setBounds(105, 148, 46, 14);
 		contentPane.add(lblCorreo);
-		
+
 		txtCorreo = new JTextField();
 		txtCorreo.setBounds(161, 146, 138, 20);
 		contentPane.add(txtCorreo);
 		txtCorreo.setColumns(10);
-		
-		JButton btnRegistrar = new JButton("Dar de alta");
+
+		JButton btnRegistrar = new JButton("Registrar en sistema");
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SqlUsuarios modSql = new SqlUsuarios();
 				usuarios mod = new usuarios();
-				
+
 				String pass = new String(txtPassword.getPassword());
 				String passCon = new String(txtConfirmaPassword.getPassword());
-				
-				if(pass.equals(passCon)) {
-					String nuevoPass = hash.sha1(pass);
-					
-					mod.setUsuario(txtUsuario.getText());
-					mod.setPassword(nuevoPass);
-					mod.setNombre(txtNombre.getText());
-					mod.setCorreo(txtCorreo.getText());
-					mod.setId_tipo(1);
-					
-					if(modSql.registrar(mod)) {
-						JOptionPane.showMessageDialog(null, "Registro Guardado");
-					}else {
-						JOptionPane.showMessageDialog(null, "Error al guardar el registro");
+//Comprueba que todos los campos estan siendo utilizados, y si alguno  no lo esta nos manda un mensaje con aviso
+				if (txtUsuario.getText().equals("") || pass.equals("") || passCon.equals("")
+						|| txtNombre.getText().equals("") || txtCorreo.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "No se pueden dejar vacios ninguno de los campos");
+				} else {
+
+					if (pass.equals(passCon)) {
+						// comprobar si ya esta registrado un usuario
+						if (modSql.existeUsuario(txtUsuario.getText()) == 0) {
+							
+							if (modSql.esEmail(txtCorreo.getText())) {
+								String nuevoPass = hash.sha1(pass);
+
+								mod.setUsuario(txtUsuario.getText());
+								mod.setPassword(nuevoPass);
+								mod.setNombre(txtNombre.getText());
+								mod.setCorreo(txtCorreo.getText());
+								mod.setId_tipo(1);
+
+								if (modSql.registrar(mod)) {
+									JOptionPane.showMessageDialog(null, "Se ha guardadado correctamente");
+									limpiar();
+								} else {
+									JOptionPane.showMessageDialog(null, "Error: no se ha podido guardar registro");
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "El formato de correo no es correcto");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Error: Ese usuario ya esta registrado");
+						}
+//Si las contraseñas no coinciden nos salta ventana con aviso
+					} else {
+						JOptionPane.showMessageDialog(null, "Error: Las contraseñas introducidas no son iguales");
 					}
-					
-					
-				}else {
-					JOptionPane.showMessageDialog(null,"Las contraseñas no coinciden");
 				}
+			}
+
+//limpia registro
+			private void limpiar() {
+				txtUsuario.setText("");
+				txtPassword.setText("");
+				txtConfirmaPassword.setText("");
+				txtNombre.setText("");
+				txtCorreo.setText("");
+
 			}
 		});
 		btnRegistrar.setBounds(161, 198, 118, 23);
