@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-	private final String base = "empleados";
+	private final String base = "usuariostiendademoviles";
 	private final String user = "root";
 	private final String password = "manolo";
 	private final String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";

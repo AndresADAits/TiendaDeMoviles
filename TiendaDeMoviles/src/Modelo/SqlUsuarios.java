@@ -11,7 +11,7 @@ public class SqlUsuarios extends Conexion{
 		PreparedStatement ps = null;
 		Connection con = getConexion();
 		
-		String sql = "INSERT INTO usuarios (usuario,password,nombre,correo,id_tipo) VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO usuario (usuario,password,nombre,correo,id_tipo) VALUES(?,?,?,?,?)";
 		
 		try {
 			ps=con.prepareStatement(sql);
