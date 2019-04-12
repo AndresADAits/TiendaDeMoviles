@@ -80,7 +80,7 @@ public class SqlUsuarios extends Conexion {
 		ResultSet rs = null;
 		Connection con = getConexion();
 
-		String sql = "SELECT count(id) from usuarios WHERE usuario=?";
+		String sql = "SELECT count(id) from usuario WHERE usuario=?";
 
 		try {
 			ps = con.prepareStatement(sql);
