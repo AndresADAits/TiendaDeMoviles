@@ -6,11 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+/**
+ * JFRAME DE ACCESO  PARA USUARIO GERENTE Y SUPERVISOR
+ *  @author J.Andrés Fernández
+ */
 
-public class inicio extends JFrame {
+public class Supervisor extends JFrame {
 
 	private JPanel contentPane;
 
@@ -21,7 +22,7 @@ public class inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					inicio frame = new inicio();
+					Supervisor frame = new Supervisor();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,25 +34,13 @@ public class inicio extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public inicio() {
+	public Supervisor() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnRegistrar.setBounds(55, 109, 89, 23);
-		contentPane.add(btnRegistrar);
-		
-		JButton btnIngresar = new JButton("Ingresar");
-		btnIngresar.setBounds(254, 109, 89, 23);
-		contentPane.add(btnIngresar);
 	}
 
 }

@@ -9,10 +9,17 @@ import java.util.regex.Pattern;
 
 public class SqlUsuarios extends Conexion {
 
-	public boolean registrar(usuarios usr) {
+	public boolean registrar(Usuarios usr) {
 
+		/**
+		 * FUNCION QUE MANIPULA LA BASE DE DATOS CON DIVERSAR CONSULTAS
+		 */
 		PreparedStatement ps = null;
 		Connection con = getConexion();
+		
+		/**
+		 * CONSULTA PARA REGISTRAR USUARIOS CON UN INSERT
+		 */
 
 		String sql = "INSERT INTO usuario (usuario,password,nombre,correo,id_tipo) VALUES(?,?,?,?,?)";
 
@@ -32,17 +39,17 @@ public class SqlUsuarios extends Conexion {
 		}
 	}
 
-	public boolean login(usuarios usr) {
-		/**
-		 * Devuelve 1 si el usuario existe, y esto lo usaremos en el registro parar
-		 * comprobar que no se registren dos usuarios iguales.
-		 */
+	public boolean login(Usuarios usr) {
 
+		/**
+		 * Creamos el select sql para poder comprobar si existe el usuario Devuelve 1 si
+		 * el usuario existe Devuelve 0 si el usuario no existe
+		 */
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = getConexion();
-
-		String sql = "SELECT id, usuario, password, nombre, id_tipo from usuarios WHERE usuario=?";
+// Consulta multitabla para que muestra id, usuario, password, etc de nuestra base de datos usuariostiendademoviles
+		String sql = "SELECT u.id,u.usuario, u.password, u.nombre, u.id_tipo, c.nombre FROM usuario AS u INNER JOIN clasesdeusuario As C ON u.id_tipo=c.id WHERE usuario = ?";
 
 		try {
 			ps = con.prepareStatement(sql);
@@ -50,19 +57,25 @@ public class SqlUsuarios extends Conexion {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-
 				if (usr.getPassword().equals(rs.getString(3))) {
+					
+					String sqlUpdate = "UPDATE usuario SET last_session = ? WHERE id=?";
+					ps=con.prepareStatement(sqlUpdate);
+					ps.setString(1, usr.getLast_session());
+					ps.setInt(2, rs.getInt(1));
+					ps.execute();
+					
 					usr.setId(rs.getInt(1));
 					usr.setNombre(rs.getString(4));
 					usr.setId_tipo(rs.getInt(5));
+					usr.setNombre_tipo(rs.getString(6));
 					return true;
 				} else {
 					return false;
-
 				}
 			}
-			return false;
 
+			return false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,16 +84,17 @@ public class SqlUsuarios extends Conexion {
 	}
 
 	public int existeUsuario(String usuario) {
-		/**
-		 * Devuelve 1 si el usuario existe, y esto lo usaremos en el registro parar
-		 * comprobar que no se registren dos usuarios iguales.
-		 */
 
+		/**
+		 * CREAMOS EL SELECT SQL PARA PODER COMPROBAR SI EXISTE EL USUARIO EN LA BBDD
+		 *DEVUELVE 1 SI EL USUARIO EXISTE, Y 0 SI NO
+		 * 
+		 */
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = getConexion();
 
-		String sql = "SELECT count(id) from usuario WHERE usuario=?";
+		String sql = "SELECT count(id) FROM usuario WHERE usuario = ?";
 
 		try {
 			ps = con.prepareStatement(sql);
@@ -90,8 +104,8 @@ public class SqlUsuarios extends Conexion {
 			if (rs.next()) {
 				return rs.getInt(1);
 			}
-			return 1;
 
+			return 1;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,8 +115,8 @@ public class SqlUsuarios extends Conexion {
 
 	public boolean esEmail(String correo) {
 		/**
-		 * Validacion de correo
-		 * 
+		 *  VALIDACION DE CORREO, QUE OBLIGA A QUE TENGA UNA SERIE DE CARACTERES EN UN ORDEN QUE COINCIDE 
+		 *  CON FORMATO DE CORREO
 		 */
 		Pattern pattern = Pattern.compile(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");

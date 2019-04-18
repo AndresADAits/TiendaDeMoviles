@@ -8,10 +8,19 @@ public class Conexion {
 	private final String base = "usuariostiendademoviles";
 	private final String user = "root";
 	private final String password = "manolo";
+	//NECASARIO PARA SOLUCIONAR ERROR TIMEZONE ROMANCE
 	private final String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private final String url = "jdbc:mysql://localhost:3306/"+base+ timeZone;
 	private Connection con = null;
 	
+	/**
+	 * CONEXIÓN CON LA BASE DE DATOS "USUARIOSTIENDADEMOVILES" EN LA QUE TENEMOS DOS TABLAS
+	 * 
+	 * 1.-CLASESDEUSUARIO: EN LA QUE SE ALMACENAN LAS ID Y NOMBRES DE USUARIO
+	 * 2.-USUARIO: EN EL QUE SE ALMACENAN LA ID(INCREMENTAL), USUARIO, PASSWORD
+	 * (ENCRIPTADO POR HASH), NOMBRE, CORREO(CON UNA BUENA VALIDACIÓN), LAST_SESSION
+	 * E ID_TIPO QUE CONECTA CON LA ID DE LA TABLA CLASESDEUSUARIO.
+	 */
 	public Connection getConexion() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -27,50 +36,3 @@ public class Conexion {
 	}
 
 }
-
-/**
- * package Modelo;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class Conexion {
-	public static void main(String[]args)
-	throws InstantiationException,IllegalAccessError,ClassNotFoundException,IllegalAccessException,SQLException{
-	 String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-
- String base = "consumoelectrico";
-	
-	 String url = "jdbc:mysql://localhost:3306/"+base+ timeZone;
-
-	
-	String user = "root";
-	
-	String password = "manolo";
-	
-	 String driver="com.mysql.cj.jdbc.Driver";
-	
-	Class.forName(driver).newInstance();
-	
-	Connection conexion=DriverManager.getConnection(url, user, password);
-	
-	if(conexion!=null)
-		System.out.println("Conexion establecida");
-	
-	Statement consulta=conexion.createStatement();
-	ResultSet resultado = consulta.executeQuery("SELECT count(*),sum(kw), avg(kw) from mediciones");
-	
-	while(resultado.next());
-	System.out.println(resultado.getString("sum(kw)"));
-	
-	
-	
-	
-}
-}
-	
-	
- */

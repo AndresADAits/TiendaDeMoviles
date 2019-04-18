@@ -1,7 +1,11 @@
 package Modelo;
 
-public class hash {
+public class Hash {
 	    public static String getHash (String txt, String hashType){
+	    	/**
+	    	 * CON ESTA FUNCION CONSEGUIMOS CIFRAR EL PASSWORD QUE EL USUARIO NOS DA EN EL REGISTRO
+			 * Y QUE POR SEGURIDAD GUARDAREMOS DE ESTA FORMA EN LA TABLA USUARIO
+			 */
 	        try {
 	            java.security.MessageDigest md = java.security.MessageDigest.getInstance(hashType);
 	            byte[] array = md.digest(txt.getBytes());
@@ -18,9 +22,9 @@ public class hash {
 	    }
 	    
 	    public static String md5(String txt){
-	        return hash.getHash(txt, "MD5");
+	        return Hash.getHash(txt, "MD5");
 	    }
 	    public static String sha1(String txt){
-	        return hash.getHash(txt, "SHA1");
+	        return Hash.getHash(txt, "SHA1");
 	    }
 }

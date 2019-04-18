@@ -1,7 +1,11 @@
 package Modelo;
 
-public class usuarios {
+public class Usuarios {
 	
+	/**FUNCION PARA TOMAR Y ESCRIBIR LOS DATOS QUE LE PEDIMOS 
+	 * EN EL REGISTRO A EL USUARIO. LAS VARIABLES DEBEN 
+	 * COINCIDIR CON LAS COLUMNAS DE LA TABLA USUARIO
+	 */
 	private int id;
 	private String usuario;
 	private String password;
@@ -9,7 +13,9 @@ public class usuarios {
 	private String correo;
 	private String last_session;
 	private int id_tipo;
+	private String nombre_tipo;
 	
+
 	public int getId() {
 		return id;
 	}
@@ -51,6 +57,12 @@ public class usuarios {
 	}
 	public void setId_tipo(int id_tipo) {
 		this.id_tipo = id_tipo;
+	}
+	public String getNombre_tipo() {
+		return nombre_tipo;
+	}
+	public void setNombre_tipo(String nombre_tipo) {
+		this.nombre_tipo = nombre_tipo;
 	}
 	
 	
