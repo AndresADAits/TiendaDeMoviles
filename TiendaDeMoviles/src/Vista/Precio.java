@@ -36,21 +36,23 @@ public class Precio extends JFrame {
 	 */
 	public Precio() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 661, 519);
+		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
+		setLocationRelativeTo(null);
 
 		/**
 		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON 
 		 * LAS CARACTERISTICAS QUE BUSCAMOS
 		 */
-		JButton btnCargar = new JButton("Buscar");
+		JButton btnCargar = new JButton("Mostrar descendente");
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jtPrecio = new JTable();
@@ -62,7 +64,7 @@ public class Precio extends JFrame {
 					 * EN BBDD USUARIOSTIENDAMOVILES
 					 */
 					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA" };
+					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA","CÁMARA"};
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
 					jtPrecio.setModel(modelo);
 					JScrollPane scroll = new JScrollPane(jtPrecio);
@@ -80,7 +82,8 @@ public class Precio extends JFrame {
 					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
 					 */
 					String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText();
+							+ txtMax.getText()+" ORDER BY precio";
+					
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
 
@@ -109,7 +112,7 @@ public class Precio extends JFrame {
 
 		});
 
-		btnCargar.setBounds(527, 11, 89, 23);
+		btnCargar.setBounds(452, 11, 164, 23);
 		panel.add(btnCargar);
 
 		txtMin = new JTextField();
@@ -133,6 +136,70 @@ public class Precio extends JFrame {
 		lblNewLabel_1 = new JLabel("\u20AC");
 		lblNewLabel_1.setBounds(430, 15, 46, 14);
 		panel.add(lblNewLabel_1);
+		
+		JButton btnMostrarAscendente = new JButton("Mostrar ascendente");
+		btnMostrarAscendente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				jtPrecio = new JTable();
+				jtPrecio.setBounds(22, 22, 561, 338);
+				panel.add(jtPrecio);
+				try {
+					/**
+					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA TABLA STOCK
+					 * EN BBDD USUARIOSTIENDAMOVILES
+					 */
+					Object[][] data = new Object[0][0];
+					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA","CÁMARA"};
+					DefaultTableModel modelo = new DefaultTableModel(data, datos);
+					jtPrecio.setModel(modelo);
+					JScrollPane scroll2 = new JScrollPane(jtPrecio);
+					getContentPane().add(scroll2, BorderLayout.NORTH);
+
+					/**
+					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+					 */
+					PreparedStatement ps = null;
+					ResultSet rs = null;
+					Conexion conn = new Conexion();
+					Connection con = conn.getConexion();
+					/**
+					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
+					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
+					 */
+					String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
+							+ txtMax.getText()+" ORDER BY precio DESC";
+					
+					
+					ps = con.prepareStatement(sql);
+					rs = ps.executeQuery();
+
+					ResultSetMetaData rsMd = rs.getMetaData();
+					int cantidadColumnas = rsMd.getColumnCount();
+					/**
+					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE 
+					 * VA A MOSTRAR
+					 */
+					while (rs.next()) {
+
+						Object[] filas = new Object[cantidadColumnas];
+
+						for (int i = 0; i < cantidadColumnas; i++) {
+							filas[i] = rs.getObject(i + 1);
+
+						}
+
+						modelo.addRow(filas);
+					}
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
+				}
+
+				
+			}
+		});
+		btnMostrarAscendente.setBounds(645, 10, 164, 23);
+		panel.add(btnMostrarAscendente);
 
 	}
 }
