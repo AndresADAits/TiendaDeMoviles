@@ -19,7 +19,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 /**
- * REGISTRO PARA VENDEDORES
+ * REGISTRO PARA SUPERVISORES
  * (SE PODRAN REGISTRAR VENDEDORES Y SUPERVISORES, PERO NO UN USUARIO CON
  * ROL GERENTE, YA QUE ESTE CONTROLARA A LOS OTROS, Y SERÁ ÚNICO)
  * 
@@ -35,7 +35,7 @@ import java.awt.event.ActionEvent;
  * @author J.Andrés Fernández
  *
  */
-public class Registro extends JFrame {
+public class RegistroSupervisor extends JFrame{
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -61,7 +61,7 @@ public class Registro extends JFrame {
 	}
 
 	
-	public Registro() {
+	public RegistroSupervisor() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -156,8 +156,8 @@ public class Registro extends JFrame {
 						mod.setPassword(nuevoPass);
 						mod.setNombre(txtNombre.getText());
 						mod.setCorreo(txtCorreo.getText());
-						//ESTO HACE QUE POR DEFECTO EL TIPO DE USUARIO SEA 1, O SEA VENDEDOR
-						mod.setId_tipo(1);
+						//ESTO HACE QUE POR DEFECTO EL TIPO DE USUARIO SEA 2, O SEA SUPERVISOR
+						mod.setId_tipo(2);
 						//MENSAJES PARA LAS DISTINTAS POSIBILIDAD
 						
 						if (modSql.registrar(mod)) {

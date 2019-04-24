@@ -10,7 +10,11 @@ public class Conexion {
 	private final String password = "manolo";
 	//NECASARIO PARA SOLUCIONAR ERROR TIMEZONE ROMANCE
 	private final String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private final String url = "jdbc:mysql://localhost:3306/"+base+ timeZone;
+	/**
+	 * LA LINEA DE ABAJO LA VOY A TENER QUE MODIFICAR CADA VEZ QUE TRABAJE EN CASA O EN ADA
+	 * EL LOCAL HOST EN CASA ES 3306 EN ADA 3309
+	 */
+	private final String url = "jdbc:mysql://localhost:3309/"+base+ timeZone;
 	private Connection con = null;
 	
 	/**

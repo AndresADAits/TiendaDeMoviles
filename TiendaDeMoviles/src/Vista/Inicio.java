@@ -53,8 +53,8 @@ public class Inicio extends JFrame {
 		/**
 		 * Creamos el boton de registrar el cual inicia el formulario de registro
 		 */
-		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.setFont(new Font("Sitka Subheading", Font.BOLD | Font.ITALIC, 25));
+		JButton btnRegistrar = new JButton("Registrar Vendedor");
+		btnRegistrar.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -63,7 +63,7 @@ public class Inicio extends JFrame {
 				
 			}
 		});
-		btnRegistrar.setBounds(12, 109, 163, 131);
+		btnRegistrar.setBounds(12, 109, 193, 62);
 		contentPane.add(btnRegistrar);
 		
 		/**
@@ -84,6 +84,17 @@ public class Inicio extends JFrame {
 		lblBienvenido.setFont(new Font("Segoe UI Semibold", Font.BOLD, 18));
 		lblBienvenido.setBounds(163, 13, 163, 62);
 		contentPane.add(lblBienvenido);
+		
+		JButton btnRegistrarSupervisor = new JButton("Registrar Supervisor");
+		btnRegistrarSupervisor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				RegistroSupervisor RegistroSupervisor = new RegistroSupervisor();
+				RegistroSupervisor.setVisible(true);
+			}
+		});
+		btnRegistrarSupervisor.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
+		btnRegistrarSupervisor.setBounds(12, 182, 193, 62);
+		contentPane.add(btnRegistrarSupervisor);
 	}
-
 }
