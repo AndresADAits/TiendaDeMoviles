@@ -49,6 +49,7 @@ public class Inicio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		  setLocationRelativeTo(null);
 		
 		/**
 		 * Creamos el boton de registrar el cual inicia el formulario de registro

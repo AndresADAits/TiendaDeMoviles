@@ -2,10 +2,18 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Modelo.Usuarios;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 /**
  * JFRAME DE ACCESO  TODOS LOS USUARIOS
  * 
@@ -16,33 +24,91 @@ import javax.swing.border.EmptyBorder;
 public class Vendedor extends JFrame {
 
 	private JPanel contentPane;
+	Usuarios mod;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Vendedor frame = new Vendedor();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public Vendedor() {
+	public Vendedor(Usuarios mod) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 626, 455);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-	}
+		contentPane.setLayout(null);
+		  setLocationRelativeTo(null);
+		
+		
+		
+		JLabel lblUsuario = new JLabel("USUARIO:");
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblUsuario.setBounds(50, 13, 77, 19);
+		contentPane.add(lblUsuario);
 
+		JLabel lblNombre = new JLabel(mod.getNombre());
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblNombre.setBounds(153, 13, 86, 19);
+		contentPane.add(lblNombre);
+
+		JLabel lblRol = new JLabel("ROL:");
+		lblRol.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblRol.setBounds(86, 57, 37, 19);
+		contentPane.add(lblRol);
+// AQUI VOY A ESCRIBIR EN LOS JLABEL EL NOMBRE DEL USUARIO, EL ROL QUE TIENE
+		//Y EL ULTIMO ACCESO
+		JLabel lblTipo = new JLabel(mod.getNombre_tipo());
+		lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblTipo.setBounds(153, 57, 86, 19);
+		contentPane.add(lblTipo);
+
+		JLabel lblUltAcceso = new JLabel("ULT ACCESO:");
+		lblUltAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblUltAcceso.setBounds(25, 89, 99, 19);
+		contentPane.add(lblUltAcceso);
+		
+		JLabel lblAcceso = new JLabel(mod.getLast_session());
+		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblAcceso.setBounds(153, 89, 332, 19);
+		contentPane.add(lblAcceso);
+		
+		
+		JButton btnPrecio = new JButton("PRECIO");
+		btnPrecio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Precio Precio = new Precio();
+				Precio.setVisible(true);
+			}
+		});
+		btnPrecio.setBounds(29, 158, 89, 23);
+		contentPane.add(btnPrecio);
+		
+		JButton btnMarca = new JButton("MARCA");
+		btnMarca.setBounds(147, 158, 89, 23);
+		contentPane.add(btnMarca);
+		
+		JButton btnGb = new JButton("GB");
+		btnGb.setBounds(264, 158, 89, 23);
+		contentPane.add(btnGb);
+		
+		JButton btnInches = new JButton("INCHES");
+		btnInches.setBounds(384, 158, 89, 23);
+		contentPane.add(btnInches);
+		
+		JButton btnMamperios = new JButton("mAMPERIOS");
+		btnMamperios.setBounds(496, 158, 104, 23);
+		contentPane.add(btnMamperios);
+		
+		JButton btnVender = new JButton("VENDER");
+		btnVender.setBounds(198, 256, 201, 126);
+		contentPane.add(btnVender);
+		
+		JLabel lblBusquedaPor = new JLabel("BUSQUEDA POR :");
+		lblBusquedaPor.setBounds(252, 122, 135, 14);
+		contentPane.add(lblBusquedaPor);
+	}
 }

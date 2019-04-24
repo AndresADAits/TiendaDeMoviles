@@ -68,6 +68,7 @@ public class RegistroSupervisor extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		  setLocationRelativeTo(null);
 
 		JLabel lblNewLabel = new JLabel("Usuario:");
 		lblNewLabel.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 15));

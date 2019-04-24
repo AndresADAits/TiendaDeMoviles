@@ -47,6 +47,8 @@ public class Home extends JFrame {
 		btnVendedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ACCESO A JFRAME VENDEDOR
+				Vendedor Vendedor = new Vendedor(mod);
+				Vendedor.setVisible(true);
 			}
 		});
 		contentPane.setLayout(null);

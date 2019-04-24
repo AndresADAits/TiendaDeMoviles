@@ -43,6 +43,7 @@ public class Registro extends JFrame {
 	private JPasswordField txtConfirmaPassword;
 	private JTextField txtNombre;
 	private JTextField txtCorreo;
+	
 
 	/**
 	 * Launch the application.
@@ -68,6 +69,8 @@ public class Registro extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		  setLocationRelativeTo(null);
+		  setLocationRelativeTo(null);
 
 		JLabel lblNewLabel = new JLabel("Usuario:");
 		lblNewLabel.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 15));
