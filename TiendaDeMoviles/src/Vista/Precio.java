@@ -52,7 +52,7 @@ public class Precio extends JFrame {
 		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON 
 		 * LAS CARACTERISTICAS QUE BUSCAMOS
 		 */
-		JButton btnCargar = new JButton("Mostrar descendente");
+		JButton btnCargar = new JButton("Mostrar Ascendente");
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jtPrecio = new JTable();
@@ -137,7 +137,7 @@ public class Precio extends JFrame {
 		lblNewLabel_1.setBounds(430, 15, 46, 14);
 		panel.add(lblNewLabel_1);
 		
-		JButton btnMostrarAscendente = new JButton("Mostrar ascendente");
+		JButton btnMostrarAscendente = new JButton("Mostrar Descendente");
 		btnMostrarAscendente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				

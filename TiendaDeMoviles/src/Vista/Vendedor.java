@@ -88,6 +88,12 @@ public class Vendedor extends JFrame {
 		contentPane.add(btnPrecio);
 		
 		JButton btnMarca = new JButton("MARCA");
+		btnMarca.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Marca Marca = new Marca();
+				Marca.setVisible(true);
+			}
+		});
 		btnMarca.setBounds(147, 158, 89, 23);
 		contentPane.add(btnMarca);
 		
