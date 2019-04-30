@@ -1,4 +1,4 @@
-package Vista;
+package Vista.RolVendedor;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

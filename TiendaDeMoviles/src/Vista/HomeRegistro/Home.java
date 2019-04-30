@@ -1,4 +1,4 @@
-package Vista;
+package Vista.HomeRegistro;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Modelo.Usuarios;
+import Vista.RolVendedor.Vendedor;
 
 import javax.swing.AbstractButton;
 import javax.swing.JButton;

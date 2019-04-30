@@ -1,4 +1,4 @@
-package Vista;
+package Vista.RolVendedor;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -98,14 +98,33 @@ public class Vendedor extends JFrame {
 		contentPane.add(btnMarca);
 		
 		JButton btnGb = new JButton("GB");
+		btnGb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				gb gb = new gb();
+				gb.setVisible(true);
+				
+			}
+		});
 		btnGb.setBounds(264, 158, 89, 23);
 		contentPane.add(btnGb);
 		
 		JButton btnInches = new JButton("INCHES");
+		btnInches.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inches inches = new inches();
+				inches.setVisible(true);
+			}
+		});
 		btnInches.setBounds(384, 158, 89, 23);
 		contentPane.add(btnInches);
 		
 		JButton btnMamperios = new JButton("mAMPERIOS");
+		btnMamperios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mAmperios mAmperios = new mAmperios();
+				mAmperios.setVisible(true);
+			}
+		});
 		btnMamperios.setBounds(496, 158, 104, 23);
 		contentPane.add(btnMamperios);
 		

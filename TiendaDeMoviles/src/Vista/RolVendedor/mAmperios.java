@@ -1,4 +1,4 @@
-package Vista;
+package Vista.RolVendedor;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Precio extends JFrame {
+public class mAmperios extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -30,11 +30,11 @@ public class Precio extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y
+	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE BATERIA Y
 	 *  AL PULSAR BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE 
 	 *  ESTAMOS BUSCANDO
 	 */
-	public Precio() {
+	public mAmperios() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
@@ -79,10 +79,10 @@ public class Precio extends JFrame {
 					Connection con = conn.getConexion();
 					/**
 					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
+					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE BATERIA
 					 */
-					String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText()+" ORDER BY precio";
+					String sql = "SELECT * FROM stock WHERE bateria BETWEEN " + txtMin.getText() + " AND "
+							+ txtMax.getText()+" ORDER BY bateria";
 					
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -116,12 +116,12 @@ public class Precio extends JFrame {
 		panel.add(btnCargar);
 
 		txtMin = new JTextField();
-		txtMin.setBounds(214, 12, 75, 22);
+		txtMin.setBounds(224, 11, 75, 22);
 		panel.add(txtMin);
 		txtMin.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Introduce un rango de precios entre");
-		lblNewLabel.setBounds(10, 15, 185, 14);
+		JLabel lblNewLabel = new JLabel("Introduce un rango de bateria entre");
+		lblNewLabel.setBounds(10, 15, 205, 14);
 		panel.add(lblNewLabel);
 
 		txtMax = new JTextField();
@@ -129,12 +129,12 @@ public class Precio extends JFrame {
 		txtMax.setBounds(345, 11, 75, 22);
 		panel.add(txtMax);
 
-		lblY = new JLabel("\u20AC        y ");
-		lblY.setBounds(299, 15, 46, 14);
+		lblY = new JLabel("mA  y ");
+		lblY.setBounds(306, 15, 37, 14);
 		panel.add(lblY);
 
-		lblNewLabel_1 = new JLabel("\u20AC");
-		lblNewLabel_1.setBounds(430, 15, 46, 14);
+		lblNewLabel_1 = new JLabel("mA");
+		lblNewLabel_1.setBounds(420, 15, 46, 14);
 		panel.add(lblNewLabel_1);
 		
 		JButton btnMostrarAscendente = new JButton("Mostrar Descendente");
@@ -165,10 +165,10 @@ public class Precio extends JFrame {
 					Connection con = conn.getConexion();
 					/**
 					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
+					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE BATERIA
 					 */
-					String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText()+" ORDER BY precio DESC";
+					String sql = "SELECT * FROM stock WHERE bateria BETWEEN " + txtMin.getText() + " AND "
+							+ txtMax.getText()+" ORDER BY bateria DESC";
 					
 					
 					ps = con.prepareStatement(sql);

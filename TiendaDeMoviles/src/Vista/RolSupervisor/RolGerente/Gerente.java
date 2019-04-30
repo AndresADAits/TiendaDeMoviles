@@ -1,4 +1,4 @@
-package Vista;
+package Vista.RolSupervisor.RolGerente;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,23 +6,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-/**
- * JFRAME DE ACCESO  PARA USUARIO GERENTE Y SUPERVISOR
- *  @author J.Andrés Fernández
- */
 
-public class Supervisor extends JFrame {
+public class Gerente extends JFrame {
 
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * JFRAME DE ACCESO EXCLUSIVO PARA USUARIO GERENTE
+	 *  @author J.Andrés Fernández
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Supervisor frame = new Supervisor();
+					Gerente frame = new Gerente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +32,7 @@ public class Supervisor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Supervisor() {
+	public Gerente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
