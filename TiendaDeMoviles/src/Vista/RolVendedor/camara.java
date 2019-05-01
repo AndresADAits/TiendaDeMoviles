@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
-public class Precio extends JFrame {
+public class camara extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -30,11 +30,11 @@ public class Precio extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y
+	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE CÁMARA Y
 	 *  AL PULSAR BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE 
 	 *  ESTAMOS BUSCANDO
 	 */
-	public Precio() {
+	public camara() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
@@ -71,7 +71,6 @@ public class Precio extends JFrame {
 					getContentPane().add(scroll, BorderLayout.NORTH);
 
 					/**
-					 * 
 					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
 					 */
 					PreparedStatement ps = null;
@@ -80,10 +79,10 @@ public class Precio extends JFrame {
 					Connection con = conn.getConexion();
 					/**
 					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
+					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE CÁMARA
 					 */
-					String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText()+" ORDER BY precio";
+					String sql = "SELECT * FROM stock WHERE camara BETWEEN " + txtMin.getText() + " AND "
+							+ txtMax.getText()+" ORDER BY camara";
 					
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -117,25 +116,25 @@ public class Precio extends JFrame {
 		panel.add(btnCargar);
 
 		txtMin = new JTextField();
-		txtMin.setBounds(214, 12, 75, 22);
+		txtMin.setBounds(230, 12, 59, 22);
 		panel.add(txtMin);
 		txtMin.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Introduce un rango de precios entre");
-		lblNewLabel.setBounds(10, 15, 185, 14);
+		JLabel lblNewLabel = new JLabel("Introduce un rango de camara entre");
+		lblNewLabel.setBounds(10, 15, 208, 14);
 		panel.add(lblNewLabel);
 
 		txtMax = new JTextField();
 		txtMax.setColumns(10);
-		txtMax.setBounds(345, 11, 75, 22);
+		txtMax.setBounds(345, 11, 59, 22);
 		panel.add(txtMax);
 
-		lblY = new JLabel("\u20AC        y ");
+		lblY = new JLabel("Mpx  y ");
 		lblY.setBounds(299, 15, 46, 14);
 		panel.add(lblY);
 
-		lblNewLabel_1 = new JLabel("\u20AC");
-		lblNewLabel_1.setBounds(430, 15, 46, 14);
+		lblNewLabel_1 = new JLabel("MPx");
+		lblNewLabel_1.setBounds(421, 15, 33, 14);
 		panel.add(lblNewLabel_1);
 		
 		JButton btnMostrarAscendente = new JButton("Mostrar Descendente");
@@ -166,10 +165,10 @@ public class Precio extends JFrame {
 					Connection con = conn.getConexion();
 					/**
 					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
+					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE CÁMARA
 					 */
-					String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText()+" ORDER BY precio DESC";
+					String sql = "SELECT * FROM stock WHERE camara BETWEEN " + txtMin.getText() + " AND "
+							+ txtMax.getText()+" ORDER BY camara DESC";
 					
 					
 					ps = con.prepareStatement(sql);

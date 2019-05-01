@@ -84,7 +84,7 @@ public class Vendedor extends JFrame {
 				Precio.setVisible(true);
 			}
 		});
-		btnPrecio.setBounds(29, 158, 89, 23);
+		btnPrecio.setBounds(0, 158, 89, 23);
 		contentPane.add(btnPrecio);
 		
 		JButton btnMarca = new JButton("MARCA");
@@ -94,7 +94,7 @@ public class Vendedor extends JFrame {
 				Marca.setVisible(true);
 			}
 		});
-		btnMarca.setBounds(147, 158, 89, 23);
+		btnMarca.setBounds(101, 158, 89, 23);
 		contentPane.add(btnMarca);
 		
 		JButton btnGb = new JButton("GB");
@@ -105,7 +105,7 @@ public class Vendedor extends JFrame {
 				
 			}
 		});
-		btnGb.setBounds(264, 158, 89, 23);
+		btnGb.setBounds(202, 158, 89, 23);
 		contentPane.add(btnGb);
 		
 		JButton btnInches = new JButton("INCHES");
@@ -115,7 +115,7 @@ public class Vendedor extends JFrame {
 				inches.setVisible(true);
 			}
 		});
-		btnInches.setBounds(384, 158, 89, 23);
+		btnInches.setBounds(303, 158, 89, 23);
 		contentPane.add(btnInches);
 		
 		JButton btnMamperios = new JButton("mAMPERIOS");
@@ -125,15 +125,30 @@ public class Vendedor extends JFrame {
 				mAmperios.setVisible(true);
 			}
 		});
-		btnMamperios.setBounds(496, 158, 104, 23);
+		btnMamperios.setBounds(404, 158, 104, 23);
 		contentPane.add(btnMamperios);
 		
 		JButton btnVender = new JButton("VENDER");
+		btnVender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VenderMovil VenderMovil=new VenderMovil();
+				VenderMovil.setVisible(true);}
+		});
 		btnVender.setBounds(198, 256, 201, 126);
 		contentPane.add(btnVender);
 		
 		JLabel lblBusquedaPor = new JLabel("BUSQUEDA POR :");
 		lblBusquedaPor.setBounds(252, 122, 135, 14);
 		contentPane.add(lblBusquedaPor);
+		
+		JButton btnCamara = new JButton("CAMARA");
+		btnCamara.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				camara camara= new camara();
+				camara.setVisible(true);
+			}
+		});
+		btnCamara.setBounds(511, 157, 97, 25);
+		contentPane.add(btnCamara);
 	}
 }

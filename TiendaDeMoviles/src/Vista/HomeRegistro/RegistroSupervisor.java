@@ -141,6 +141,7 @@ public class RegistroSupervisor extends JFrame{
 					JOptionPane.showMessageDialog(null, "Hay campos vacíos, debe rellenar todos los campos");
 				} else {
 					
+					
 					  //QUE LAS CLAVES SEAN IGUALES
 					
 					if (pass.equals(passCon)) {

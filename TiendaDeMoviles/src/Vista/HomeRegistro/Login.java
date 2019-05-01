@@ -47,6 +47,7 @@ public class Login extends JFrame {
 
 	/**
 	 * Creamos la ventana de login
+	 * 
 	 */
 	public Login() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
