@@ -60,6 +60,11 @@ public class VenderMovil extends JFrame {
 	PreparedStatement ps;
 	ResultSet rs;
 	
+	/**
+	 * AL NO SERVIRME UTILIZANDO LA OTRA CONEXIÓN PARA HACER UPDATE EN LA BBDD
+	 * COPIO AQUI LA CLASE QUE ES EXACTAMENTE LA MISMA QUE EN CONEXIÓN
+	 * 
+	 */
 	public Connection getConexion() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
