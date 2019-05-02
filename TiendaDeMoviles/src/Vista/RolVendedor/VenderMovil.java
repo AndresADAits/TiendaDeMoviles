@@ -20,33 +20,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import Modelo.Hash;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
-
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VenderMovil extends JFrame {
 
 	private JPanel contentPane;
-	
+
 	private JTextField txtCantidad;
 	private final String base = "usuariostiendademoviles";
 	private final String user = "root";
@@ -55,17 +35,17 @@ public class VenderMovil extends JFrame {
 	/**
 	 * en casa tengo de localhost 3306 en ada 3309
 	 */
-	private final String url = "jdbc:mysql://localhost:3309/" + base + timeZone;
+	private final String url = "jdbc:mysql://localhost:3306/" + base + timeZone;
 	private Connection con = null;
 	private JTable jtPrecio;
 	private JTextField txtId;
 
 	PreparedStatement ps;
 	ResultSet rs;
-	
+
 	/**
-	 * AL NO SERVIRME UTILIZANDO LA OTRA CONEXIÓN PARA HACER UPDATE EN LA BBDD
-	 * COPIO AQUI LA CLASE QUE ES EXACTAMENTE LA MISMA QUE EN CONEXIÓN
+	 * AL NO SERVIRME UTILIZANDO LA OTRA CONEXIÓN PARA HACER UPDATE EN LA BBDD COPIO
+	 * AQUI LA CLASE QUE ES EXACTAMENTE LA MISMA QUE EN CONEXIÓN
 	 * 
 	 */
 	public Connection getConexion() {
@@ -81,9 +61,7 @@ public class VenderMovil extends JFrame {
 		}
 		return con;
 	}
-		
 
-	
 	public VenderMovil() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1241, 861);
@@ -487,6 +465,20 @@ public class VenderMovil extends JFrame {
 		panel.add(lblCantidad);
 
 		txtCantidad = new JTextField();
+		txtCantidad.addKeyListener(new KeyAdapter() {
+			@Override
+			/**
+			 * ESTA PEQUEÑA FUNCION NOS IMPIDE METER LETRAS, SIMBOLOS, ETC
+			 * LO QUE HACE QUE NO SE PUEDA ESTROPEAR LA VENTA, NI HACER
+			 * UNA "VENTA NEGATIVA" QUE AUMENTE STOCK
+			 */
+
+			public void keyTyped(KeyEvent arg0) {
+				char c = arg0.getKeyChar();
+				if (c < '0' || c > '9')
+					arg0.consume();
+			}
+		});
 		txtCantidad.setColumns(10);
 		txtCantidad.setBounds(227, 21, 30, 22);
 		panel.add(txtCantidad);
@@ -494,29 +486,93 @@ public class VenderMovil extends JFrame {
 		JButton btnVender = new JButton("VENDER");
 		btnVender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Connection con = null;
 
-				try {				
-					con = getConexion();
-					ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
-					
-					
-					ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-					ps.setInt(2, Integer.parseInt(txtId.getText()));
+				int numeroStock = 0;
 
-					int res = ps.executeUpdate();
+				jtPrecio = new JTable();
+				jtPrecio.setBounds(22, 22, 561, 338);
+				panel.add(jtPrecio);
+				try {
+					/**
+					 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
+					 */
+					Object[][] data = new Object[0][0];
+					String[] datos = {  "STOCK" };
+					DefaultTableModel modelo = new DefaultTableModel(data, datos);
+					jtPrecio.setModel(modelo);
+					JScrollPane scroll = new JScrollPane(jtPrecio);
+					getContentPane().add(scroll, BorderLayout.NORTH);
 
-					if (res > 0) {
-						JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
-						
-					} else {
-						JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
-						
+					/**
+					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+					 */
+					PreparedStatement ps = null;
+					ResultSet rs = null;
+					Conexion conn = new Conexion();
+					Connection con = conn.getConexion();
+					/**
+					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+					 * RANGO DE PRECIO
+					 */
+					String sql = "SELECT cantidad FROM stock WHERE idmovil= "+txtId.getText();
+					ps = con.prepareStatement(sql);
+					rs = ps.executeQuery();
+
+					ResultSetMetaData rsMd = rs.getMetaData();
+					int cantidadColumnas = rsMd.getColumnCount();
+					/**
+					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+					 * MOSTRAR
+					 */
+
+					while (rs.next()) {
+
+						Object[] filas = new Object[cantidadColumnas];
+
+						for (int i = 0; i < cantidadColumnas; i++) {
+							filas[i] = rs.getObject(i + 1);
+
+							numeroStock = (int) rs.getObject(i + 1);
+						}
+
+						modelo.addRow(filas);
 					}
-					con.close();
-				} catch (Exception err) {
-					System.err.println(err);
+
+				} catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
+				}
+
+				/**
+				 * EN ESTA PARTE COMPROBAMOS COMPARANDO EL SELECT DEL STOCK CON LO QUE VAMOS A
+				 * VENDER CONTROLANDO STOCK
+				 */
+				int compruebaStock = Integer.parseInt(txtCantidad.getText());
+
+				Connection con = null;
+				if (numeroStock >= compruebaStock) {
+					try {
+						con = getConexion();
+						ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
+
+						ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
+						ps.setInt(2, Integer.parseInt(txtId.getText()));
+
+						int res = ps.executeUpdate();
+
+						if (res > 0) {
+							JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
+
+						} else {
+							JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
+
+						}
+						con.close();
+					} catch (Exception err) {
+						System.err.println(err);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "NO HAY STOCK SUFICIENTE PARA ESA VENTA");
 				}
 			}
 
