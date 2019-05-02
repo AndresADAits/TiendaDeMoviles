@@ -52,7 +52,10 @@ public class VenderMovil extends JFrame {
 	private final String user = "root";
 	private final String password = "manolo";
 	private final String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private final String url = "jdbc:mysql://localhost:3306/" + base + timeZone;
+	/**
+	 * en casa tengo de localhost 3306 en ada 3309
+	 */
+	private final String url = "jdbc:mysql://localhost:3309/" + base + timeZone;
 	private Connection con = null;
 	private JTable jtPrecio;
 	private JTextField txtId;
@@ -496,7 +499,7 @@ public class VenderMovil extends JFrame {
 
 				try {				
 					con = getConexion();
-					ps = con.prepareStatement("UPDATE stock SET cantidad=? WHERE idmovil=?");
+					ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
 					
 					
 					ps.setInt(1, Integer.parseInt(txtCantidad.getText()));

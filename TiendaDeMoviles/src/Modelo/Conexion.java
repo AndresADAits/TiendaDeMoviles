@@ -15,7 +15,7 @@ public class Conexion {
 	 * LA LINEA DE ABAJO LA VOY A TENER QUE MODIFICAR CADA VEZ QUE TRABAJE EN CASA O EN ADA
 	 * EL LOCAL HOST EN CASA ES 3306 EN ADA 3309
 	 */
-	private final String url = "jdbc:mysql://localhost:3306/"+base+ timeZone;
+	private final String url = "jdbc:mysql://localhost:3309/"+base+ timeZone;
 	private Connection con = null;
 	
 	/**
