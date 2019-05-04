@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Modelo.Usuarios;
+import Vista.RolGerente.Gerente;
+import Vista.RolSupervisor.Supervisor;
 import Vista.RolVendedor.Vendedor;
 
 import javax.swing.AbstractButton;
@@ -61,6 +63,8 @@ public class Home extends JFrame {
 		btnSupervisor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ACCESO A JFRAME SUPERVISOR
+				Supervisor Supervisor = new Supervisor();
+				Supervisor.setVisible(true);
 			}
 		});
 		btnSupervisor.setBounds(348, 209, 178, 179);
@@ -71,6 +75,8 @@ public class Home extends JFrame {
 		btnGerente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ACCESO A JFRAME GERENTE
+				Gerente Gerente = new Gerente();
+				Gerente.setVisible(true);
 			}
 		});
 		btnGerente.setBounds(648, 209, 178, 179);
