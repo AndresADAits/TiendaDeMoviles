@@ -1,39 +1,39 @@
 package Vista.RolSupervisor;
 
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import Modelo.Conexion;
-import Vista.RolVendedor.Marca;
-
-import javax.swing.JTable;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
-public class Compra extends JFrame {
+import Modelo.Conexion;
+
+public class QuitarModelo extends JFrame {
+
 	/**
 	 * TODO REFRESH LA TABLA DE ARRIBA CUANDO SE REALIZA COMPRA, PODRIAS LLAMAR
 	 * DESDE DONDE SE LANZA EN MENSAJE COMPRA CORRECTA
 	 */
 
 	private JPanel contentPane;
-
-	private JTextField txtCantidad;
 	private final String base = "usuariostiendademoviles";
 	private final String user = "root";
 	private final String password = "manolo";
@@ -44,10 +44,11 @@ public class Compra extends JFrame {
 	private final String url = "jdbc:mysql://localhost:3306/" + base + timeZone;
 	private Connection con = null;
 	private JTable jtPrecio;
-	private JTextField txtId;
 
 	PreparedStatement ps;
 	ResultSet rs;
+	private JTextField txtCamara;
+	private JTextField txtId;
 
 	/**
 	 * AL NO SERVIRME UTILIZANDO LA OTRA CONEXIÓN PARA HACER UPDATE EN LA BBDD COPIO
@@ -69,9 +70,8 @@ public class Compra extends JFrame {
 		return con;
 	}
 
-	public Compra() {
+	public QuitarModelo() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -135,34 +135,54 @@ public class Compra extends JFrame {
 			JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 		}
 
-		/**
-		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
-		 * CARACTERISTICAS QUE BUSCAMOS
-		 */
+		
+		JButton btnInsertar = new JButton("Borrar");
+		btnInsertar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-		JLabel lblIdMovil = new JLabel("ID MOVIL");
-		lblIdMovil.setBounds(12, 24, 56, 16);
-		panel.add(lblIdMovil);
+				/**
+				 * EN ESTA PARTE COMPROBAMOS COMPARANDO EL SELECT DEL STOCK CON LO QUE VAMOS A
+				 * VENDER CONTROLANDO STOCK
+				 */
 
+				Connection con = null;
+
+				try {
+					con = getConexion();
+
+					ps = con.prepareStatement("DELETE FROM `stock` WHERE `stock`.`idmovil` = ? ");
+
+					ps.setInt(1, Integer.parseInt(txtId.getText()));
+					
+
+					int res = ps.executeUpdate();
+
+					if (res > 0) {
+						JOptionPane.showMessageDialog(null, "MODELO BORRRADO CORRECTAMENTE");
+
+					} else {
+						JOptionPane.showMessageDialog(null, "ERROR, NO BORRADO");
+
+					}
+					con.close();
+				} catch (Exception err) {
+					System.err.println(err);
+				}
+
+			}
+
+		});
+		btnInsertar.setBounds(288, 4, 139, 56);
+		panel.add(btnInsertar);
+		
+		
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setBounds(12, 41, 56, 16);
+		panel.add(lblId);
+		
 		txtId = new JTextField();
 		txtId.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				char c = arg0.getKeyChar();
-				if (c < '0' || c > '9')
-					arg0.consume();
-			}
-		});
-		txtId.setBounds(80, 21, 30, 22);
-		panel.add(txtId);
-		txtId.setColumns(10);
-
-		JLabel lblCantidad = new JLabel("CANTIDAD");
-		lblCantidad.setBounds(161, 24, 65, 16);
-		panel.add(lblCantidad);
-
-		txtCantidad = new JTextField();
-		txtCantidad.addKeyListener(new KeyAdapter() {
 			@Override
 			/**
 			 * ESTA PEQUEÑA FUNCION NOS IMPIDE METER LETRAS, SIMBOLOS, ETC LO QUE HACE QUE
@@ -176,55 +196,9 @@ public class Compra extends JFrame {
 					arg0.consume();
 			}
 		});
-		txtCantidad.setColumns(10);
-		txtCantidad.setBounds(227, 21, 30, 22);
-		panel.add(txtCantidad);
-
-		JButton btnVender = new JButton("COMPRAR");
-		btnVender.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				/**
-				 * EN ESTA PARTE COMPROBAMOS COMPARANDO EL SELECT DEL STOCK CON LO QUE VAMOS A
-				 * VENDER CONTROLANDO STOCK
-				 */
-
-				Connection con = null;
-
-				try {
-					con = getConexion();
-					ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad +?) WHERE idmovil=?");
-
-					ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-					ps.setInt(2, Integer.parseInt(txtId.getText()));
-
-					int res = ps.executeUpdate();
-
-					if (res > 0) {
-						JOptionPane.showMessageDialog(null, "COMPRA CORRECTA");
-
-					} else {
-						JOptionPane.showMessageDialog(null, "ERROR EN COMPRA");
-
-					}
-					con.close();
-				} catch (Exception err) {
-					System.err.println(err);
-				}
-
-			}
-
-		});
-		btnVender.setBounds(288, 4, 139, 56);
-		panel.add(btnVender);
-
-		JButton btnEnviarCorreo = new JButton("IMPRIMIR   ALBARAN");
-		btnEnviarCorreo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnEnviarCorreo.setBounds(465, 20, 161, 25);
-		panel.add(btnEnviarCorreo);
+		txtId.setBounds(70, 38, 37, 22);
+		panel.add(txtId);
+		txtId.setColumns(10);
 
 	}
 }

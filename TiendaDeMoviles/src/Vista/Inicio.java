@@ -16,10 +16,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
+
 /**
- * ES EL MAIN DE LA APLICACION Y ES EL PRIMER JFRAME QUE SE MUESTRA.
- * SOLO MUESTRA UNA BIENVENIDA Y TIENE DOS BOTONES, UNO PARA REGISTRAR 
- * A UN USUARIO NUEVO Y OTRO PARA QUE SE LOGEE EL QUE YA LO ESTA
+ * ES EL MAIN DE LA APLICACION Y ES EL PRIMER JFRAME QUE SE MUESTRA. SOLO
+ * MUESTRA UNA BIENVENIDA Y TIENE DOS BOTONES, UNO PARA REGISTRAR A UN USUARIO
+ * NUEVO Y OTRO PARA QUE SE LOGEE EL QUE YA LO ESTA
+ * 
  * @author J.Andrés Fernández
  *
  */
@@ -47,15 +49,15 @@ public class Inicio extends JFrame {
 	 * Creamos el frame de inicio
 	 */
 	public Inicio() {
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		  setLocationRelativeTo(null);
-		
+		setLocationRelativeTo(null);
+
 		/**
 		 * Creamos el boton de registrar el cual inicia el formulario de registro
 		 */
@@ -63,17 +65,18 @@ public class Inicio extends JFrame {
 		btnRegistrar.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 12));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				Registro Registro = new Registro();
 				Registro.setVisible(true);
-				
+
 			}
 		});
 		btnRegistrar.setBounds(12, 109, 193, 62);
 		contentPane.add(btnRegistrar);
-		
+
 		/**
-		 * Creamos el boton de iniciar sesion el cual inicia el formulario de inicio de sesion
+		 * Creamos el boton de iniciar sesion el cual inicia el formulario de inicio de
+		 * sesion
 		 */
 		JButton btnIngresar = new JButton("Iniciar Sesi\u00F3n");
 		btnIngresar.setFont(new Font("Sitka Subheading", Font.BOLD | Font.ITALIC, 21));
@@ -85,16 +88,16 @@ public class Inicio extends JFrame {
 		});
 		btnIngresar.setBounds(254, 109, 166, 131);
 		contentPane.add(btnIngresar);
-		
+
 		JLabel lblBienvenido = new JLabel("BIENVENIDO");
 		lblBienvenido.setFont(new Font("Segoe UI Semibold", Font.BOLD, 18));
 		lblBienvenido.setBounds(163, 13, 163, 62);
 		contentPane.add(lblBienvenido);
-		
+
 		JButton btnRegistrarSupervisor = new JButton("Registrar Supervisor");
 		btnRegistrarSupervisor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				RegistroSupervisor RegistroSupervisor = new RegistroSupervisor();
 				RegistroSupervisor.setVisible(true);
 			}

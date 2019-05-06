@@ -79,7 +79,7 @@ public class Vendedor extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		setLocationRelativeTo(null);
-		 
+
 		/**
 		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
 		 * CARACTERISTICAS QUE BUSCAMOS
@@ -461,6 +461,14 @@ public class Vendedor extends JFrame {
 		panel.add(lblIdMovil);
 
 		txtId = new JTextField();
+		txtId.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (c < '0' || c > '9')
+					e.consume();
+			}
+		});
 		txtId.setBounds(80, 21, 30, 22);
 		panel.add(txtId);
 		txtId.setColumns(10);
@@ -473,9 +481,9 @@ public class Vendedor extends JFrame {
 		txtCantidad.addKeyListener(new KeyAdapter() {
 			@Override
 			/**
-			 * ESTA PEQUEÑA FUNCION NOS IMPIDE METER LETRAS, SIMBOLOS, ETC
-			 * LO QUE HACE QUE NO SE PUEDA ESTROPEAR LA VENTA, NI HACER
-			 * UNA "VENTA NEGATIVA" QUE AUMENTE STOCK
+			 * ESTA PEQUEÑA FUNCION NOS IMPIDE METER LETRAS, SIMBOLOS, ETC LO QUE HACE QUE
+			 * NO SE PUEDA ESTROPEAR LA VENTA, NI HACER UNA "VENTA NEGATIVA" QUE AUMENTE
+			 * STOCK
 			 */
 
 			public void keyTyped(KeyEvent arg0) {
@@ -502,7 +510,7 @@ public class Vendedor extends JFrame {
 					 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
 					 */
 					Object[][] data = new Object[0][0];
-					String[] datos = {  "STOCK" };
+					String[] datos = { "STOCK" };
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
 					jtPrecio.setModel(modelo);
 					JScrollPane scroll = new JScrollPane(jtPrecio);
@@ -520,7 +528,7 @@ public class Vendedor extends JFrame {
 					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT cantidad FROM stock WHERE idmovil= "+txtId.getText();
+					String sql = "SELECT cantidad FROM stock WHERE idmovil= " + txtId.getText();
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
 
@@ -596,15 +604,17 @@ public class Vendedor extends JFrame {
 		JButton btnBigdata = new JButton("BIGDATA");
 		btnBigdata.setBounds(663, 20, 97, 25);
 		panel.add(btnBigdata);
-		
-		JLabel lblListasOrdenadasPor = new JLabel("Listas                                                   ordenadas                                          por                                    caracter\u00EDstica");
+
+		JLabel lblListasOrdenadasPor = new JLabel(
+				"Listas                                                   ordenadas                                          por                                    caracter\u00EDstica");
 		lblListasOrdenadasPor.setBounds(80, 78, 745, 16);
 		panel.add(lblListasOrdenadasPor);
-		
-		JLabel lblBusquedaPorRango = new JLabel("Busqueda                                         por                                                               Rango ");
+
+		JLabel lblBusquedaPorRango = new JLabel(
+				"Busqueda                                         por                                                               Rango ");
 		lblBusquedaPorRango.setBounds(80, 159, 585, 16);
 		panel.add(lblBusquedaPorRango);
-		
+
 		JButton button = new JButton("PRECIO");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -614,7 +624,7 @@ public class Vendedor extends JFrame {
 		});
 		button.setBounds(2, 207, 108, 23);
 		panel.add(button);
-		
+
 		JButton button_1 = new JButton("MARCA");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -624,18 +634,18 @@ public class Vendedor extends JFrame {
 		});
 		button_1.setBounds(215, 206, 108, 23);
 		panel.add(button_1);
-		
+
 		JButton button_2 = new JButton("BATERIA");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mAmperios mAmperios = new mAmperios();
 				mAmperios.setVisible(true);
-				
+
 			}
 		});
 		button_2.setBounds(406, 206, 108, 23);
 		panel.add(button_2);
-		
+
 		JButton button_3 = new JButton("CAPACIDAD");
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -645,7 +655,7 @@ public class Vendedor extends JFrame {
 		});
 		button_3.setBounds(618, 207, 108, 23);
 		panel.add(button_3);
-		
+
 		JButton button_4 = new JButton("PANTALLA");
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -655,50 +665,50 @@ public class Vendedor extends JFrame {
 		});
 		button_4.setBounds(833, 206, 108, 23);
 		panel.add(button_4);
-		
+
 		JButton button_5 = new JButton("C\u00C1MARA");
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				camara camara= new camara();
+				camara camara = new camara();
 				camara.setVisible(true);
 			}
 		});
 		button_5.setBounds(1033, 206, 108, 23);
 		panel.add(button_5);
 		/**
-		  * AQUI VOY A ESCRIBIR EN LOS JLABEL EL NOMBRE DEL USUARIO, EL ROL QUE TIENE
-		  * Y EL ULTIMO ACCESO DE FORMA DINAMICA
-		  */
-		
+		 * AQUI VOY A ESCRIBIR EN LOS JLABEL EL NOMBRE DEL USUARIO, EL ROL QUE TIENE Y
+		 * EL ULTIMO ACCESO DE FORMA DINAMICA
+		 */
+
 		JLabel lblNombre = new JLabel(mod.getNombre());
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblNombre.setBounds(12, 311, 172, 64);
 		panel.add(lblNombre);
-		
+
 		JLabel lblRol = new JLabel("ROL:");
 		lblRol.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblRol.setBounds(247, 311, 116, 64);
 		panel.add(lblRol);
-		
+
 		JLabel lblTipo = new JLabel(mod.getNombre_tipo());
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblTipo.setBounds(406, 311, 217, 64);
 		panel.add(lblTipo);
-		
+
 		JLabel lblUltAcceso = new JLabel("ULT ACCESO:");
 		lblUltAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblUltAcceso.setBounds(663, 311, 116, 64);
 		panel.add(lblUltAcceso);
-		
+
 		JLabel lblAcceso = new JLabel(mod.getLast_session());
 		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblAcceso.setBounds(803, 311, 313, 64);
 		panel.add(lblAcceso);
-		
+
 		JButton btnOrdenar = new JButton("ORDENAR");
 		btnOrdenar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
@@ -752,19 +762,11 @@ public class Vendedor extends JFrame {
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 				}
-			
-		
+
 			}
 		});
 		btnOrdenar.setBounds(802, 4, 139, 56);
 		panel.add(btnOrdenar);
-		
-	
-	
-	
-
-		
-		
 
 	}
 }

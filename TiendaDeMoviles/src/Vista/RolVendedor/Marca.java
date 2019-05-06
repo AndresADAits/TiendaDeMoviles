@@ -36,7 +36,6 @@ public class Marca extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	
 
 	/**
 	 * Create the frame.
@@ -48,7 +47,6 @@ public class Marca extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -56,23 +54,24 @@ public class Marca extends JFrame {
 		setLocationRelativeTo(null);
 
 		/**
-		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON 
-		 * LAS CARACTERISTICAS QUE BUSCAMOS
+		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
+		 * CARACTERISTICAS QUE BUSCAMOS
 		 */
 		JButton btnMarca = new JButton("Buscar");
 		btnMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				jtMarca = new JTable();
 				jtMarca.setBounds(22, 22, 561, 338);
 				panel.add(jtMarca);
 				try {
 					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA TABLA STOCK
-					 * EN BBDD USUARIOSTIENDAMOVILES
+					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
+					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
 					 */
 					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA","CÁMARA"};
+					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+							"CÁMARA" };
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
 					jtMarca.setModel(modelo);
 					JScrollPane scroll2 = new JScrollPane(jtMarca);
@@ -86,20 +85,20 @@ public class Marca extends JFrame {
 					Conexion conn = new Conexion();
 					Connection con = conn.getConexion();
 					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE PRECIO
+					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT * FROM stock WHERE marca="+"'"+ textField.getText()+"'";
-					
-					
+					String sql = "SELECT * FROM stock WHERE marca=" + "'" + textField.getText() + "'";
+
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
 
 					ResultSetMetaData rsMd = rs.getMetaData();
 					int cantidadColumnas = rsMd.getColumnCount();
 					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE 
-					 * VA A MOSTRAR
+					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+					 * MOSTRAR
 					 */
 					while (rs.next()) {
 
@@ -128,7 +127,7 @@ public class Marca extends JFrame {
 		JLabel lblNewLabel = new JLabel("Introduce una marca para mostrar todos los modelos ");
 		lblNewLabel.setBounds(10, 15, 265, 14);
 		panel.add(lblNewLabel);
-		
+
 		textField = new JTextField();
 		textField.setBounds(309, 12, 86, 20);
 		panel.add(textField);

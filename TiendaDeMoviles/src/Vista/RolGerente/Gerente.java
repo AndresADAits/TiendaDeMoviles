@@ -2,82 +2,103 @@ package Vista.RolGerente;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Modelo.Usuarios;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class Gerente extends JFrame {
+	Usuarios mod;
+
 
 	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Gerente frame = new Gerente();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public Gerente() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 684, 531);
+	public Gerente(Usuarios mod) {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1033, 683);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblGerenteEsVendedor = new JLabel("Gerente; es vendedor y supervisor. ycambia precio m\u00F3viles");
-		lblGerenteEsVendedor.setBounds(12, 96, 344, 43);
+		lblGerenteEsVendedor.setBounds(-10, 239, 344, 43);
 		contentPane.add(lblGerenteEsVendedor);
-		
+
 		JLabel lblNewLabel = new JLabel("inserta y delete  usuarios vendedores y supervisores");
-		lblNewLabel.setBounds(26, 174, 322, 62);
+		lblNewLabel.setBounds(12, 295, 322, 62);
 		contentPane.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("muestra last session de usuario from BBDD tiendademoviles");
-		lblNewLabel_1.setBounds(12, 327, 418, 56);
+		lblNewLabel_1.setBounds(12, 415, 418, 56);
 		contentPane.add(lblNewLabel_1);
-		
+
 		JButton btnCambiarPrecioMoviles = new JButton("Cambiar precio moviles");
 		btnCambiarPrecioMoviles.setBounds(12, 44, 176, 43);
 		contentPane.add(btnCambiarPrecioMoviles);
-		
+
 		JLabel lblGestinDeEmpleados = new JLabel("Gesti\u00F3n de Empleados");
 		lblGestinDeEmpleados.setBounds(343, 13, 176, 16);
 		contentPane.add(lblGestinDeEmpleados);
-		
+
 		JButton btnNewButton = new JButton("Agregar");
 		btnNewButton.setBounds(234, 34, 114, 62);
 		contentPane.add(btnNewButton);
-		
+
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(368, 34, 114, 62);
 		contentPane.add(btnEliminar);
-		
+
 		JButton btnVerltimoAcceso = new JButton("\u00DAltimo Acceso");
 		btnVerltimoAcceso.setBounds(504, 34, 114, 62);
 		contentPane.add(btnVerltimoAcceso);
-		
+
 		JLabel lblQueElLast = new JLabel("que el last sesion se escriba en archivo y acceda desde aqui");
-		lblQueElLast.setBounds(300, 127, 354, 62);
+		lblQueElLast.setBounds(312, 253, 354, 62);
 		contentPane.add(lblQueElLast);
-		
+
 		JLabel lblAlgoParaEl = new JLabel("Algo para el tema de  BIGDATA");
-		lblAlgoParaEl.setBounds(234, 249, 372, 74);
+		lblAlgoParaEl.setBounds(246, 328, 372, 74);
 		contentPane.add(lblAlgoParaEl);
+		
+		
+		JLabel lblRol = new JLabel("ROL:");
+		lblRol.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblRol.setBounds(190, 122, 110, 43);
+		contentPane.add(lblRol);
+		
+		JLabel lblNombre = new JLabel(mod.getNombre());
+		lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblNombre.setBounds(12, 122, 166, 43);
+		contentPane.add(lblNombre);
+		
+		JLabel lblTipo = new JLabel(mod.getNombre_tipo());
+		lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblTipo.setBounds(312, 122, 170, 43);
+		contentPane.add(lblTipo);
+		
+		JLabel lblUltAcceso = new JLabel("ULT ACCESO:");
+		lblUltAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblUltAcceso.setBounds(504, 122, 170, 43);
+		contentPane.add(lblUltAcceso);
+		
+		JLabel lblAcceso = new JLabel(mod.getLast_session());
+		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+		lblAcceso.setBounds(686, 122, 264, 43);
+		contentPane.add(lblAcceso);
 	}
 }

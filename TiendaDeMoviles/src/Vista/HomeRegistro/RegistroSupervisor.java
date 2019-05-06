@@ -19,24 +19,25 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 /**
- * REGISTRO PARA SUPERVISORES
- * (SE PODRAN REGISTRAR VENDEDORES Y SUPERVISORES, PERO NO UN USUARIO CON
- * ROL GERENTE, YA QUE ESTE CONTROLARA A LOS OTROS, Y SERÁ ÚNICO)
+ * REGISTRO PARA SUPERVISORES (SE PODRAN REGISTRAR VENDEDORES Y SUPERVISORES,
+ * PERO NO UN USUARIO CON ROL GERENTE, YA QUE ESTE CONTROLARA A LOS OTROS, Y
+ * SERÁ ÚNICO)
  * 
- * EL SIGUIENTE JFRAME ES UN FORMULARIO EN EL QUE PEDIMOS AL USUARIO 
- * QUE INTRODUZCALOS DATOS EN EL FORMATO Y ORDEN QUE NECESITAMOS PARA
- * QUE SE ADAPTE A LA BASE DE DATOS QUE HEMOS CREADO Y MÁS CONCRETAMENTE 
- * A LA TABLA USUARIO QUE SERÁ DÓNDE SE GUARDEN ESTOS DATOS.
+ * EL SIGUIENTE JFRAME ES UN FORMULARIO EN EL QUE PEDIMOS AL USUARIO QUE
+ * INTRODUZCALOS DATOS EN EL FORMATO Y ORDEN QUE NECESITAMOS PARA QUE SE ADAPTE
+ * A LA BASE DE DATOS QUE HEMOS CREADO Y MÁS CONCRETAMENTE A LA TABLA USUARIO
+ * QUE SERÁ DÓNDE SE GUARDEN ESTOS DATOS.
  * 
- * ESTE REGISTRO TIENE VARIAS VALIDACIONES PARA QUE NO SE DEJEN VACIOS 
- * LOS CAMPOS, QUE LA CONTRASEÑA SERA INTRODUCIDA DOS VECES DE FORMA CORRECTA,
- *  EL FORMATO DE CORREO SEA CORRECTO, ETC.
+ * ESTE REGISTRO TIENE VARIAS VALIDACIONES PARA QUE NO SE DEJEN VACIOS LOS
+ * CAMPOS, QUE LA CONTRASEÑA SERA INTRODUCIDA DOS VECES DE FORMA CORRECTA, EL
+ * FORMATO DE CORREO SEA CORRECTO, ETC.
  *
  * @author J.Andrés Fernández
  *
  */
-public class RegistroSupervisor extends JFrame{
+public class RegistroSupervisor extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -49,8 +50,6 @@ public class RegistroSupervisor extends JFrame{
 	 * Launch the application.
 	 */
 
-
-	
 	public RegistroSupervisor() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -58,7 +57,7 @@ public class RegistroSupervisor extends JFrame{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		  setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 
 		JLabel lblNewLabel = new JLabel("Usuario:");
 		lblNewLabel.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 15));
@@ -112,53 +111,51 @@ public class RegistroSupervisor extends JFrame{
 		txtCorreo.setBounds(186, 145, 138, 20);
 		contentPane.add(txtCorreo);
 		txtCorreo.setColumns(10);
-		
-		
+
 		JButton btnRegistrar = new JButton("Dar de alta");
 		btnRegistrar.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 15));
 		btnRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				SqlUsuarios modSql = new SqlUsuarios();
 				Usuarios mod = new Usuarios();
-				
+
 				String pass = new String(txtPassword.getPassword());
 				String passCon = new String(txtConfirmaPassword.getPassword());
-				
-				//VALIDACIÓN PARA QUE NO SE INTRODUZCAN CAMPOS VACIOS
+
+				// VALIDACIÓN PARA QUE NO SE INTRODUZCAN CAMPOS VACIOS
 				if (txtUsuario.getText().equals("") || pass.equals("") || passCon.equals("")
 						|| txtNombre.getText().equals("") || txtCorreo.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Hay campos vacíos, debe rellenar todos los campos");
 				} else {
-					
-					
-					  //QUE LAS CLAVES SEAN IGUALES
-					
-					if (pass.equals(passCon)) {
-					
-						 //COMPROBACION DE SI USUARIO YA EXISTE
-						
-						if(modSql.existeUsuario(txtUsuario.getText())==0) {
-							//VALIDACIÓN DE CORREO COMENTADA EN SQLUSUARIOS
-							 
-							if(modSql.esEmail(txtCorreo.getText())) {
-						
-						String nuevoPass = Hash.sha1(pass);
 
-						mod.setUsuario(txtUsuario.getText());
-						mod.setPassword(nuevoPass);
-						mod.setNombre(txtNombre.getText());
-						mod.setCorreo(txtCorreo.getText());
-						//ESTO HACE QUE POR DEFECTO EL TIPO DE USUARIO SEA 2, O SEA SUPERVISOR
-						mod.setId_tipo(2);
-						//MENSAJES PARA LAS DISTINTAS POSIBILIDAD
-						
-						if (modSql.registrar(mod)) {
-							JOptionPane.showMessageDialog(null, "Registro Guardado");
-							limpiar();
-						} else {
-							JOptionPane.showMessageDialog(null, "Error al guardar el registro");
-						}
-							}else {
+					// QUE LAS CLAVES SEAN IGUALES
+
+					if (pass.equals(passCon)) {
+
+						// COMPROBACION DE SI USUARIO YA EXISTE
+
+						if (modSql.existeUsuario(txtUsuario.getText()) == 0) {
+							// VALIDACIÓN DE CORREO COMENTADA EN SQLUSUARIOS
+
+							if (modSql.esEmail(txtCorreo.getText())) {
+
+								String nuevoPass = Hash.sha1(pass);
+
+								mod.setUsuario(txtUsuario.getText());
+								mod.setPassword(nuevoPass);
+								mod.setNombre(txtNombre.getText());
+								mod.setCorreo(txtCorreo.getText());
+								// ESTO HACE QUE POR DEFECTO EL TIPO DE USUARIO SEA 2, O SEA SUPERVISOR
+								mod.setId_tipo(2);
+								// MENSAJES PARA LAS DISTINTAS POSIBILIDAD
+
+								if (modSql.registrar(mod)) {
+									JOptionPane.showMessageDialog(null, "Registro Guardado");
+									limpiar();
+								} else {
+									JOptionPane.showMessageDialog(null, "Error al guardar el registro");
+								}
+							} else {
 								JOptionPane.showMessageDialog(null, "El correo electrónico no es válido");
 							}
 						} else {
@@ -170,7 +167,8 @@ public class RegistroSupervisor extends JFrame{
 					}
 				}
 			}
-			//VACIAMOS EL REGISTRO AL TERMINAR
+
+			// VACIAMOS EL REGISTRO AL TERMINAR
 			public void limpiar() {
 				txtUsuario.setText("");
 				txtPassword.setText("");

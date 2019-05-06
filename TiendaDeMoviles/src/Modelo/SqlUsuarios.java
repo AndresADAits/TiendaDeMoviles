@@ -16,7 +16,7 @@ public class SqlUsuarios extends Conexion {
 		 */
 		PreparedStatement ps = null;
 		Connection con = getConexion();
-		
+
 		/**
 		 * CONSULTA PARA REGISTRAR USUARIOS CON UN INSERT
 		 */
@@ -39,7 +39,6 @@ public class SqlUsuarios extends Conexion {
 		}
 	}
 
-	
 	public boolean login(Usuarios usr) {
 
 		/**
@@ -59,13 +58,13 @@ public class SqlUsuarios extends Conexion {
 
 			if (rs.next()) {
 				if (usr.getPassword().equals(rs.getString(3))) {
-					
+
 					String sqlUpdate = "UPDATE usuario SET last_session = ? WHERE id=?";
-					ps=con.prepareStatement(sqlUpdate);
+					ps = con.prepareStatement(sqlUpdate);
 					ps.setString(1, usr.getLast_session());
 					ps.setInt(2, rs.getInt(1));
 					ps.execute();
-					
+
 					usr.setId(rs.getInt(1));
 					usr.setNombre(rs.getString(4));
 					usr.setId_tipo(rs.getInt(5));
@@ -88,7 +87,7 @@ public class SqlUsuarios extends Conexion {
 
 		/**
 		 * CREAMOS EL SELECT SQL PARA PODER COMPROBAR SI EXISTE EL USUARIO EN LA BBDD
-		 *DEVUELVE 1 SI EL USUARIO EXISTE, Y 0 SI NO
+		 * DEVUELVE 1 SI EL USUARIO EXISTE, Y 0 SI NO
 		 * 
 		 */
 		PreparedStatement ps = null;
@@ -116,8 +115,8 @@ public class SqlUsuarios extends Conexion {
 
 	public boolean esEmail(String correo) {
 		/**
-		 *  VALIDACION DE CORREO, QUE OBLIGA A QUE TENGA UNA SERIE DE CARACTERES EN UN ORDEN QUE COINCIDE 
-		 *  CON FORMATO DE CORREO
+		 * VALIDACION DE CORREO, QUE OBLIGA A QUE TENGA UNA SERIE DE CARACTERES EN UN
+		 * ORDEN QUE COINCIDE CON FORMATO DE CORREO
 		 */
 		Pattern pattern = Pattern.compile(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");

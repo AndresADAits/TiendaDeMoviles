@@ -30,9 +30,8 @@ public class camara extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE CÁMARA Y
-	 *  AL PULSAR BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE 
-	 *  ESTAMOS BUSCANDO
+	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE CÁMARA Y AL PULSAR
+	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
 	public camara() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -41,7 +40,6 @@ public class camara extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -49,8 +47,8 @@ public class camara extends JFrame {
 		setLocationRelativeTo(null);
 
 		/**
-		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON 
-		 * LAS CARACTERISTICAS QUE BUSCAMOS
+		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
+		 * CARACTERISTICAS QUE BUSCAMOS
 		 */
 		JButton btnCargar = new JButton("Mostrar Ascendente");
 		btnCargar.addActionListener(new ActionListener() {
@@ -60,11 +58,12 @@ public class camara extends JFrame {
 				panel.add(jtPrecio);
 				try {
 					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA TABLA STOCK
-					 * EN BBDD USUARIOSTIENDAMOVILES
+					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
+					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
 					 */
 					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA","CÁMARA"};
+					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+							"CÁMARA" };
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
 					jtPrecio.setModel(modelo);
 					JScrollPane scroll = new JScrollPane(jtPrecio);
@@ -78,20 +77,21 @@ public class camara extends JFrame {
 					Conexion conn = new Conexion();
 					Connection con = conn.getConexion();
 					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE CÁMARA
+					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+					 * RANGO DE CÁMARA
 					 */
 					String sql = "SELECT * FROM stock WHERE camara BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText()+" ORDER BY camara";
-					
+							+ txtMax.getText() + " ORDER BY camara";
+
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
 
 					ResultSetMetaData rsMd = rs.getMetaData();
 					int cantidadColumnas = rsMd.getColumnCount();
 					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE 
-					 * VA A MOSTRAR
+					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+					 * MOSTRAR
 					 */
 					while (rs.next()) {
 
@@ -136,21 +136,22 @@ public class camara extends JFrame {
 		lblNewLabel_1 = new JLabel("MPx");
 		lblNewLabel_1.setBounds(421, 15, 33, 14);
 		panel.add(lblNewLabel_1);
-		
+
 		JButton btnMostrarAscendente = new JButton("Mostrar Descendente");
 		btnMostrarAscendente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
 				try {
 					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA TABLA STOCK
-					 * EN BBDD USUARIOSTIENDAMOVILES
+					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
+					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
 					 */
 					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA","CÁMARA"};
+					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+							"CÁMARA" };
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
 					jtPrecio.setModel(modelo);
 					JScrollPane scroll2 = new JScrollPane(jtPrecio);
@@ -164,21 +165,21 @@ public class camara extends JFrame {
 					Conexion conn = new Conexion();
 					Connection con = conn.getConexion();
 					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA INTRODUCIDO EN EL 
-					 * JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA RANGO DE CÁMARA
+					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+					 * RANGO DE CÁMARA
 					 */
 					String sql = "SELECT * FROM stock WHERE camara BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText()+" ORDER BY camara DESC";
-					
-					
+							+ txtMax.getText() + " ORDER BY camara DESC";
+
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
 
 					ResultSetMetaData rsMd = rs.getMetaData();
 					int cantidadColumnas = rsMd.getColumnCount();
 					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE 
-					 * VA A MOSTRAR
+					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+					 * MOSTRAR
 					 */
 					while (rs.next()) {
 
@@ -195,7 +196,6 @@ public class camara extends JFrame {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 				}
 
-				
 			}
 		});
 		btnMostrarAscendente.setBounds(645, 10, 164, 23);

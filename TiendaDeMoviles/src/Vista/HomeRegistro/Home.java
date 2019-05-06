@@ -20,9 +20,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Window;
-/**ESTA VISTA ES A LA QUE PODRAN ACCEDER LOS USUARIOS QUE YA ESTEN REGISTRADOS ANTERIORMENTE
- * Y QUE TENDRAN QUE PASAR ANTES POR INICIO, REGISTRO Y LOGIN, O DIRECTAMENTE LOGIN DESDE
- *  INICIO SI YA ESTAN REGISTRADOS
+
+/**
+ * ESTA VISTA ES A LA QUE PODRAN ACCEDER LOS USUARIOS QUE YA ESTEN REGISTRADOS
+ * ANTERIORMENTE Y QUE TENDRAN QUE PASAR ANTES POR INICIO, REGISTRO Y LOGIN, O
+ * DIRECTAMENTE LOGIN DESDE INICIO SI YA ESTAN REGISTRADOS
+ * 
  * @author J.Andrés Fernández
  *
  */
@@ -40,6 +43,7 @@ public class Home extends JFrame {
 	public Home(Usuarios mod) {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		setBounds(100, 100, 881, 466);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,7 +53,10 @@ public class Home extends JFrame {
 		btnVendedor.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 27));
 		btnVendedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// ACCESO A JFRAME VENDEDOR
+				/**
+				 * ACCESO AL FRAME DE VENDEDOR, EN ESTE Y LOS DEMAS ROLES RECIBE MOD PARA PODER
+				 * IMPRIMIR EN UN JLABEL DE FORMA DINAMICA EL USUARIO, ROL Y ULTIMO ACCESO
+				 */
 				Vendedor Vendedor = new Vendedor(mod);
 				Vendedor.setVisible(true);
 			}
@@ -63,7 +70,7 @@ public class Home extends JFrame {
 		btnSupervisor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ACCESO A JFRAME SUPERVISOR
-				Supervisor Supervisor = new Supervisor();
+				Supervisor Supervisor = new Supervisor(mod);
 				Supervisor.setVisible(true);
 			}
 		});
@@ -75,7 +82,7 @@ public class Home extends JFrame {
 		btnGerente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ACCESO A JFRAME GERENTE
-				Gerente Gerente = new Gerente();
+				Gerente Gerente = new Gerente(mod);
 				Gerente.setVisible(true);
 			}
 		});
@@ -97,7 +104,7 @@ public class Home extends JFrame {
 		lblRol.setBounds(86, 57, 37, 19);
 		contentPane.add(lblRol);
 // AQUI VOY A ESCRIBIR EN LOS JLABEL EL NOMBRE DEL USUARIO, EL ROL QUE TIENE
-		//Y EL ULTIMO ACCESO
+		// Y EL ULTIMO ACCESO
 		JLabel lblTipo = new JLabel(mod.getNombre_tipo());
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblTipo.setBounds(153, 57, 86, 19);
@@ -107,11 +114,11 @@ public class Home extends JFrame {
 		lblUltAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblUltAcceso.setBounds(25, 89, 99, 19);
 		contentPane.add(lblUltAcceso);
-/**
- * ESTO HABRIA QUE PULIRLO PORQUE AL ACTUALIZAR EL ULTIMO ACCESO CADA VEZ QUE ENTRA 
- * SIEMPRE APARECE EL MISMO MOMENTO EN EL QUE SE LOGEA. ESTO TB SERA INTERESANTE PARA
- * UN REGISTRO QUE DE LA ACTIVIDAD DEL USUARIO EN LA APLICACION
- */
+		/**
+		 * ESTO HABRIA QUE PULIRLO PORQUE AL ACTUALIZAR EL ULTIMO ACCESO CADA VEZ QUE
+		 * ENTRA SIEMPRE APARECE EL MISMO MOMENTO EN EL QUE SE LOGEA. ESTO TB SERA
+		 * INTERESANTE PARA UN REGISTRO QUE DE LA ACTIVIDAD DEL USUARIO EN LA APLICACION
+		 */
 		JLabel lblAcceso = new JLabel(mod.getLast_session());
 		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblAcceso.setBounds(153, 89, 332, 19);
@@ -119,7 +126,6 @@ public class Home extends JFrame {
 		// inicia en el centro de la pantalla
 		setLocationRelativeTo(null);
 		this.mod = mod;
-		
 
 		if (mod.getId_tipo() == 3) {
 
