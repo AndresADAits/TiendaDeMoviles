@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 24-04-2019 a las 14:41:31
+-- Tiempo de generación: 06-05-2019 a las 07:26:18
 -- Versión del servidor: 8.0.15
 -- Versión de PHP: 7.2.16
 
@@ -50,7 +50,7 @@ INSERT INTO `clasesdeusuario` (`id`, `nombre`) VALUES
 
 CREATE TABLE `stock` (
   `idmovil` int(11) NOT NULL,
-  `stock` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
   `marca` varchar(15) NOT NULL,
   `modelo` varchar(30) NOT NULL,
   `precio` int(11) NOT NULL,
@@ -64,13 +64,13 @@ CREATE TABLE `stock` (
 -- Volcado de datos para la tabla `stock`
 --
 
-INSERT INTO `stock` (`idmovil`, `stock`, `marca`, `modelo`, `precio`, `capacidad`, `pantalla`, `bateria`, `camara`) VALUES
-(1, 100, 'SAMSUNG', 'S10', 1183, 512, '6.4', 4100, 16),
+INSERT INTO `stock` (`idmovil`, `cantidad`, `marca`, `modelo`, `precio`, `capacidad`, `pantalla`, `bateria`, `camara`) VALUES
+(1, 690, 'SAMSUNG', 'S10', 1183, 512, '6.4', 4100, 16),
 (2, 200, 'APPLE', 'XS_MAX', 1399, 256, '5.8', 4000, 12),
 (3, 300, 'XIAOMI', 'REDMI_NOTE7', 249, 64, '6.3', 4000, 48),
 (4, 300, 'HUAWEI', 'P20_LITE', 289, 64, '5.8', 3000, 16),
 (5, 200, 'HUAWEI', 'P30_PRO8', 949, 128, '6.2', 4000, 40),
-(6, 50, 'APPLE', 'IPHONE 8', 599, 64, '4.9', 3100, 8),
+(6, 100, 'APPLE', 'IPHONE 8', 599, 64, '4.9', 3100, 8),
 (7, 156, 'XIAOMI', 'MI8_PRO', 519, 128, '6.9', 4300, 58),
 (8, 654, 'XIAOMI', 'MI9', 499, 128, '6.8', 4500, 56),
 (9, 20, 'HONOR', 'VIEW_20', 530, 128, '7.2', 4200, 51),
@@ -82,7 +82,7 @@ INSERT INTO `stock` (`idmovil`, `stock`, `marca`, `modelo`, `precio`, `capacidad
 (15, 987, 'APPLE', 'IPHONE_7', 599, 64, '5.9', 3100, 18),
 (16, 87, 'APPLE', 'IPHONE_6S', 299, 32, '5.2', 2600, 16),
 (17, 87, 'BQ', 'AQUARIS_C', 119, 16, '5.2', 2600, 16),
-(18, 7, 'RAZER', 'PHONE_8', 499, 65, '6.7', 4200, 41),
+(18, 13, 'RAZER', 'PHONE_8', 499, 65, '6.7', 4200, 41),
 (19, 8, 'BQ', 'AQUARIS_X2', 389, 64, '6.8', 3600, 32),
 (20, 35, 'GOOGLE', 'PIXEL_XL', 274, 32, '6.2', 3700, 32),
 (21, 952, 'ZTE', 'BLADE_V580', 136, 32, '6.1', 3100, 14),
@@ -91,7 +91,7 @@ INSERT INTO `stock` (`idmovil`, `stock`, `marca`, `modelo`, `precio`, `capacidad
 (24, 149, 'GOOGLE', 'NEXUS_5X', 172, 32, '5.2', 2800, 19),
 (25, 68, 'SONY', 'XPERIA_10', 345, 64, '6.8', 4200, 47),
 (26, 9, 'ASUS', 'ZENFONE_4', 223, 64, '5.9', 3800, 46),
-(27, 7, 'HISENSE', 'C30', 153, 16, '5.8', 3800, 15),
+(27, 7, 'HISENSE', 'C30', 154, 16, '5.8', 3800, 15),
 (28, 2, 'LG', 'G4S', 245, 64, '5.8', 4200, 51),
 (29, 1, 'SONY', 'XPERIA_10PLUS', 784, 64, '6.8', 4800, 58);
 
@@ -116,10 +116,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `usuario`, `password`, `nombre`, `correo`, `id_tipo`) VALUES
-(10, 'prueba', '711383a59fda05336fd2ccf70c8059d1523eb41a', 'prueba', 'prueba@gmail.com', 1),
-(11, 'andres', '883768b6dd2c42aea0031b24be8a2da40fef4b64', 'andres', 'andres@gmail.com', 2),
-(12, 'AGAPITO', '84cbe16c5e288249e7a59be11cbe599728c9dddf', 'AGAPITO', 'AGAPITO@GMAIL.COM', 3),
-(13, 'Gabriel', 'aaac72d4824650c176db2fc2451be237f164ea98', 'Gabriel', 'Gabriel@Gabriel.COM', 2);
+(1, 'GERENTE', '223ef7f245391afcdedaeeb5ea6813521a801ac3', 'GERENTE', 'GERENTE@GMAIL.COM', 3),
+(2, 'VENDEDOR', 'f84ae4782a61dc97f19accb967656c3225743d3a', 'VENDEDOR', 'VENDEDOR@GMAIL.COM', 1),
+(3, 'SUPERVISOR', '0e93ff77222be059b241f06449888d5df275c426', 'SUPERVISOR', 'SUPERVISOR@GMAIL.COM', 2);
 
 --
 -- Índices para tablas volcadas
@@ -157,13 +156,13 @@ ALTER TABLE `clasesdeusuario`
 -- AUTO_INCREMENT de la tabla `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `idmovil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `idmovil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
