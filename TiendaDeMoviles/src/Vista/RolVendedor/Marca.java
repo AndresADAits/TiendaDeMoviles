@@ -65,51 +65,56 @@ public class Marca extends JFrame {
 				jtMarca.setBounds(22, 22, 561, 338);
 				panel.add(jtMarca);
 				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtMarca.setModel(modelo);
-					JScrollPane scroll2 = new JScrollPane(jtMarca);
-					getContentPane().add(scroll2, BorderLayout.NORTH);
+					if (textField.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock WHERE marca=" + "'" + textField.getText() + "'";
+					} else {
+						/**
+						 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
+						 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
+						 */
+						Object[][] data = new Object[0][0];
+						String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+								"CÁMARA" };
+						DefaultTableModel modelo = new DefaultTableModel(data, datos);
+						jtMarca.setModel(modelo);
+						JScrollPane scroll2 = new JScrollPane(jtMarca);
+						getContentPane().add(scroll2, BorderLayout.NORTH);
 
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
+						/**
+						 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+						 */
+						PreparedStatement ps = null;
+						ResultSet rs = null;
+						Conexion conn = new Conexion();
+						Connection con = conn.getConexion();
+						/**
+						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+						 * RANGO DE PRECIO
+						 */
+						String sql = "SELECT * FROM stock WHERE marca=" + "'" + textField.getText() + "'";
 
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
+						ps = con.prepareStatement(sql);
+						rs = ps.executeQuery();
 
-						Object[] filas = new Object[cantidadColumnas];
+						ResultSetMetaData rsMd = rs.getMetaData();
+						int cantidadColumnas = rsMd.getColumnCount();
+						/**
+						 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+						 * MOSTRAR
+						 */
+						while (rs.next()) {
 
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
+							Object[] filas = new Object[cantidadColumnas];
 
+							for (int i = 0; i < cantidadColumnas; i++) {
+								filas[i] = rs.getObject(i + 1);
+
+							}
+
+							modelo.addRow(filas);
 						}
-
-						modelo.addRow(filas);
 					}
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");

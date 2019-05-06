@@ -135,7 +135,6 @@ public class QuitarModelo extends JFrame {
 			JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 		}
 
-		
 		JButton btnInsertar = new JButton("Borrar");
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,23 +147,27 @@ public class QuitarModelo extends JFrame {
 				Connection con = null;
 
 				try {
-					con = getConexion();
-
-					ps = con.prepareStatement("DELETE FROM `stock` WHERE `stock`.`idmovil` = ? ");
-
-					ps.setInt(1, Integer.parseInt(txtId.getText()));
-					
-
-					int res = ps.executeUpdate();
-
-					if (res > 0) {
-						JOptionPane.showMessageDialog(null, "MODELO BORRRADO CORRECTAMENTE");
+					if (txtId.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
 					} else {
-						JOptionPane.showMessageDialog(null, "ERROR, NO BORRADO");
+						con = getConexion();
 
+						ps = con.prepareStatement("DELETE FROM `stock` WHERE `stock`.`idmovil` = ? ");
+
+						ps.setInt(1, Integer.parseInt(txtId.getText()));
+
+						int res = ps.executeUpdate();
+
+						if (res > 0) {
+							JOptionPane.showMessageDialog(null, "MODELO BORRRADO CORRECTAMENTE");
+
+						} else {
+							JOptionPane.showMessageDialog(null, "ERROR, NO BORRADO");
+
+						}
+						con.close();
 					}
-					con.close();
 				} catch (Exception err) {
 					System.err.println(err);
 				}
@@ -174,13 +177,11 @@ public class QuitarModelo extends JFrame {
 		});
 		btnInsertar.setBounds(288, 4, 139, 56);
 		panel.add(btnInsertar);
-		
-		
-		
+
 		JLabel lblId = new JLabel("ID");
 		lblId.setBounds(12, 41, 56, 16);
 		panel.add(lblId);
-		
+
 		txtId = new JTextField();
 		txtId.addKeyListener(new KeyAdapter() {
 			@Override

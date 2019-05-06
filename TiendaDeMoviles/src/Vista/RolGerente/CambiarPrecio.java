@@ -70,128 +70,132 @@ public class CambiarPrecio extends JFrame {
 	}
 
 	public CambiarPrecio() {
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			
-			setBounds(100, 100, 1241, 861);
-			contentPane = new JPanel();
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-			setContentPane(contentPane);
-			contentPane.setLayout(new BorderLayout(0, 0));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-			JPanel panel = new JPanel();
-			contentPane.add(panel, BorderLayout.CENTER);
-			panel.setLayout(null);
-			setLocationRelativeTo(null);
+		setBounds(100, 100, 1241, 861);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 
-			jtPrecio = new JTable();
-			jtPrecio.setBounds(22, 22, 561, 338);
-			panel.add(jtPrecio);
-			try {
-				/**
-				 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
-				 */
-				Object[][] data = new Object[0][0];
-				String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA", "CÁMARA" };
-				DefaultTableModel modelo = new DefaultTableModel(data, datos);
-				jtPrecio.setModel(modelo);
-				JScrollPane scroll = new JScrollPane(jtPrecio);
-				getContentPane().add(scroll, BorderLayout.NORTH);
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
+		panel.setLayout(null);
+		setLocationRelativeTo(null);
 
-				/**
-				 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-				 */
-				PreparedStatement ps = null;
-				ResultSet rs = null;
-				Conexion conn = new Conexion();
-				Connection con = conn.getConexion();
-				/**
-				 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-				 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-				 * RANGO DE PRECIO
-				 */
-				String sql = "SELECT * FROM stock ";
-				ps = con.prepareStatement(sql);
-				rs = ps.executeQuery();
-
-				ResultSetMetaData rsMd = rs.getMetaData();
-				int cantidadColumnas = rsMd.getColumnCount();
-				/**
-				 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-				 * MOSTRAR
-				 */
-
-				while (rs.next()) {
-
-					Object[] filas = new Object[cantidadColumnas];
-
-					for (int i = 0; i < cantidadColumnas; i++) {
-						filas[i] = rs.getObject(i + 1);
-
-					}
-
-					modelo.addRow(filas);
-				}
-			} catch (SQLException ex) {
-				JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-			}
+		jtPrecio = new JTable();
+		jtPrecio.setBounds(22, 22, 561, 338);
+		panel.add(jtPrecio);
+		try {
+			/**
+			 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
+			 */
+			Object[][] data = new Object[0][0];
+			String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA", "CÁMARA" };
+			DefaultTableModel modelo = new DefaultTableModel(data, datos);
+			jtPrecio.setModel(modelo);
+			JScrollPane scroll = new JScrollPane(jtPrecio);
+			getContentPane().add(scroll, BorderLayout.NORTH);
 
 			/**
-			 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
-			 * CARACTERISTICAS QUE BUSCAMOS
+			 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+			 */
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			Conexion conn = new Conexion();
+			Connection con = conn.getConexion();
+			/**
+			 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+			 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+			 * RANGO DE PRECIO
+			 */
+			String sql = "SELECT * FROM stock ";
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			ResultSetMetaData rsMd = rs.getMetaData();
+			int cantidadColumnas = rsMd.getColumnCount();
+			/**
+			 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+			 * MOSTRAR
 			 */
 
-			JLabel lblIdMovil = new JLabel("ID MOVIL");
-			lblIdMovil.setBounds(12, 24, 56, 16);
-			panel.add(lblIdMovil);
+			while (rs.next()) {
 
-			txtId = new JTextField();
-			txtId.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyTyped(KeyEvent arg0) {
-					char c = arg0.getKeyChar();
-					if (c < '0' || c > '9')
-						arg0.consume();
+				Object[] filas = new Object[cantidadColumnas];
+
+				for (int i = 0; i < cantidadColumnas; i++) {
+					filas[i] = rs.getObject(i + 1);
+
 				}
-			});
-			txtId.setBounds(80, 21, 30, 22);
-			panel.add(txtId);
-			txtId.setColumns(10);
 
-			JLabel lblCantidad = new JLabel("CANTIDAD");
-			lblCantidad.setBounds(161, 24, 65, 16);
-			panel.add(lblCantidad);
+				modelo.addRow(filas);
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
+		}
 
-			txtPrecio = new JTextField();
-			txtPrecio.addKeyListener(new KeyAdapter() {
-				@Override
+		/**
+		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
+		 * CARACTERISTICAS QUE BUSCAMOS
+		 */
+
+		JLabel lblIdMovil = new JLabel("ID MOVIL");
+		lblIdMovil.setBounds(12, 24, 56, 16);
+		panel.add(lblIdMovil);
+
+		txtId = new JTextField();
+		txtId.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char c = arg0.getKeyChar();
+				if (c < '0' || c > '9')
+					arg0.consume();
+			}
+		});
+		txtId.setBounds(80, 21, 30, 22);
+		panel.add(txtId);
+		txtId.setColumns(10);
+
+		JLabel lblCantidad = new JLabel("CANTIDAD");
+		lblCantidad.setBounds(161, 24, 65, 16);
+		panel.add(lblCantidad);
+
+		txtPrecio = new JTextField();
+		txtPrecio.addKeyListener(new KeyAdapter() {
+			@Override
+			/**
+			 * ESTA PEQUEÑA FUNCION NOS IMPIDE METER LETRAS, SIMBOLOS, ETC LO QUE HACE QUE
+			 * NO SE PUEDA ESTROPEAR LA VENTA, NI HACER UNA "VENTA NEGATIVA" QUE AUMENTE
+			 * STOCK
+			 */
+
+			public void keyTyped(KeyEvent arg0) {
+				char c = arg0.getKeyChar();
+				if (c < '0' || c > '9')
+					arg0.consume();
+			}
+		});
+		txtPrecio.setColumns(10);
+		txtPrecio.setBounds(227, 21, 30, 22);
+		panel.add(txtPrecio);
+
+		JButton btnCambiar = new JButton("Cambiar");
+		btnCambiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
 				/**
-				 * ESTA PEQUEÑA FUNCION NOS IMPIDE METER LETRAS, SIMBOLOS, ETC LO QUE HACE QUE
-				 * NO SE PUEDA ESTROPEAR LA VENTA, NI HACER UNA "VENTA NEGATIVA" QUE AUMENTE
-				 * STOCK
+				 * EN ESTA PARTE COMPROBAMOS COMPARANDO EL SELECT DEL STOCK CON LO QUE VAMOS A
+				 * VENDER CONTROLANDO STOCK
 				 */
 
-				public void keyTyped(KeyEvent arg0) {
-					char c = arg0.getKeyChar();
-					if (c < '0' || c > '9')
-						arg0.consume();
-				}
-			});
-			txtPrecio.setColumns(10);
-			txtPrecio.setBounds(227, 21, 30, 22);
-			panel.add(txtPrecio);
+				Connection con = null;
 
-			JButton btnCambiar = new JButton("Cambiar");
-			btnCambiar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+				try {
+					if (txtPrecio.getText().equals("") || txtId.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
-					/**
-					 * EN ESTA PARTE COMPROBAMOS COMPARANDO EL SELECT DEL STOCK CON LO QUE VAMOS A
-					 * VENDER CONTROLANDO STOCK
-					 */
-
-					Connection con = null;
-
-					try {
+					} else {
 						con = getConexion();
 						ps = con.prepareStatement("UPDATE stock SET precio=? WHERE idmovil=?");
 
@@ -208,15 +212,16 @@ public class CambiarPrecio extends JFrame {
 
 						}
 						con.close();
-					} catch (Exception err) {
-						System.err.println(err);
 					}
-
+				} catch (Exception err) {
+					System.err.println(err);
 				}
 
-			});
-			btnCambiar.setBounds(288, 4, 139, 56);
-			panel.add(btnCambiar);
+			}
 
-		}
+		});
+		btnCambiar.setBounds(288, 4, 139, 56);
+		panel.add(btnCambiar);
+
+	}
 }

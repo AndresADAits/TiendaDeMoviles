@@ -506,6 +506,7 @@ public class Vendedor extends JFrame {
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
 				try {
+
 					/**
 					 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
 					 */
@@ -565,22 +566,31 @@ public class Vendedor extends JFrame {
 				Connection con = null;
 				if (numeroStock >= compruebaStock) {
 					try {
-						con = getConexion();
-						ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
-
-						ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-						ps.setInt(2, Integer.parseInt(txtId.getText()));
-
-						int res = ps.executeUpdate();
-
-						if (res > 0) {
-							JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
+						/**
+						 * CON ESTO VAMOS A OBLIGAR A QUE SE RELLENEN TODOS LOS CAMPOS Y ASI TENER CONTROLADOS TODAS LAS
+						 * POSIBILIDADES DE ACCIÓN DEL USUARIO, YA QUE TAMBIEN ESTA OBLIGADO A INTRODUCIR EXCLUSIVAMENTE NUMEROS
+						 */
+						if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
 						} else {
-							JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
+							con = getConexion();
+							ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
 
+							ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
+							ps.setInt(2, Integer.parseInt(txtId.getText()));
+
+							int res = ps.executeUpdate();
+
+							if (res > 0) {
+								JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
+
+							} else {
+								JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
+
+							}
+							con.close();
 						}
-						con.close();
 					} catch (Exception err) {
 						System.err.println(err);
 					}

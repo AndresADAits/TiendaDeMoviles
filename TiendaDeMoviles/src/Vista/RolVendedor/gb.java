@@ -19,6 +19,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class gb extends JFrame {
 
@@ -57,52 +59,57 @@ public class gb extends JFrame {
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
 				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
+					if (txtMin.getText().equals("") || txtMax.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE GB
-					 */
-					String sql = "SELECT * FROM stock WHERE capacidad BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText() + " ORDER BY capacidad";
+					} else {
+						/**
+						 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
+						 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
+						 */
+						Object[][] data = new Object[0][0];
+						String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+								"CÁMARA" };
+						DefaultTableModel modelo = new DefaultTableModel(data, datos);
+						jtPrecio.setModel(modelo);
+						JScrollPane scroll = new JScrollPane(jtPrecio);
+						getContentPane().add(scroll, BorderLayout.NORTH);
 
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
+						/**
+						 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+						 */
+						PreparedStatement ps = null;
+						ResultSet rs = null;
+						Conexion conn = new Conexion();
+						Connection con = conn.getConexion();
+						/**
+						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+						 * RANGO DE GB
+						 */
+						String sql = "SELECT * FROM stock WHERE capacidad BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY capacidad";
 
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
+						ps = con.prepareStatement(sql);
+						rs = ps.executeQuery();
 
-						Object[] filas = new Object[cantidadColumnas];
+						ResultSetMetaData rsMd = rs.getMetaData();
+						int cantidadColumnas = rsMd.getColumnCount();
+						/**
+						 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+						 * MOSTRAR
+						 */
+						while (rs.next()) {
 
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
+							Object[] filas = new Object[cantidadColumnas];
 
+							for (int i = 0; i < cantidadColumnas; i++) {
+								filas[i] = rs.getObject(i + 1);
+
+							}
+
+							modelo.addRow(filas);
 						}
-
-						modelo.addRow(filas);
 					}
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
@@ -116,6 +123,16 @@ public class gb extends JFrame {
 		panel.add(btnCargar);
 
 		txtMin = new JTextField();
+		txtMin.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				char c = e.getKeyChar();
+				if (c < '0' || c > '9')
+					e.consume();
+
+			}
+		});
 		txtMin.setBounds(214, 12, 75, 22);
 		panel.add(txtMin);
 		txtMin.setColumns(10);
@@ -125,6 +142,16 @@ public class gb extends JFrame {
 		panel.add(lblNewLabel);
 
 		txtMax = new JTextField();
+		txtMax.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				char c = e.getKeyChar();
+				if (c < '0' || c > '9')
+					e.consume();
+
+			}
+		});
 		txtMax.setColumns(10);
 		txtMax.setBounds(345, 11, 75, 22);
 		panel.add(txtMax);
@@ -145,52 +172,57 @@ public class gb extends JFrame {
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
 				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll2 = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll2, BorderLayout.NORTH);
+					if (txtMin.getText().equals("") || txtMax.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock WHERE capacidad BETWEEN " + txtMin.getText() + " AND "
-							+ txtMax.getText() + " ORDER BY capacidad DESC";
+					} else {
+						/**
+						 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
+						 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
+						 */
+						Object[][] data = new Object[0][0];
+						String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+								"CÁMARA" };
+						DefaultTableModel modelo = new DefaultTableModel(data, datos);
+						jtPrecio.setModel(modelo);
+						JScrollPane scroll2 = new JScrollPane(jtPrecio);
+						getContentPane().add(scroll2, BorderLayout.NORTH);
 
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
+						/**
+						 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+						 */
+						PreparedStatement ps = null;
+						ResultSet rs = null;
+						Conexion conn = new Conexion();
+						Connection con = conn.getConexion();
+						/**
+						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+						 * RANGO DE PRECIO
+						 */
+						String sql = "SELECT * FROM stock WHERE capacidad BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY capacidad DESC";
 
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTANDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
+						ps = con.prepareStatement(sql);
+						rs = ps.executeQuery();
 
-						Object[] filas = new Object[cantidadColumnas];
+						ResultSetMetaData rsMd = rs.getMetaData();
+						int cantidadColumnas = rsMd.getColumnCount();
+						/**
+						 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTANDO EN LA TABLA QUE SE VA A
+						 * MOSTRAR
+						 */
+						while (rs.next()) {
 
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
+							Object[] filas = new Object[cantidadColumnas];
 
+							for (int i = 0; i < cantidadColumnas; i++) {
+								filas[i] = rs.getObject(i + 1);
+
+							}
+
+							modelo.addRow(filas);
 						}
-
-						modelo.addRow(filas);
 					}
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");

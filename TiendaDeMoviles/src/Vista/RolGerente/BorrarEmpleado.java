@@ -150,30 +150,34 @@ public class BorrarEmpleado extends JFrame {
 
 				Connection con = null;
 
-				if (Integer.parseInt(txtId.getText()) == 1) {
-					JOptionPane.showMessageDialog(null, "NO PUEDE BORRARSE A USTED MISMO, SEÑOR GERENTE: ¿QUÉ HARIAMOS SIN USTED?");
+				try {
+					if (txtId.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
-				} else {
-
-					try {
-						con = getConexion();
-						ps = con.prepareStatement("DELETE FROM `usuario` WHERE `usuario`.`id` = ?");
-
-						ps.setInt(1, Integer.parseInt(txtId.getText()));
-
-						int res = ps.executeUpdate();
-
-						if (res > 0) {
-							JOptionPane.showMessageDialog(null, "USUARIO BORRADO CORRECTAMENTE");
-
+					} else {
+						if (Integer.parseInt(txtId.getText()) == 1) {
+							JOptionPane.showMessageDialog(null,
+									"NO PUEDE BORRARSE A USTED MISMO, SEÑOR GERENTE: ¿QUÉ HARIAMOS SIN USTED?");
 						} else {
-							JOptionPane.showMessageDialog(null, "ERROR, NO BORRADO");
+							con = getConexion();
+							ps = con.prepareStatement("DELETE FROM `usuario` WHERE `usuario`.`id` = ?");
 
+							ps.setInt(1, Integer.parseInt(txtId.getText()));
+
+							int res = ps.executeUpdate();
+
+							if (res > 0) {
+								JOptionPane.showMessageDialog(null, "USUARIO BORRADO CORRECTAMENTE");
+
+							} else {
+								JOptionPane.showMessageDialog(null, "ERROR, NO BORRADO");
+
+							}
+							con.close();
 						}
-						con.close();
-					} catch (Exception err) {
-						System.err.println(err);
 					}
+				} catch (Exception err) {
+					System.err.println(err);
 				}
 
 			}

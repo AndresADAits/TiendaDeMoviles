@@ -71,7 +71,7 @@ public class Compra extends JFrame {
 
 	public Compra() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -192,22 +192,28 @@ public class Compra extends JFrame {
 				Connection con = null;
 
 				try {
-					con = getConexion();
-					ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad +?) WHERE idmovil=?");
-
-					ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-					ps.setInt(2, Integer.parseInt(txtId.getText()));
-
-					int res = ps.executeUpdate();
-
-					if (res > 0) {
-						JOptionPane.showMessageDialog(null, "COMPRA CORRECTA");
-
+					if (txtCantidad.getText().equals("") || txtId.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
+						
 					} else {
-						JOptionPane.showMessageDialog(null, "ERROR EN COMPRA");
 
+						con = getConexion();
+						ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad +?) WHERE idmovil=?");
+
+						ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
+						ps.setInt(2, Integer.parseInt(txtId.getText()));
+
+						int res = ps.executeUpdate();
+
+						if (res > 0) {
+							JOptionPane.showMessageDialog(null, "COMPRA CORRECTA");
+
+						} else {
+							JOptionPane.showMessageDialog(null, "ERROR EN COMPRA");
+
+						}
+						con.close();
 					}
-					con.close();
 				} catch (Exception err) {
 					System.err.println(err);
 				}

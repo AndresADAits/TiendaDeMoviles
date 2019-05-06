@@ -146,7 +146,6 @@ public class NuevoModelo extends JFrame {
 		lblCantidad.setBounds(0, 94, 65, 16);
 		panel.add(lblCantidad);
 
-		
 		JButton btnInsertar = new JButton("Insertar");
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,29 +158,38 @@ public class NuevoModelo extends JFrame {
 				Connection con = null;
 
 				try {
-					con = getConexion();
-
-					ps = con.prepareStatement("INSERT INTO stock (cantidad,marca,modelo,precio,capacidad,pantalla,bateria,camara) VALUES(?,?,?,?,?,?,?,?)");
-
-					ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-					ps.setString(2, (txtMarca.getText()));
-					ps.setString(3, (txtModelo.getText()));
-					ps.setInt(4, Integer.parseInt(txtPrecio.getText()));
-					ps.setInt(5, Integer.parseInt(txtCapacidad.getText()));
-					ps.setString(6, (txtPantalla.getText()));
-					ps.setInt(7, Integer.parseInt(txtBateria.getText()));
-					ps.setInt(8, Integer.parseInt(txtCamara.getText()));
-
-					int res = ps.executeUpdate();
-
-					if (res > 0) {
-						JOptionPane.showMessageDialog(null, "INSERTADO CORRECTAMENTE");
+					if (txtCantidad.getText().equals("") || txtMarca.getText().equals("")
+							|| txtModelo.getText().equals("") || txtPrecio.getText().equals("")
+							|| txtCapacidad.getText().equals("") || txtPantalla.getText().equals("")
+							|| txtBateria.getText().equals("") || txtCamara.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
 					} else {
-						JOptionPane.showMessageDialog(null, "ERROR, NO INSERTADO");
+						con = getConexion();
 
+						ps = con.prepareStatement(
+								"INSERT INTO stock (cantidad,marca,modelo,precio,capacidad,pantalla,bateria,camara) VALUES(?,?,?,?,?,?,?,?)");
+
+						ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
+						ps.setString(2, (txtMarca.getText()));
+						ps.setString(3, (txtModelo.getText()));
+						ps.setInt(4, Integer.parseInt(txtPrecio.getText()));
+						ps.setInt(5, Integer.parseInt(txtCapacidad.getText()));
+						ps.setString(6, (txtPantalla.getText()));
+						ps.setInt(7, Integer.parseInt(txtBateria.getText()));
+						ps.setInt(8, Integer.parseInt(txtCamara.getText()));
+
+						int res = ps.executeUpdate();
+
+						if (res > 0) {
+							JOptionPane.showMessageDialog(null, "INSERTADO CORRECTAMENTE");
+
+						} else {
+							JOptionPane.showMessageDialog(null, "ERROR, NO INSERTADO");
+
+						}
+						con.close();
 					}
-					con.close();
 				} catch (Exception err) {
 					System.err.println(err);
 				}
@@ -192,14 +200,6 @@ public class NuevoModelo extends JFrame {
 		btnInsertar.setBounds(288, 4, 139, 56);
 		panel.add(btnInsertar);
 
-		JButton btnEnviarCorreo = new JButton("IMPRIMIR   ALBARAN");
-		btnEnviarCorreo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnEnviarCorreo.setBounds(465, 20, 161, 25);
-		panel.add(btnEnviarCorreo);
-		
 		txtCantidad = new JTextField();
 		txtCantidad.addKeyListener(new KeyAdapter() {
 			@Override
@@ -219,25 +219,24 @@ public class NuevoModelo extends JFrame {
 		txtCantidad.setBounds(65, 91, 30, 22);
 		panel.add(txtCantidad);
 
-		
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
 		txtMarca.setBounds(155, 91, 123, 22);
 		panel.add(txtMarca);
-		
+
 		JLabel lblMarca = new JLabel("MARCA");
 		lblMarca.setBounds(107, 94, 56, 16);
 		panel.add(lblMarca);
-		
+
 		JLabel lblModelo = new JLabel("MODELO");
 		lblModelo.setBounds(288, 94, 56, 16);
 		panel.add(lblModelo);
-		
+
 		txtModelo = new JTextField();
 		txtModelo.setColumns(10);
 		txtModelo.setBounds(341, 91, 123, 22);
 		panel.add(txtModelo);
-		
+
 		txtPrecio = new JTextField();
 		txtPrecio.addKeyListener(new KeyAdapter() {
 			@Override
@@ -256,15 +255,15 @@ public class NuevoModelo extends JFrame {
 		txtPrecio.setColumns(10);
 		txtPrecio.setBounds(538, 91, 30, 22);
 		panel.add(txtPrecio);
-		
+
 		JLabel lblPrecio = new JLabel("PRECIO");
 		lblPrecio.setBounds(476, 94, 56, 16);
 		panel.add(lblPrecio);
-		
+
 		JLabel lblCapacidad = new JLabel("CAPACIDAD");
 		lblCapacidad.setBounds(582, 94, 80, 16);
 		panel.add(lblCapacidad);
-		
+
 		txtCapacidad = new JTextField();
 		txtCapacidad.addKeyListener(new KeyAdapter() {
 			@Override
@@ -283,20 +282,20 @@ public class NuevoModelo extends JFrame {
 		txtCapacidad.setColumns(10);
 		txtCapacidad.setBounds(661, 91, 30, 22);
 		panel.add(txtCapacidad);
-		
+
 		JLabel lblPantallaDecimal = new JLabel("PANTALLA (DECIMAL)");
 		lblPantallaDecimal.setBounds(703, 94, 133, 16);
 		panel.add(lblPantallaDecimal);
-		
+
 		txtPantalla = new JTextField();
 		txtPantalla.setColumns(10);
 		txtPantalla.setBounds(838, 91, 30, 22);
 		panel.add(txtPantalla);
-		
+
 		JLabel lblBateria = new JLabel("BATERIA");
 		lblBateria.setBounds(894, 94, 80, 16);
 		panel.add(lblBateria);
-		
+
 		txtBateria = new JTextField();
 		txtBateria.addKeyListener(new KeyAdapter() {
 			@Override
@@ -315,11 +314,11 @@ public class NuevoModelo extends JFrame {
 		txtBateria.setColumns(10);
 		txtBateria.setBounds(986, 91, 30, 22);
 		panel.add(txtBateria);
-		
+
 		JLabel lblCmara = new JLabel("C\u00C1MARA");
 		lblCmara.setBounds(1028, 94, 80, 16);
 		panel.add(lblCmara);
-		
+
 		txtCamara = new JTextField();
 		txtCamara.addKeyListener(new KeyAdapter() {
 			@Override
