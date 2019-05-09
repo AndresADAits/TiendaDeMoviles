@@ -1,4 +1,4 @@
-package Vista;
+
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -25,7 +25,7 @@ import java.awt.Font;
  * @author J.Andrés Fernández
  *
  */
-public class Inicio extends JFrame {
+public class Ejecutable extends JFrame {
 
 	private JPanel contentPane;
 
@@ -36,7 +36,7 @@ public class Inicio extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Inicio frame = new Inicio();
+					Ejecutable frame = new Ejecutable();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,7 @@ public class Inicio extends JFrame {
 	/**
 	 * Creamos el frame de inicio
 	 */
-	public Inicio() {
+	public Ejecutable() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

@@ -6,14 +6,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,9 +29,22 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 
 import Modelo.Conexion;
+
+
+
+
+
+
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+
+
 
 public class BorrarEmpleado extends JFrame {
 
@@ -33,6 +53,7 @@ public class BorrarEmpleado extends JFrame {
 	 * DESDE DONDE SE LANZA EN MENSAJE COMPRA CORRECTA
 	 */
 
+	
 	private JPanel contentPane;
 
 	private JTextField txtId;
@@ -71,6 +92,7 @@ public class BorrarEmpleado extends JFrame {
 	}
 
 	public BorrarEmpleado() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\usuario\\Desktop\\PDF.png"));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
@@ -126,6 +148,8 @@ public class BorrarEmpleado extends JFrame {
 
 				for (int i = 0; i < cantidadColumnas; i++) {
 					filas[i] = rs.getObject(i + 1);
+					
+					
 
 				}
 
@@ -204,6 +228,30 @@ public class BorrarEmpleado extends JFrame {
 		txtId.setColumns(10);
 		txtId.setBounds(207, 21, 30, 22);
 		panel.add(txtId);
+		
+		JButton btnPdf = new JButton("PDF");
+		btnPdf.setSelectedIcon(new ImageIcon("C:\\Users\\usuario\\Desktop\\PDF.png"));
+		btnPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				MessageFormat header =new MessageFormat("Lista de Empleados");
+				MessageFormat pie =new MessageFormat("Página 1");
+				try {
+					jtPrecio.print(JTable.PrintMode.NORMAL, header, pie);
+					
+				}catch(java.awt.print.PrinterException f) {
+					System.err.format("Error de impresion", f.getMessage());
+					
+				}
+				
+							
+	
+			}
+		});
+		btnPdf.setBounds(473, 4, 180, 56);
+		panel.add(btnPdf);
 
 	}
+	
+	
 }

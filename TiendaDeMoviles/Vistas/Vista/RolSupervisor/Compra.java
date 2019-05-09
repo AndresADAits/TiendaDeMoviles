@@ -24,6 +24,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Compra extends JFrame {
 	/**
@@ -54,6 +57,31 @@ public class Compra extends JFrame {
 	 * AQUI LA CLASE QUE ES EXACTAMENTE LA MISMA QUE EN CONEXIÓN
 	 * 
 	 */
+	public void guardaTabla() {
+		try {
+
+			String persistiendoStockTrasCompra = "src/ficheros/GuardandoStockTrasCompra.txt";
+			BufferedWriter bfw = new BufferedWriter(new FileWriter(persistiendoStockTrasCompra));
+
+			for (int i = 0; i < jtPrecio.getRowCount(); i++) // realiza un barrido por filas.
+			{
+				for (int j = 0; j < jtPrecio.getColumnCount(); j++) // realiza un barrido por columnas.
+				{
+					bfw.write((String) (jtPrecio.getValueAt(i, j)));
+					if (j < jtPrecio.getColumnCount() - 1) { // agrega separador "," si no es el ultimo elemento de la
+																// fila.
+						bfw.write(",");
+					}
+				}
+				bfw.newLine(); // inserta nueva linea.
+			}
+
+			bfw.close(); // cierra archivo!
+			System.out.println("El archivo fue salvado correctamente!");
+		} catch (IOException e) {
+			System.out.println("ERROR: Ocurrio un problema al salvar el archivo!" + e.getMessage());
+		}
+	}
 
 	public Connection getConexion() {
 		try {
@@ -194,7 +222,7 @@ public class Compra extends JFrame {
 				try {
 					if (txtCantidad.getText().equals("") || txtId.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
-						
+
 					} else {
 
 						con = getConexion();
@@ -231,6 +259,17 @@ public class Compra extends JFrame {
 		});
 		btnEnviarCorreo.setBounds(465, 20, 161, 25);
 		panel.add(btnEnviarCorreo);
+
+		JButton btnGuardarEnFichero = new JButton("Guardar en fichero");
+		btnGuardarEnFichero.addActionListener(new ActionListener() {
+			public void actionPerformed(final ActionEvent arg0) {
+
+				guardaTabla();
+
+			}
+		});
+		btnGuardarEnFichero.setBounds(638, 4, 161, 56);
+		panel.add(btnGuardarEnFichero);
 
 	}
 }
