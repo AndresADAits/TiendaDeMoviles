@@ -11,9 +11,11 @@ import javax.swing.border.EmptyBorder;
 import Modelo.Usuarios;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import Vista.RolVendedor.Vendedor;
 
 /**
  * JFRAME DE ACCESO PARA USUARIO GERENTE Y SUPERVISOR
@@ -78,6 +80,12 @@ public class Supervisor extends JFrame {
 		JButton btnAvisos = new JButton("Avisos");
 		btnAvisos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(Vendedor.Aviso) {
+					JOptionPane.showMessageDialog(null, "COMPRUEBE STOCK, EXISTE ALGÚN MODELO DE MOVIL SIN EXISTENCIAS");
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "No hay avisos!");
+				}
 			}
 		});
 		btnAvisos.setBounds(398, 220, 117, 70);

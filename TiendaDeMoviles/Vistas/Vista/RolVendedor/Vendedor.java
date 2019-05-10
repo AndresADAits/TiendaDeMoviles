@@ -31,7 +31,12 @@ import java.awt.event.KeyEvent;
 
 public class Vendedor extends JFrame {
 	Usuarios mod;
-
+	/**
+	 * EL SIGUIENTE BOOLEANO ES PARA USAR EL BOTON DE AVISO DEL ROL SUPERVISOR, QUE
+	 * AVISE CUANDO EL STOCK DE UN TIPO DE MOVIL ES IGUAL A CERO Y TIENE QUE COMPRAR
+	 * MÁS
+	 */
+	public static boolean Aviso = false;
 	private JPanel contentPane;
 
 	private JTextField txtCantidad;
@@ -566,39 +571,53 @@ public class Vendedor extends JFrame {
 				int compruebaStock = Integer.parseInt(txtCantidad.getText());
 
 				Connection con = null;
-				if (numeroStock >= compruebaStock) {
-					try {
-						/**
-						 * CON ESTO VAMOS A OBLIGAR A QUE SE RELLENEN TODOS LOS CAMPOS Y ASI TENER CONTROLADOS TODAS LAS
-						 * POSIBILIDADES DE ACCIÓN DEL USUARIO, YA QUE TAMBIEN ESTA OBLIGADO A INTRODUCIR EXCLUSIVAMENTE NUMEROS
-						 */
-						if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
-							JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
+				/**
+				 * SI VENDEMOS TODAS LAS EXISTENCIAS, LA VENTA SE REALIZA, PERO SE MANDA AVISO A SUPERVISOR
+				 */
+				
+				
 
-						} else {
-							con = getConexion();
-							ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
-
-							ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-							ps.setInt(2, Integer.parseInt(txtId.getText()));
-
-							int res = ps.executeUpdate();
-
-							if (res > 0) {
-								JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
+					if (numeroStock > compruebaStock || numeroStock == compruebaStock) {
+						try {
+							/**
+							 * CON ESTO VAMOS A OBLIGAR A QUE SE RELLENEN TODOS LOS CAMPOS Y ASI TENER
+							 * CONTROLADOS TODAS LAS POSIBILIDADES DE ACCIÓN DEL USUARIO, YA QUE TAMBIEN
+							 * ESTA OBLIGADO A INTRODUCIR EXCLUSIVAMENTE NUMEROS
+							 */
+							if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
+								JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
 
 							} else {
-								JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
+								con = getConexion();
+								ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
 
+								ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
+								ps.setInt(2, Integer.parseInt(txtId.getText()));
+
+								int res = ps.executeUpdate();
+
+								if (res > 0) {
+									JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
+
+								} else {
+									JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
+
+								}
+								con.close();
 							}
-							con.close();
+						} catch (Exception err) {
+							System.err.println(err);
 						}
-					} catch (Exception err) {
-						System.err.println(err);
+						if (numeroStock == compruebaStock) {
+							JOptionPane.showMessageDialog(null,
+									"CON ESTA VENTA NOS QUEDAMOS SIN STOCK, MANDO AVISO A SUPERVISOR");
+							Aviso = true;}
+					} else {
+
+						JOptionPane.showMessageDialog(null, "NO HAY STOCK SUFICIENTE PARA ESA VENTA");
+						Aviso = true;
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "NO HAY STOCK SUFICIENTE PARA ESA VENTA");
-				}
+				
 			}
 
 		});
@@ -639,7 +658,7 @@ public class Vendedor extends JFrame {
 					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT * FROM stock WHERE idmovil= "+txtId.getText();
+					String sql = "SELECT * FROM stock WHERE idmovil= " + txtId.getText();
 
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -664,25 +683,22 @@ public class Vendedor extends JFrame {
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 				}
-				
+
 				/**
 				 * FUNCION QUE IMPRIME UNA TABLA
 				 */
-				MessageFormat header =new MessageFormat("FACTURA");
-		
-				MessageFormat numero =new MessageFormat("	X "+txtCantidad.getText()+" MOVILES ");
-				
+				MessageFormat header = new MessageFormat("FACTURA");
+
+				MessageFormat numero = new MessageFormat("	X " + txtCantidad.getText() + " MOVILES ");
+
 				try {
-					jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header,numero);
-					
-				}catch(java.awt.print.PrinterException f) {
+					jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header, numero);
+
+				} catch (java.awt.print.PrinterException f) {
 					System.err.format("Error de impresion", f.getMessage());
-					
+
 				}
-				
-				
-				
-				
+
 			}
 		});
 		btnEnviarCorreo.setBounds(465, 20, 161, 25);
