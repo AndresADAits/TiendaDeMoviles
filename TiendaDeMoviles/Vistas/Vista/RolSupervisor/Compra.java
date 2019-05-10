@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.MessageFormat;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -252,9 +254,22 @@ public class Compra extends JFrame {
 		btnVender.setBounds(288, 4, 139, 56);
 		panel.add(btnVender);
 
-		JButton btnEnviarCorreo = new JButton("IMPRIMIR   ALBARAN");
+		JButton btnEnviarCorreo = new JButton("IMPRIMIR   STOCK");
 		btnEnviarCorreo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/**
+				 * FUNCION QUE IMPRIME UNA TABLA
+				 */
+				MessageFormat header =new MessageFormat("STOCK");
+				MessageFormat pie =new MessageFormat("Página 1");
+				try {
+					jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header, pie);
+					
+				}catch(java.awt.print.PrinterException f) {
+					System.err.format("Error de impresion", f.getMessage());
+					
+				}
+				
 			}
 		});
 		btnEnviarCorreo.setBounds(465, 20, 161, 25);

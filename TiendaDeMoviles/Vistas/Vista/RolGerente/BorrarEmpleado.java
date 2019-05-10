@@ -230,10 +230,12 @@ public class BorrarEmpleado extends JFrame {
 		panel.add(txtId);
 		
 		JButton btnPdf = new JButton("PDF");
-		btnPdf.setSelectedIcon(new ImageIcon("C:\\Users\\usuario\\Desktop\\PDF.png"));
+	
 		btnPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				/**
+				 * FUNCION QUE IMPRIME UNA TABLA
+				 */
 				MessageFormat header =new MessageFormat("Lista de Empleados");
 				MessageFormat pie =new MessageFormat("Página 1");
 				try {
