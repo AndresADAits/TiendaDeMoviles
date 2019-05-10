@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 06-05-2019 a las 07:26:18
+-- Tiempo de generación: 10-05-2019 a las 15:07:24
 -- Versión del servidor: 8.0.15
 -- Versión de PHP: 7.2.16
 
@@ -45,6 +45,25 @@ INSERT INTO `clasesdeusuario` (`id`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `controlacceso`
+--
+
+CREATE TABLE `controlacceso` (
+  `horafecha` datetime NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `controlacceso`
+--
+
+INSERT INTO `controlacceso` (`horafecha`, `id`) VALUES
+('2019-05-10 23:55:04', 1),
+('2019-05-11 00:04:20', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `stock`
 --
 
@@ -65,7 +84,7 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`idmovil`, `cantidad`, `marca`, `modelo`, `precio`, `capacidad`, `pantalla`, `bateria`, `camara`) VALUES
-(1, 690, 'SAMSUNG', 'S10', 1183, 512, '6.4', 4100, 16),
+(1, 618, 'SAMSUNG', 'S10', 1183, 512, '6.4', 4100, 16),
 (2, 200, 'APPLE', 'XS_MAX', 1399, 256, '5.8', 4000, 12),
 (3, 300, 'XIAOMI', 'REDMI_NOTE7', 249, 64, '6.3', 4000, 48),
 (4, 300, 'HUAWEI', 'P20_LITE', 289, 64, '5.8', 3000, 16),

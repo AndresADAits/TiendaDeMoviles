@@ -73,6 +73,13 @@ public class Gerente extends JFrame {
 		contentPane.add(btnEliminar);
 
 		JButton btnVerltimoAcceso = new JButton("\u00DAltimo Acceso");
+		btnVerltimoAcceso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ControlAcceso ControlAcceso=new ControlAcceso();
+				ControlAcceso.setVisible(true);
+			}
+		});
 		btnVerltimoAcceso.setBounds(504, 34, 114, 62);
 		contentPane.add(btnVerltimoAcceso);
 

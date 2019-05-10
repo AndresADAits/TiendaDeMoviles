@@ -69,6 +69,17 @@ public class SqlUsuarios extends Conexion {
 					usr.setNombre(rs.getString(4));
 					usr.setId_tipo(rs.getInt(5));
 					usr.setNombre_tipo(rs.getString(6));
+					/**
+					 * ESTA PARTE ES PARA EL CONTROL DE ACCESO DEL ROL GERENTE QUE LEERÁ LA TABLA EN CUESTIÓN
+					 */
+					
+					String sqlControlAcceso="INSERT INTO `controlacceso`(`horafecha`, `id`) VALUES (?,?)";
+					ps = con.prepareStatement(sqlControlAcceso);
+					ps.setString(1, usr.getLast_session());
+					ps.setInt(2, rs.getInt(1));
+					ps.execute();
+					
+					
 					return true;
 				} else {
 					return false;
@@ -81,6 +92,7 @@ public class SqlUsuarios extends Conexion {
 			e.printStackTrace();
 			return false;
 		}
+		
 	}
 
 	public int existeUsuario(String usuario) {
