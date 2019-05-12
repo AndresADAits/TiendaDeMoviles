@@ -14,12 +14,14 @@ import Vista.RolSupervisor.Supervisor;
 import Vista.RolVendedor.Vendedor;
 
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Window;
+import java.awt.Color;
 
 /**
  * ESTA VISTA ES A LA QUE PODRAN ACCEDER LOS USUARIOS QUE YA ESTEN REGISTRADOS
@@ -48,6 +50,7 @@ public class Home extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 
 		JButton btnVendedor = new JButton("Vendedor");
 		btnVendedor.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 27));

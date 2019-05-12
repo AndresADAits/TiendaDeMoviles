@@ -1,33 +1,40 @@
-package Vista.RolGerente;
+package Vista.RolSupervisor;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import Modelo.Conexion;
-import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JOptionPane;
 
-public class ControlAcceso extends JFrame {
+public class SinStock extends JFrame {
 
 	private JPanel contentPane;
-	private JTable jtPrecio;
+	private JTextField txtMarca;
+	private JButton btnBuscar;
+	private JTable jtMarca;
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE CÁMARA Y AL PULSAR
-	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
+	 * Launch the application.
 	 */
-	public ControlAcceso() {
+
+	/**
+	 * Create the frame.
+	 */
+	public SinStock() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
@@ -44,24 +51,28 @@ public class ControlAcceso extends JFrame {
 		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
 		 * CARACTERISTICAS QUE BUSCAMOS
 		 */
-		JButton btnCargar = new JButton("Mostrar CONTROL DE ACCESO");
-		btnCargar.addActionListener(new ActionListener() {
+		JButton btnMarca = new JButton("MOSTRAR ARTICULOS SIN STOCK, SI ES QUE LOS HAY.");
+		btnMarca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
+
+				jtMarca = new JTable();
+				jtMarca.setBounds(22, 22, 561, 338);
+				panel.add(jtMarca);
 				try {
+
+				
 
 					/**
 					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
 					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
 					 */
 					Object[][] data = new Object[0][0];
-					String[] datos = { "FECHA Y HORA ", "ID DE USUARIO" };
+					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+							"CÁMARA" };
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
+					jtMarca.setModel(modelo);
+					JScrollPane scroll2 = new JScrollPane(jtMarca);
+					getContentPane().add(scroll2, BorderLayout.NORTH);
 
 					/**
 					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
@@ -73,9 +84,9 @@ public class ControlAcceso extends JFrame {
 					/**
 					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
 					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE CÁMARA
+					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT * FROM controlacceso ";
+					String sql = "SELECT * FROM stock WHERE cantidad = 0 ";
 
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -106,8 +117,9 @@ public class ControlAcceso extends JFrame {
 
 		});
 
-		btnCargar.setBounds(263, 13, 248, 48);
-		panel.add(btnCargar);
+		btnMarca.setBounds(244, 11, 372, 23);
+		panel.add(btnMarca);
 
+		;
 	}
 }

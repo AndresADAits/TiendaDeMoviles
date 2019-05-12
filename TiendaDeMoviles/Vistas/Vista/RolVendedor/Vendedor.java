@@ -36,7 +36,7 @@ public class Vendedor extends JFrame {
 	 * AVISE CUANDO EL STOCK DE UN TIPO DE MOVIL ES IGUAL A CERO Y TIENE QUE COMPRAR
 	 * MÁS
 	 */
-	public static boolean Aviso = false;
+	
 	private JPanel contentPane;
 
 	private JTextField txtCantidad;
@@ -76,7 +76,7 @@ public class Vendedor extends JFrame {
 
 	public Vendedor(Usuarios mod) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1288, 987);
+		setBounds(100, 100, 1002, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -610,12 +610,12 @@ public class Vendedor extends JFrame {
 						}
 						if (numeroStock == compruebaStock) {
 							JOptionPane.showMessageDialog(null,
-									"CON ESTA VENTA NOS QUEDAMOS SIN STOCK, MANDO AVISO A SUPERVISOR");
-							Aviso = true;}
+									"CON ESTA VENTA NOS QUEDAMOS SIN STOCK");
+							}
 					} else {
 
 						JOptionPane.showMessageDialog(null, "NO HAY STOCK SUFICIENTE PARA ESA VENTA");
-						Aviso = true;
+						
 					}
 				
 			}
@@ -709,13 +709,13 @@ public class Vendedor extends JFrame {
 		panel.add(btnBigdata);
 
 		JLabel lblListasOrdenadasPor = new JLabel(
-				"Listas                                                   ordenadas                                          por                                    caracter\u00EDstica");
-		lblListasOrdenadasPor.setBounds(80, 78, 745, 16);
+				"BUSQUEDA POR  CARACTERISTICA");
+		lblListasOrdenadasPor.setBounds(386, 154, 240, 16);
 		panel.add(lblListasOrdenadasPor);
 
 		JLabel lblBusquedaPorRango = new JLabel(
-				"Busqueda                                         por                                                               Rango ");
-		lblBusquedaPorRango.setBounds(80, 159, 585, 16);
+				"ORDENAR POR :");
+		lblBusquedaPorRango.setBounds(406, 73, 207, 16);
 		panel.add(lblBusquedaPorRango);
 
 		JButton button = new JButton("PRECIO");

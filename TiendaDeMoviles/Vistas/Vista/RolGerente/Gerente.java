@@ -29,24 +29,12 @@ public class Gerente extends JFrame {
 	 */
 	public Gerente(Usuarios mod) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1033, 683);
+		setBounds(100, 100, 880, 257);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
-
-		JLabel lblGerenteEsVendedor = new JLabel("Gerente; es vendedor y supervisor. ycambia precio m\u00F3viles");
-		lblGerenteEsVendedor.setBounds(-10, 239, 344, 43);
-		contentPane.add(lblGerenteEsVendedor);
-
-		JLabel lblNewLabel = new JLabel("inserta y delete  usuarios vendedores y supervisores");
-		lblNewLabel.setBounds(12, 295, 322, 62);
-		contentPane.add(lblNewLabel);
-
-		JLabel lblNewLabel_1 = new JLabel("muestra last session de usuario from BBDD tiendademoviles");
-		lblNewLabel_1.setBounds(12, 415, 418, 56);
-		contentPane.add(lblNewLabel_1);
 
 		JButton btnCambiarPrecioMoviles = new JButton("Cambiar precio moviles");
 		btnCambiarPrecioMoviles.addActionListener(new ActionListener() {
@@ -55,11 +43,11 @@ public class Gerente extends JFrame {
 				CambiarPrecio.setVisible(true);
 			}
 		});
-		btnCambiarPrecioMoviles.setBounds(12, 44, 176, 43);
+		btnCambiarPrecioMoviles.setBounds(46, 44, 176, 43);
 		contentPane.add(btnCambiarPrecioMoviles);
 
 		JLabel lblGestinDeEmpleados = new JLabel("Gesti\u00F3n de Empleados");
-		lblGestinDeEmpleados.setBounds(408, 13, 176, 16);
+		lblGestinDeEmpleados.setBounds(631, 13, 176, 16);
 		contentPane.add(lblGestinDeEmpleados);
 
 		JButton btnEliminar = new JButton("Dar de Baja");
@@ -69,7 +57,7 @@ public class Gerente extends JFrame {
 				BorrarEmpleado.setVisible(true);
 			}
 		});
-		btnEliminar.setBounds(368, 34, 114, 62);
+		btnEliminar.setBounds(570, 47, 114, 62);
 		contentPane.add(btnEliminar);
 
 		JButton btnVerltimoAcceso = new JButton("\u00DAltimo Acceso");
@@ -80,16 +68,8 @@ public class Gerente extends JFrame {
 				ControlAcceso.setVisible(true);
 			}
 		});
-		btnVerltimoAcceso.setBounds(504, 34, 114, 62);
+		btnVerltimoAcceso.setBounds(716, 47, 114, 62);
 		contentPane.add(btnVerltimoAcceso);
-
-		JLabel lblQueElLast = new JLabel("que el last sesion se escriba en archivo y acceda desde aqui");
-		lblQueElLast.setBounds(312, 253, 354, 62);
-		contentPane.add(lblQueElLast);
-
-		JLabel lblAlgoParaEl = new JLabel("Algo para el tema de  BIGDATA");
-		lblAlgoParaEl.setBounds(246, 328, 372, 74);
-		contentPane.add(lblAlgoParaEl);
 
 		JLabel lblRol = new JLabel("ROL:");
 		lblRol.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));

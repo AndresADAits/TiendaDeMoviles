@@ -26,7 +26,6 @@ import Vista.RolVendedor.Vendedor;
 public class Supervisor extends JFrame {
 	Usuarios mod;
 
-
 	private JPanel contentPane;
 
 	/**
@@ -38,12 +37,12 @@ public class Supervisor extends JFrame {
 	 */
 	public Supervisor(Usuarios mod) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1002, 350);
+		setBounds(100, 100, 880, 257);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-	
+
 		setLocationRelativeTo(null);
 
 		JButton btnComprarStock = new JButton("Comprar Stock");
@@ -54,7 +53,7 @@ public class Supervisor extends JFrame {
 
 			}
 		});
-		btnComprarStock.setBounds(12, 220, 117, 70);
+		btnComprarStock.setBounds(81, 25, 117, 70);
 		contentPane.add(btnComprarStock);
 
 		JButton btnAadirModelo = new JButton("A\u00F1adir Modelo");
@@ -64,62 +63,53 @@ public class Supervisor extends JFrame {
 				NuevoModelo.setVisible(true);
 			}
 		});
-		btnAadirModelo.setBounds(140, 220, 117, 70);
+		btnAadirModelo.setBounds(303, 25, 117, 70);
 		contentPane.add(btnAadirModelo);
 
 		JButton btnQuitarModelo = new JButton("Quitar Modelo");
 		btnQuitarModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			QuitarModelo QuitarModelo=new QuitarModelo();
-			QuitarModelo.setVisible(true);
+				QuitarModelo QuitarModelo = new QuitarModelo();
+				QuitarModelo.setVisible(true);
 			}
 		});
-		btnQuitarModelo.setBounds(269, 220, 117, 70);
+		btnQuitarModelo.setBounds(527, 25, 117, 70);
 		contentPane.add(btnQuitarModelo);
 
 		JButton btnAvisos = new JButton("Avisos");
 		btnAvisos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Vendedor.Aviso) {
-					JOptionPane.showMessageDialog(null, "COMPRUEBE STOCK, EXISTE ALGÚN MODELO DE MOVIL SIN EXISTENCIAS");
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "No hay avisos!");
-				}
+				SinStock SinStock = new SinStock();
+				SinStock.setVisible(true);
+
 			}
 		});
-		btnAvisos.setBounds(398, 220, 117, 70);
+		btnAvisos.setBounds(733, 25, 117, 70);
 		contentPane.add(btnAvisos);
 
-		JLabel lblLosAvisosDe = new JLabel("Los avisos de que no hay stock se esciben en fichero");
-		lblLosAvisosDe.setBounds(552, 230, 337, 50);
-		contentPane.add(lblLosAvisosDe);
-		
-		
-		
 		JLabel lblNombre = new JLabel(mod.getNombre());
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblNombre.setBounds(12, 13, 188, 50);
+		lblNombre.setBounds(12, 108, 188, 50);
 		contentPane.add(lblNombre);
-		
+
 		JLabel lblRol = new JLabel("ROL:");
 		lblRol.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblRol.setBounds(212, 13, 82, 50);
+		lblRol.setBounds(191, 108, 82, 50);
 		contentPane.add(lblRol);
-		
+
 		JLabel lblTipo = new JLabel(mod.getNombre_tipo());
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblTipo.setBounds(306, 13, 188, 50);
+		lblTipo.setBounds(252, 108, 188, 50);
 		contentPane.add(lblTipo);
-		
+
 		JLabel lblUltAcceso = new JLabel("ULT ACCESO:");
 		lblUltAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblUltAcceso.setBounds(506, 13, 188, 50);
+		lblUltAcceso.setBounds(390, 108, 188, 50);
 		contentPane.add(lblUltAcceso);
-		
+
 		JLabel lblAcceso = new JLabel(mod.getLast_session());
 		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblAcceso.setBounds(706, 13, 266, 50);
+		lblAcceso.setBounds(584, 108, 266, 50);
 		contentPane.add(lblAcceso);
 	}
 }
