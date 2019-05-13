@@ -79,7 +79,7 @@ public class Ejecutable extends JFrame {
 		 * sesion
 		 */
 		JButton btnIngresar = new JButton("Iniciar Sesi\u00F3n");
-		btnIngresar.setFont(new Font("Sitka Subheading", Font.BOLD | Font.ITALIC, 21));
+		btnIngresar.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 18));
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login Login = new Login();

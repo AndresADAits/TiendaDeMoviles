@@ -59,7 +59,7 @@ public class Login extends JFrame {
 
 		JLabel lblUsuario = new JLabel("Usuario:");
 		lblUsuario.setFont(new Font("Sitka Heading", Font.BOLD | Font.ITALIC, 15));
-		lblUsuario.setBounds(127, 80, 103, 17);
+		lblUsuario.setBounds(87, 82, 129, 17);
 		contentPane.add(lblUsuario);
 
 		txtUsuario = new JTextField();
@@ -70,7 +70,7 @@ public class Login extends JFrame {
 
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Sitka Heading", Font.BOLD | Font.ITALIC, 15));
-		lblContrasea.setBounds(101, 126, 103, 17);
+		lblContrasea.setBounds(87, 128, 112, 17);
 		contentPane.add(lblContrasea);
 
 		txtPassword = new JPasswordField();
@@ -113,7 +113,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnIngresar.setBounds(165, 196, 162, 44);
+		btnIngresar.setBounds(119, 196, 208, 44);
 		contentPane.add(btnIngresar);
 	}
 }

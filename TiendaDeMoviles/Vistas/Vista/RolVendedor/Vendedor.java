@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.MessageFormat;
 
 import javax.swing.JButton;
@@ -36,7 +37,7 @@ public class Vendedor extends JFrame {
 	 * AVISE CUANDO EL STOCK DE UN TIPO DE MOVIL ES IGUAL A CERO Y TIENE QUE COMPRAR
 	 * MÁS
 	 */
-	
+
 	private JPanel contentPane;
 
 	private JTextField txtCantidad;
@@ -76,7 +77,7 @@ public class Vendedor extends JFrame {
 
 	public Vendedor(Usuarios mod) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 1002, 350);
+		setBounds(100, 100, 991, 352);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -513,53 +514,57 @@ public class Vendedor extends JFrame {
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
 				try {
+					if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
 
-					/**
-					 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "STOCK" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR  LOS DOS CAMPOS");
+					} else {
 
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT cantidad FROM stock WHERE idmovil= " + txtId.getText();
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
+						/**
+						 * AQUI MOSTRAMOS LAS UNIDADES QUE TENIAMOS EN STOCK AL HACER LA VENTA
+						 */
+						Object[][] data = new Object[0][0];
+						String[] datos = { "STOCK" };
+						DefaultTableModel modelo = new DefaultTableModel(data, datos);
+						jtPrecio.setModel(modelo);
+						JScrollPane scroll = new JScrollPane(jtPrecio);
+						getContentPane().add(scroll, BorderLayout.NORTH);
 
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
+						/**
+						 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+						 */
+						PreparedStatement ps = null;
+						ResultSet rs = null;
+						Conexion conn = new Conexion();
+						Connection con = conn.getConexion();
+						/**
+						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+						 * RANGO DE PRECIO
+						 */
+						String sql = "SELECT cantidad FROM stock WHERE idmovil= " + txtId.getText();
+						ps = con.prepareStatement(sql);
+						rs = ps.executeQuery();
 
-					while (rs.next()) {
+						ResultSetMetaData rsMd = rs.getMetaData();
+						int cantidadColumnas = rsMd.getColumnCount();
+						/**
+						 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+						 * MOSTRAR
+						 */
 
-						Object[] filas = new Object[cantidadColumnas];
+						while (rs.next()) {
 
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
+							Object[] filas = new Object[cantidadColumnas];
 
-							numeroStock = (int) rs.getObject(i + 1);
+							for (int i = 0; i < cantidadColumnas; i++) {
+								filas[i] = rs.getObject(i + 1);
+
+								numeroStock = (int) rs.getObject(i + 1);
+							}
+
+							modelo.addRow(filas);
 						}
-
-						modelo.addRow(filas);
 					}
-
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 				}
@@ -572,52 +577,50 @@ public class Vendedor extends JFrame {
 
 				Connection con = null;
 				/**
-				 * SI VENDEMOS TODAS LAS EXISTENCIAS, LA VENTA SE REALIZA, PERO SE MANDA AVISO A SUPERVISOR
+				 * SI VENDEMOS TODAS LAS EXISTENCIAS, LA VENTA SE REALIZA, PERO SE MANDA AVISO A
+				 * SUPERVISOR
 				 */
-				
-				
 
-					if (numeroStock > compruebaStock || numeroStock == compruebaStock) {
-						try {
-							/**
-							 * CON ESTO VAMOS A OBLIGAR A QUE SE RELLENEN TODOS LOS CAMPOS Y ASI TENER
-							 * CONTROLADOS TODAS LAS POSIBILIDADES DE ACCIÓN DEL USUARIO, YA QUE TAMBIEN
-							 * ESTA OBLIGADO A INTRODUCIR EXCLUSIVAMENTE NUMEROS
-							 */
-							if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
-								JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
+				if (numeroStock > compruebaStock || numeroStock == compruebaStock) {
+					try {
+						/**
+						 * CON ESTO VAMOS A OBLIGAR A QUE SE RELLENEN TODOS LOS CAMPOS Y ASI TENER
+						 * CONTROLADOS TODAS LAS POSIBILIDADES DE ACCIÓN DEL USUARIO, YA QUE TAMBIEN
+						 * ESTA OBLIGADO A INTRODUCIR EXCLUSIVAMENTE NUMEROS
+						 */
+						if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR TODOS LOS CAMPOS");
+
+						} else {
+							con = getConexion();
+							ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
+
+							ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
+							ps.setInt(2, Integer.parseInt(txtId.getText()));
+
+							int res = ps.executeUpdate();
+
+							if (res > 0) {
+								JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
 
 							} else {
-								con = getConexion();
-								ps = con.prepareStatement("UPDATE stock SET cantidad=(cantidad -?) WHERE idmovil=?");
+								JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
 
-								ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
-								ps.setInt(2, Integer.parseInt(txtId.getText()));
-
-								int res = ps.executeUpdate();
-
-								if (res > 0) {
-									JOptionPane.showMessageDialog(null, "VENTA CORRECTA");
-
-								} else {
-									JOptionPane.showMessageDialog(null, "ERROR EN VENTA");
-
-								}
-								con.close();
 							}
-						} catch (Exception err) {
-							System.err.println(err);
+							con.close();
 						}
-						if (numeroStock == compruebaStock) {
-							JOptionPane.showMessageDialog(null,
-									"CON ESTA VENTA NOS QUEDAMOS SIN STOCK");
-							}
-					} else {
-
-						JOptionPane.showMessageDialog(null, "NO HAY STOCK SUFICIENTE PARA ESA VENTA");
-						
+					} catch (Exception err) {
+						System.err.println(err);
 					}
-				
+					if (numeroStock == compruebaStock) {
+						JOptionPane.showMessageDialog(null, "CON ESTA VENTA NOS QUEDAMOS SIN STOCK");
+					}
+				} else {
+
+					JOptionPane.showMessageDialog(null, "NO HAY STOCK SUFICIENTE PARA ESA VENTA");
+
+				}
+
 			}
 
 		});
@@ -638,83 +641,90 @@ public class Vendedor extends JFrame {
 					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
 					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
 					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
+					if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
 
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock WHERE idmovil= " + txtId.getText();
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR  LOS DOS CAMPOS");
+					} else {
+						
 
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
+						Object[][] data = new Object[0][0];
+						String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
+								"CÁMARA" };
+						DefaultTableModel modelo = new DefaultTableModel(data, datos);
+						jtPrecio.setModel(modelo);
+						JScrollPane scroll = new JScrollPane(jtPrecio);
+						getContentPane().add(scroll, BorderLayout.NORTH);
 
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
+						/**
+						 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
+						 */
+						PreparedStatement ps = null;
+						ResultSet rs = null;
+						Conexion conn = new Conexion();
+						Connection con = conn.getConexion();
+						/**
+						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
+						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
+						 * RANGO DE PRECIO
+						 */
+						String sql = "SELECT * FROM stock WHERE idmovil= " + txtId.getText();
 
-						Object[] filas = new Object[cantidadColumnas];
+						ps = con.prepareStatement(sql);
+						rs = ps.executeQuery();
 
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
+						ResultSetMetaData rsMd = rs.getMetaData();
+						int cantidadColumnas = rsMd.getColumnCount();
+						/**
+						 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
+						 * MOSTRAR
+						 */
+						while (rs.next()) {
 
+							Object[] filas = new Object[cantidadColumnas];
+
+							for (int i = 0; i < cantidadColumnas; i++) {
+								filas[i] = rs.getObject(i + 1);
+
+							}
+
+							modelo.addRow(filas);
 						}
-
-						modelo.addRow(filas);
 					}
 				} catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
+
 				}
 
 				/**
 				 * FUNCION QUE IMPRIME UNA TABLA
 				 */
-				MessageFormat header = new MessageFormat("FACTURA");
-
-				MessageFormat numero = new MessageFormat("	X " + txtCantidad.getText() + " MOVILES ");
-
+				MessageFormat header =new MessageFormat("FACTURA");
+		
+				MessageFormat pie =new MessageFormat(" X "+txtCantidad.getText());
 				try {
-					jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header, numero);
+					if (txtId.getText().equals("") || txtCantidad.getText().equals("")) {
 
-				} catch (java.awt.print.PrinterException f) {
+						JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR  LOS DOS CAMPOS");
+					} else {
+						
+					jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header, pie);
+					}
+				}catch(java.awt.print.PrinterException f) {
 					System.err.format("Error de impresion", f.getMessage());
-
+					
 				}
+				
 
 			}
 		});
-		btnEnviarCorreo.setBounds(465, 20, 161, 25);
+		btnEnviarCorreo.setBounds(509, 4, 217, 56);
 		panel.add(btnEnviarCorreo);
 
-		JButton btnBigdata = new JButton("BIGDATA");
-		btnBigdata.setBounds(663, 20, 97, 25);
-		panel.add(btnBigdata);
-
-		JLabel lblListasOrdenadasPor = new JLabel(
-				"BUSQUEDA POR  CARACTERISTICA");
+		JLabel lblListasOrdenadasPor = new JLabel("BUSQUEDA POR  CARACTERISTICA");
 		lblListasOrdenadasPor.setBounds(386, 154, 240, 16);
 		panel.add(lblListasOrdenadasPor);
 
-		JLabel lblBusquedaPorRango = new JLabel(
-				"ORDENAR POR :");
+		JLabel lblBusquedaPorRango = new JLabel("ORDENAR POR :");
 		lblBusquedaPorRango.setBounds(406, 73, 207, 16);
 		panel.add(lblBusquedaPorRango);
 
@@ -785,27 +795,27 @@ public class Vendedor extends JFrame {
 
 		JLabel lblNombre = new JLabel(mod.getNombre());
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblNombre.setBounds(12, 311, 172, 64);
+		lblNombre.setBounds(2, 241, 172, 64);
 		panel.add(lblNombre);
 
 		JLabel lblRol = new JLabel("ROL:");
 		lblRol.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblRol.setBounds(247, 311, 116, 64);
+		lblRol.setBounds(215, 240, 116, 64);
 		panel.add(lblRol);
 
 		JLabel lblTipo = new JLabel(mod.getNombre_tipo());
 		lblTipo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblTipo.setBounds(406, 311, 217, 64);
+		lblTipo.setBounds(272, 240, 217, 64);
 		panel.add(lblTipo);
 
 		JLabel lblUltAcceso = new JLabel("ULT ACCESO:");
 		lblUltAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblUltAcceso.setBounds(663, 311, 116, 64);
+		lblUltAcceso.setBounds(398, 240, 116, 64);
 		panel.add(lblUltAcceso);
 
 		JLabel lblAcceso = new JLabel(mod.getLast_session());
 		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblAcceso.setBounds(803, 311, 313, 64);
+		lblAcceso.setBounds(513, 240, 313, 64);
 		panel.add(lblAcceso);
 
 		JButton btnOrdenar = new JButton("ORDENAR");

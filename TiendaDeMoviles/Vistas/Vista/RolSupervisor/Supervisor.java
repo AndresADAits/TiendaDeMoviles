@@ -53,7 +53,7 @@ public class Supervisor extends JFrame {
 
 			}
 		});
-		btnComprarStock.setBounds(81, 25, 117, 70);
+		btnComprarStock.setBounds(49, 25, 149, 70);
 		contentPane.add(btnComprarStock);
 
 		JButton btnAadirModelo = new JButton("A\u00F1adir Modelo");

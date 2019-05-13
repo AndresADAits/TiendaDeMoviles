@@ -92,7 +92,7 @@ public class BorrarEmpleado extends JFrame {
 	}
 
 	public BorrarEmpleado() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\usuario\\Desktop\\PDF.png"));
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
@@ -229,7 +229,7 @@ public class BorrarEmpleado extends JFrame {
 		txtId.setBounds(207, 21, 30, 22);
 		panel.add(txtId);
 		
-		JButton btnPdf = new JButton("PDF");
+		JButton btnPdf = new JButton("IMPRIMIR");
 	
 		btnPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
