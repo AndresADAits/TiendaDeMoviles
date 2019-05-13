@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -75,6 +77,7 @@ public class CambiarPrecio extends JFrame {
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -141,7 +144,8 @@ public class CambiarPrecio extends JFrame {
 		 */
 
 		JLabel lblIdMovil = new JLabel("ID MOVIL");
-		lblIdMovil.setBounds(12, 24, 56, 16);
+		lblIdMovil.setIcon(new ImageIcon(CambiarPrecio.class.getResource("/imagenes/vmoviles.png")));
+		lblIdMovil.setBounds(10, 8, 98, 49);
 		panel.add(lblIdMovil);
 
 		txtId = new JTextField();
@@ -153,12 +157,13 @@ public class CambiarPrecio extends JFrame {
 					arg0.consume();
 			}
 		});
-		txtId.setBounds(80, 21, 30, 22);
+		txtId.setBounds(104, 21, 30, 22);
 		panel.add(txtId);
 		txtId.setColumns(10);
 
 		JLabel lblCantidad = new JLabel("CANTIDAD");
-		lblCantidad.setBounds(161, 24, 65, 16);
+		lblCantidad.setIcon(new ImageIcon(CambiarPrecio.class.getResource("/imagenes/PRECIO.png")));
+		lblCantidad.setBounds(167, 0, 119, 70);
 		panel.add(lblCantidad);
 
 		txtPrecio = new JTextField();
@@ -177,7 +182,7 @@ public class CambiarPrecio extends JFrame {
 			}
 		});
 		txtPrecio.setColumns(10);
-		txtPrecio.setBounds(227, 21, 30, 22);
+		txtPrecio.setBounds(296, 21, 30, 22);
 		panel.add(txtPrecio);
 
 		JButton btnCambiar = new JButton("Cambiar");
@@ -220,7 +225,7 @@ public class CambiarPrecio extends JFrame {
 			}
 
 		});
-		btnCambiar.setBounds(288, 4, 139, 56);
+		btnCambiar.setBounds(336, 4, 139, 56);
 		panel.add(btnCambiar);
 
 	}

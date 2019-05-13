@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -75,6 +76,7 @@ public class QuitarModelo extends JFrame {
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -136,6 +138,7 @@ public class QuitarModelo extends JFrame {
 		}
 
 		JButton btnInsertar = new JButton("Borrar");
+		btnInsertar.setIcon(new ImageIcon(QuitarModelo.class.getResource("/imagenes/ALERTA.png")));
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -179,7 +182,8 @@ public class QuitarModelo extends JFrame {
 		panel.add(btnInsertar);
 
 		JLabel lblId = new JLabel("ID");
-		lblId.setBounds(12, 41, 56, 16);
+		lblId.setIcon(new ImageIcon(QuitarModelo.class.getResource("/imagenes/ICON.png")));
+		lblId.setBounds(10, 25, 95, 49);
 		panel.add(lblId);
 
 		txtId = new JTextField();

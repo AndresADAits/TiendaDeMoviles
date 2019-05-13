@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -82,6 +83,7 @@ public class NuevoModelo extends JFrame {
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -143,10 +145,12 @@ public class NuevoModelo extends JFrame {
 		}
 
 		JLabel lblCantidad = new JLabel("CANTIDAD");
-		lblCantidad.setBounds(0, 94, 65, 16);
+		lblCantidad.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/vmovilesc.png")));
+		lblCantidad.setBounds(34, 74, 117, 56);
 		panel.add(lblCantidad);
 
 		JButton btnInsertar = new JButton("Insertar");
+		btnInsertar.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/ICON.png")));
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -216,25 +220,27 @@ public class NuevoModelo extends JFrame {
 			}
 		});
 		txtCantidad.setColumns(10);
-		txtCantidad.setBounds(65, 91, 30, 22);
+		txtCantidad.setBounds(161, 91, 30, 22);
 		panel.add(txtCantidad);
 
 		txtMarca = new JTextField();
 		txtMarca.setColumns(10);
-		txtMarca.setBounds(155, 91, 123, 22);
+		txtMarca.setBounds(425, 91, 123, 22);
 		panel.add(txtMarca);
 
 		JLabel lblMarca = new JLabel("MARCA");
-		lblMarca.setBounds(107, 94, 56, 16);
+		lblMarca.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/icons8-marca-50.png")));
+		lblMarca.setBounds(318, 74, 97, 56);
 		panel.add(lblMarca);
 
 		JLabel lblModelo = new JLabel("MODELO");
-		lblModelo.setBounds(288, 94, 56, 16);
+		lblModelo.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/icons8-android-48.png")));
+		lblModelo.setBounds(667, 79, 97, 47);
 		panel.add(lblModelo);
 
 		txtModelo = new JTextField();
 		txtModelo.setColumns(10);
-		txtModelo.setBounds(341, 91, 123, 22);
+		txtModelo.setBounds(774, 91, 123, 22);
 		panel.add(txtModelo);
 
 		txtPrecio = new JTextField();
@@ -253,15 +259,17 @@ public class NuevoModelo extends JFrame {
 			}
 		});
 		txtPrecio.setColumns(10);
-		txtPrecio.setBounds(538, 91, 30, 22);
+		txtPrecio.setBounds(1101, 91, 30, 22);
 		panel.add(txtPrecio);
 
 		JLabel lblPrecio = new JLabel("PRECIO");
-		lblPrecio.setBounds(476, 94, 56, 16);
+		lblPrecio.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/PRECIO.png")));
+		lblPrecio.setBounds(979, 74, 112, 56);
 		panel.add(lblPrecio);
 
 		JLabel lblCapacidad = new JLabel("CAPACIDAD");
-		lblCapacidad.setBounds(582, 94, 80, 16);
+		lblCapacidad.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/CAPACIDAD.png")));
+		lblCapacidad.setBounds(23, 202, 128, 69);
 		panel.add(lblCapacidad);
 
 		txtCapacidad = new JTextField();
@@ -280,20 +288,22 @@ public class NuevoModelo extends JFrame {
 			}
 		});
 		txtCapacidad.setColumns(10);
-		txtCapacidad.setBounds(661, 91, 30, 22);
+		txtCapacidad.setBounds(161, 225, 30, 22);
 		panel.add(txtCapacidad);
 
-		JLabel lblPantallaDecimal = new JLabel("PANTALLA (DECIMAL)");
-		lblPantallaDecimal.setBounds(703, 94, 133, 16);
+		JLabel lblPantallaDecimal = new JLabel("PANTALLA");
+		lblPantallaDecimal.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/PANTALLA.png")));
+		lblPantallaDecimal.setBounds(367, 211, 133, 50);
 		panel.add(lblPantallaDecimal);
 
 		txtPantalla = new JTextField();
 		txtPantalla.setColumns(10);
-		txtPantalla.setBounds(838, 91, 30, 22);
+		txtPantalla.setBounds(488, 225, 30, 22);
 		panel.add(txtPantalla);
 
 		JLabel lblBateria = new JLabel("BATERIA");
-		lblBateria.setBounds(894, 94, 80, 16);
+		lblBateria.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/BATERIA.png")));
+		lblBateria.setBounds(705, 216, 97, 40);
 		panel.add(lblBateria);
 
 		txtBateria = new JTextField();
@@ -312,11 +322,12 @@ public class NuevoModelo extends JFrame {
 			}
 		});
 		txtBateria.setColumns(10);
-		txtBateria.setBounds(986, 91, 30, 22);
+		txtBateria.setBounds(818, 225, 30, 22);
 		panel.add(txtBateria);
 
 		JLabel lblCmara = new JLabel("C\u00C1MARA");
-		lblCmara.setBounds(1028, 94, 80, 16);
+		lblCmara.setIcon(new ImageIcon(NuevoModelo.class.getResource("/imagenes/CAMARA BUENA.png")));
+		lblCmara.setBounds(972, 212, 139, 49);
 		panel.add(lblCmara);
 
 		txtCamara = new JTextField();
@@ -335,8 +346,12 @@ public class NuevoModelo extends JFrame {
 			}
 		});
 		txtCamara.setColumns(10);
-		txtCamara.setBounds(1105, 91, 30, 22);
+		txtCamara.setBounds(1101, 225, 30, 22);
 		panel.add(txtCamara);
+		
+		JLabel lbldecimal = new JLabel(" (DECIMAL)");
+		lbldecimal.setBounds(418, 257, 65, 14);
+		panel.add(lbldecimal);
 
 	}
 }

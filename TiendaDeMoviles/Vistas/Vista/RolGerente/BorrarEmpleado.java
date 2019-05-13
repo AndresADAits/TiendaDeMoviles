@@ -97,6 +97,7 @@ public class BorrarEmpleado extends JFrame {
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 

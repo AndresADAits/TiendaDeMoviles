@@ -18,6 +18,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -74,6 +75,7 @@ public class Compra extends JFrame {
 		setBounds(100, 100, 1241, 861);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -140,7 +142,7 @@ public class Compra extends JFrame {
 		 */
 
 		JLabel lblIdMovil = new JLabel("ID MOVIL");
-		lblIdMovil.setBounds(12, 24, 56, 16);
+		lblIdMovil.setBounds(10, 47, 56, 16);
 		panel.add(lblIdMovil);
 
 		txtId = new JTextField();
@@ -152,12 +154,12 @@ public class Compra extends JFrame {
 					arg0.consume();
 			}
 		});
-		txtId.setBounds(80, 21, 30, 22);
+		txtId.setBounds(76, 44, 30, 22);
 		panel.add(txtId);
 		txtId.setColumns(10);
 
 		JLabel lblCantidad = new JLabel("CANTIDAD");
-		lblCantidad.setBounds(161, 24, 65, 16);
+		lblCantidad.setBounds(156, 47, 65, 16);
 		panel.add(lblCantidad);
 
 		txtCantidad = new JTextField();
@@ -176,10 +178,11 @@ public class Compra extends JFrame {
 			}
 		});
 		txtCantidad.setColumns(10);
-		txtCantidad.setBounds(227, 21, 30, 22);
+		txtCantidad.setBounds(231, 44, 30, 22);
 		panel.add(txtCantidad);
 
 		JButton btnVender = new JButton("COMPRAR");
+		btnVender.setIcon(new ImageIcon(Compra.class.getResource("/imagenes/icons8-carrito-de-compras-filled-50.png")));
 		btnVender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -220,10 +223,11 @@ public class Compra extends JFrame {
 			}
 
 		});
-		btnVender.setBounds(288, 4, 139, 56);
+		btnVender.setBounds(305, 24, 144, 63);
 		panel.add(btnVender);
 
-		JButton btnEnviarCorreo = new JButton("IMPRIMIR   STOCK");
+		JButton btnEnviarCorreo = new JButton("");
+		btnEnviarCorreo.setIcon(new ImageIcon(Compra.class.getResource("/imagenes/IMPRIMIR.png")));
 		btnEnviarCorreo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/**
@@ -241,7 +245,7 @@ public class Compra extends JFrame {
 				
 			}
 		});
-		btnEnviarCorreo.setBounds(465, 20, 161, 25);
+		btnEnviarCorreo.setBounds(470, 24, 155, 63);
 		panel.add(btnEnviarCorreo);
 
 	}

@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,6 +34,7 @@ public class ControlAcceso extends JFrame {
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -45,6 +48,7 @@ public class ControlAcceso extends JFrame {
 		 * CARACTERISTICAS QUE BUSCAMOS
 		 */
 		JButton btnCargar = new JButton("Mostrar CONTROL DE ACCESO");
+		btnCargar.setIcon(new ImageIcon(ControlAcceso.class.getResource("/imagenes/icons8-hombre-men\u00FA-de-usuario-32.png")));
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				jtPrecio = new JTable();
@@ -106,7 +110,7 @@ public class ControlAcceso extends JFrame {
 
 		});
 
-		btnCargar.setBounds(263, 13, 248, 48);
+		btnCargar.setBounds(167, 13, 344, 48);
 		panel.add(btnCargar);
 
 	}

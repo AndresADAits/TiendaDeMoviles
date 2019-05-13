@@ -11,6 +11,7 @@ import Vista.HomeRegistro.Login;
 import Vista.HomeRegistro.Registro;
 import Vista.HomeRegistro.RegistroSupervisor;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -54,6 +55,12 @@ public class Ejecutable extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		/**
+		 * CON LA SIGUIENTE LINEA CAMBIO EL ICONO DE JAVA POR UNO PROPIO, EN ESTE CASO UN MOVIL.
+		 * APARECERÁ EN TODAS LAS VENTANAS  Y TAMBIEN EN LA MINIATURA DE LA VENTANA EN LA BARRA DE TAREAS
+		 * 
+		 */
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);

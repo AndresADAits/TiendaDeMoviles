@@ -12,6 +12,7 @@ import Modelo.Usuarios;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -40,12 +41,14 @@ public class Supervisor extends JFrame {
 		setBounds(100, 100, 880, 257);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		setLocationRelativeTo(null);
 
 		JButton btnComprarStock = new JButton("Comprar Stock");
+		btnComprarStock.setIcon(new ImageIcon(Supervisor.class.getResource("/imagenes/vmovilesc.png")));
 		btnComprarStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Compra Compra = new Compra();
@@ -53,30 +56,33 @@ public class Supervisor extends JFrame {
 
 			}
 		});
-		btnComprarStock.setBounds(49, 25, 149, 70);
+		btnComprarStock.setBounds(49, 25, 180, 70);
 		contentPane.add(btnComprarStock);
 
 		JButton btnAadirModelo = new JButton("A\u00F1adir Modelo");
+		btnAadirModelo.setIcon(new ImageIcon(Supervisor.class.getResource("/imagenes/ICON.png")));
 		btnAadirModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				NuevoModelo NuevoModelo = new NuevoModelo();
 				NuevoModelo.setVisible(true);
 			}
 		});
-		btnAadirModelo.setBounds(303, 25, 117, 70);
+		btnAadirModelo.setBounds(303, 25, 137, 70);
 		contentPane.add(btnAadirModelo);
 
 		JButton btnQuitarModelo = new JButton("Quitar Modelo");
+		btnQuitarModelo.setIcon(new ImageIcon(Supervisor.class.getResource("/imagenes/ALERTA.png")));
 		btnQuitarModelo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				QuitarModelo QuitarModelo = new QuitarModelo();
 				QuitarModelo.setVisible(true);
 			}
 		});
-		btnQuitarModelo.setBounds(527, 25, 117, 70);
+		btnQuitarModelo.setBounds(500, 25, 162, 70);
 		contentPane.add(btnQuitarModelo);
 
 		JButton btnAvisos = new JButton("Avisos");
+		btnAvisos.setIcon(new ImageIcon(Supervisor.class.getResource("/imagenes/ALERTA.png")));
 		btnAvisos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SinStock SinStock = new SinStock();
@@ -84,7 +90,7 @@ public class Supervisor extends JFrame {
 
 			}
 		});
-		btnAvisos.setBounds(733, 25, 117, 70);
+		btnAvisos.setBounds(713, 25, 137, 70);
 		contentPane.add(btnAvisos);
 
 		JLabel lblNombre = new JLabel(mod.getNombre());

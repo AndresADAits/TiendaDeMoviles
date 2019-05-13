@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,7 +24,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Precio extends JFrame {
+public class RPrecio extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -35,11 +37,12 @@ public class Precio extends JFrame {
 	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y AL PULSAR
 	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
-	public Precio() {
+	public RPrecio() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 

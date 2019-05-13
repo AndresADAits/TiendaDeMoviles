@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -80,6 +81,7 @@ public class Vendedor extends JFrame {
 		setBounds(100, 100, 991, 352);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
@@ -95,6 +97,7 @@ public class Vendedor extends JFrame {
 		JButton btnCargar = new JButton("PRECIO");
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
@@ -159,6 +162,7 @@ public class Vendedor extends JFrame {
 		JButton btnMostrarAscendente = new JButton("MARCA");
 		btnMostrarAscendente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
@@ -222,6 +226,7 @@ public class Vendedor extends JFrame {
 		JButton btnBateria = new JButton("BATERIA");
 		btnBateria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
@@ -284,6 +289,7 @@ public class Vendedor extends JFrame {
 		JButton btnCapacidad = new JButton("CAPACIDAD");
 		btnCapacidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
@@ -345,6 +351,7 @@ public class Vendedor extends JFrame {
 		JButton btnPantalla = new JButton("PANTALLA");
 		btnPantalla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				jtPrecio = new JTable();
 				jtPrecio.setBounds(22, 22, 561, 338);
 				panel.add(jtPrecio);
@@ -731,7 +738,7 @@ public class Vendedor extends JFrame {
 		JButton button = new JButton("PRECIO");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Precio Precio = new Precio();
+				RPrecio Precio = new RPrecio();
 				Precio.setVisible(true);
 			}
 		});
