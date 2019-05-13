@@ -1,43 +1,37 @@
-package Vista.RolSupervisor;
+package Vista.RolVendedor;
 
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import Modelo.Conexion;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import javax.swing.JTable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
-public class SinStock extends JFrame {
-
+public class Capacidad extends JFrame {
 	private JPanel contentPane;
-	private JTextField txtMarca;
-	private JButton btnBuscar;
-	private JTable jtMarca;
+
+	private JTable jtPrecio;
 
 	/**
-	 * Launch the application.
+	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y AL PULSAR
+	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
-
-	/**
-	 * Create the frame.
-	 */
-	public SinStock() {
+	public Capacidad() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 928, 672);
+		setBounds(100, 100, 919, 653);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
@@ -53,17 +47,14 @@ public class SinStock extends JFrame {
 		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
 		 * CARACTERISTICAS QUE BUSCAMOS
 		 */
-		JButton btnMarca = new JButton("MOSTRAR ARTICULOS SIN STOCK, SI ES QUE LOS HAY.");
-		btnMarca.setIcon(new ImageIcon(SinStock.class.getResource("/imagenes/ALERTA.png")));
-		btnMarca.addActionListener(new ActionListener() {
+		JButton btnCargar = new JButton("Ordenado por Capacidad");
+		btnCargar.setIcon(new ImageIcon(Capacidad.class.getResource("/imagenes/CAPACIDAD.png")));
+		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				jtMarca = new JTable();
-				jtMarca.setBounds(22, 22, 561, 338);
-				panel.add(jtMarca);
+				jtPrecio = new JTable();
+				jtPrecio.setBounds(22, 22, 561, 338);
+				panel.add(jtPrecio);
 				try {
-
-				
 
 					/**
 					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
@@ -73,11 +64,12 @@ public class SinStock extends JFrame {
 					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
 							"CÁMARA" };
 					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtMarca.setModel(modelo);
-					JScrollPane scroll2 = new JScrollPane(jtMarca);
-					getContentPane().add(scroll2, BorderLayout.NORTH);
+					jtPrecio.setModel(modelo);
+					JScrollPane scroll = new JScrollPane(jtPrecio);
+					getContentPane().add(scroll, BorderLayout.NORTH);
 
 					/**
+					 * 
 					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
 					 */
 					PreparedStatement ps = null;
@@ -89,7 +81,7 @@ public class SinStock extends JFrame {
 					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT * FROM stock WHERE cantidad = 0 ";
+					String sql = "SELECT * FROM stock  ORDER BY capacidad";
 
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -120,9 +112,7 @@ public class SinStock extends JFrame {
 
 		});
 
-		btnMarca.setBounds(244, 11, 373, 119);
-		panel.add(btnMarca);
-
-		;
+		btnCargar.setBounds(275, 13, 315, 126);
+		panel.add(btnCargar);
 	}
 }

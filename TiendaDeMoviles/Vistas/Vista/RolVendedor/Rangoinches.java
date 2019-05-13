@@ -21,10 +21,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
-public class mAmperios extends JFrame {
+public class Rangoinches extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -34,10 +32,10 @@ public class mAmperios extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE BATERIA Y AL PULSAR
+	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PANTALLA Y AL PULSAR
 	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
-	public mAmperios() {
+	public Rangoinches() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
@@ -88,10 +86,10 @@ public class mAmperios extends JFrame {
 						/**
 						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
 						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-						 * RANGO DE BATERIA
+						 * RANGO DE PANTALLA
 						 */
-						String sql = "SELECT * FROM stock WHERE bateria BETWEEN " + txtMin.getText() + " AND "
-								+ txtMax.getText() + " ORDER BY bateria";
+						String sql = "SELECT * FROM stock WHERE pantalla BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY pantalla";
 
 						ps = con.prepareStatement(sql);
 						rs = ps.executeQuery();
@@ -126,42 +124,24 @@ public class mAmperios extends JFrame {
 		panel.add(btnCargar);
 
 		txtMin = new JTextField();
-		txtMin.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-
-				char c = e.getKeyChar();
-				if (c < '0' || c > '9')
-					e.consume();
-
-			}
-		});
-		txtMin.setBounds(224, 11, 75, 22);
+		txtMin.setBounds(214, 12, 75, 22);
 		panel.add(txtMin);
 		txtMin.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Introduce un rango de bateria entre");
-		lblNewLabel.setBounds(10, 15, 205, 14);
+		JLabel lblNewLabel = new JLabel("Introduce un rango de pantalla entre");
+		lblNewLabel.setBounds(10, 15, 185, 14);
 		panel.add(lblNewLabel);
 
 		txtMax = new JTextField();
-		txtMax.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (c < '0' || c > '9')
-					e.consume();
-			}
-		});
 		txtMax.setColumns(10);
 		txtMax.setBounds(345, 11, 75, 22);
 		panel.add(txtMax);
 
-		lblY = new JLabel("mA  y ");
-		lblY.setBounds(306, 15, 37, 14);
+		lblY = new JLabel("inch  y ");
+		lblY.setBounds(299, 15, 46, 14);
 		panel.add(lblY);
 
-		lblNewLabel_1 = new JLabel("mA");
+		lblNewLabel_1 = new JLabel("inch");
 		lblNewLabel_1.setBounds(420, 15, 46, 14);
 		panel.add(lblNewLabel_1);
 
@@ -199,10 +179,10 @@ public class mAmperios extends JFrame {
 						/**
 						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
 						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-						 * RANGO DE BATERIA
+						 * RANGO DE PANTALLA
 						 */
-						String sql = "SELECT * FROM stock WHERE bateria BETWEEN " + txtMin.getText() + " AND "
-								+ txtMax.getText() + " ORDER BY bateria DESC";
+						String sql = "SELECT * FROM stock WHERE pantalla BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY pantalla DESC";
 
 						ps = con.prepareStatement(sql);
 						rs = ps.executeQuery();

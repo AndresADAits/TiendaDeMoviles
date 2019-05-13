@@ -21,8 +21,10 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class inches extends JFrame {
+public class RangoPrecio extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -32,10 +34,10 @@ public class inches extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PANTALLA Y AL PULSAR
+	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y AL PULSAR
 	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
-	public inches() {
+	public RangoPrecio() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
@@ -77,6 +79,7 @@ public class inches extends JFrame {
 						getContentPane().add(scroll, BorderLayout.NORTH);
 
 						/**
+						 * 
 						 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
 						 */
 						PreparedStatement ps = null;
@@ -86,10 +89,10 @@ public class inches extends JFrame {
 						/**
 						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
 						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-						 * RANGO DE PANTALLA
+						 * RANGO DE PRECIO
 						 */
-						String sql = "SELECT * FROM stock WHERE pantalla BETWEEN " + txtMin.getText() + " AND "
-								+ txtMax.getText() + " ORDER BY pantalla";
+						String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY precio";
 
 						ps = con.prepareStatement(sql);
 						rs = ps.executeQuery();
@@ -124,25 +127,50 @@ public class inches extends JFrame {
 		panel.add(btnCargar);
 
 		txtMin = new JTextField();
+		txtMin.addKeyListener(new KeyAdapter() {
+			/**
+			 * CON ESTO VAMOS A CONSEGUIR QUE SOLO SE INTRODUZCAN NUMEROS, EXISTIRA UNA COMO
+			 * ESTA EN CADA JTXT QUE VAYA A CONTENER NUMEROS Y NO LO COMENTARE TODOS PORQUE
+			 * SERIA DEMASIADO REPETITIVO.
+			 */
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+
+				char c = arg0.getKeyChar();
+				if (c < '0' || c > '9')
+					arg0.consume();
+
+			}
+		});
 		txtMin.setBounds(214, 12, 75, 22);
 		panel.add(txtMin);
 		txtMin.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Introduce un rango de pantalla entre");
+		JLabel lblNewLabel = new JLabel("Introduce un rango de precios entre");
 		lblNewLabel.setBounds(10, 15, 185, 14);
 		panel.add(lblNewLabel);
 
 		txtMax = new JTextField();
+		txtMax.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				char c = e.getKeyChar();
+				if (c < '0' || c > '9')
+					e.consume();
+
+			}
+		});
 		txtMax.setColumns(10);
 		txtMax.setBounds(345, 11, 75, 22);
 		panel.add(txtMax);
 
-		lblY = new JLabel("inch  y ");
+		lblY = new JLabel("\u20AC        y ");
 		lblY.setBounds(299, 15, 46, 14);
 		panel.add(lblY);
 
-		lblNewLabel_1 = new JLabel("inch");
-		lblNewLabel_1.setBounds(420, 15, 46, 14);
+		lblNewLabel_1 = new JLabel("\u20AC");
+		lblNewLabel_1.setBounds(430, 15, 46, 14);
 		panel.add(lblNewLabel_1);
 
 		JButton btnMostrarAscendente = new JButton("Mostrar Descendente");
@@ -179,10 +207,10 @@ public class inches extends JFrame {
 						/**
 						 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
 						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-						 * RANGO DE PANTALLA
+						 * RANGO DE PRECIO
 						 */
-						String sql = "SELECT * FROM stock WHERE pantalla BETWEEN " + txtMin.getText() + " AND "
-								+ txtMax.getText() + " ORDER BY pantalla DESC";
+						String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY precio DESC";
 
 						ps = con.prepareStatement(sql);
 						rs = ps.executeQuery();

@@ -165,6 +165,7 @@ public class BorrarEmpleado extends JFrame {
 		panel.add(lblCantidad);
 
 		JButton btnInsertar = new JButton("BORRAR");
+		btnInsertar.setIcon(new ImageIcon(BorrarEmpleado.class.getResource("/imagenes/ALERTA.png")));
 		btnInsertar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -231,6 +232,7 @@ public class BorrarEmpleado extends JFrame {
 		panel.add(txtId);
 		
 		JButton btnPdf = new JButton("IMPRIMIR");
+		btnPdf.setIcon(new ImageIcon(BorrarEmpleado.class.getResource("/imagenes/IMPRIMIR.png")));
 	
 		btnPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -240,7 +242,7 @@ public class BorrarEmpleado extends JFrame {
 				MessageFormat header =new MessageFormat("Lista de Empleados");
 				MessageFormat pie =new MessageFormat("Página 1");
 				try {
-					jtPrecio.print(JTable.PrintMode.NORMAL, header, pie);
+					jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header, pie);
 					
 				}catch(java.awt.print.PrinterException f) {
 					System.err.format("Error de impresion", f.getMessage());

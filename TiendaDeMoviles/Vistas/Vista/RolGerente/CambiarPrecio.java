@@ -7,7 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import Modelo.Conexion;
-import Vista.RolVendedor.Marca;
+import Vista.RolVendedor.RangoMarca;
 
 import javax.swing.JTable;
 import java.sql.Connection;

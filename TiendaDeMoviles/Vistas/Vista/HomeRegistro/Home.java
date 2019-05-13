@@ -53,6 +53,7 @@ public class Home extends JFrame {
 		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
 
 		JButton btnVendedor = new JButton("Vendedor");
+		btnVendedor.setIcon(new ImageIcon(Home.class.getResource("/imagenes/VENDEDOR.png")));
 		btnVendedor.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 27));
 		btnVendedor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,10 +66,11 @@ public class Home extends JFrame {
 			}
 		});
 		contentPane.setLayout(null);
-		btnVendedor.setBounds(40, 209, 178, 179);
+		btnVendedor.setBounds(40, 209, 219, 140);
 		contentPane.add(btnVendedor);
 
 		JButton btnSupervisor = new JButton("Supervisor");
+		btnSupervisor.setIcon(new ImageIcon(Home.class.getResource("/imagenes/SUPERVISOR.png")));
 		btnSupervisor.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 27));
 		btnSupervisor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -77,10 +79,11 @@ public class Home extends JFrame {
 				Supervisor.setVisible(true);
 			}
 		});
-		btnSupervisor.setBounds(348, 209, 178, 179);
+		btnSupervisor.setBounds(332, 209, 209, 140);
 		contentPane.add(btnSupervisor);
 
 		JButton btnGerente = new JButton("Gerente");
+		btnGerente.setIcon(new ImageIcon(Home.class.getResource("/imagenes/GERENTE.png")));
 		btnGerente.setFont(new Font("Sitka Display", Font.BOLD | Font.ITALIC, 27));
 		btnGerente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -89,7 +92,7 @@ public class Home extends JFrame {
 				Gerente.setVisible(true);
 			}
 		});
-		btnGerente.setBounds(648, 209, 178, 179);
+		btnGerente.setBounds(617, 209, 209, 140);
 		contentPane.add(btnGerente);
 
 		JLabel lblUsuario = new JLabel("USUARIO:");

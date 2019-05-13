@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class RPrecio extends JFrame {
+public class Rangocamara extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -37,7 +37,7 @@ public class RPrecio extends JFrame {
 	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y AL PULSAR
 	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
-	public RPrecio() {
+	public Rangocamara() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();
@@ -91,8 +91,8 @@ public class RPrecio extends JFrame {
 						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 						 * RANGO DE PRECIO
 						 */
-						String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-								+ txtMax.getText() + " ORDER BY precio";
+						String sql = "SELECT * FROM stock WHERE camara BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY camara";
 
 						ps = con.prepareStatement(sql);
 						rs = ps.executeQuery();
@@ -146,8 +146,8 @@ public class RPrecio extends JFrame {
 		panel.add(txtMin);
 		txtMin.setColumns(10);
 
-		JLabel lblNewLabel = new JLabel("Introduce un rango de precios entre");
-		lblNewLabel.setBounds(10, 15, 185, 14);
+		JLabel lblNewLabel = new JLabel("Introduce un rango de Mp entre");
+		lblNewLabel.setBounds(17, 15, 185, 14);
 		panel.add(lblNewLabel);
 
 		txtMax = new JTextField();
@@ -165,11 +165,11 @@ public class RPrecio extends JFrame {
 		txtMax.setBounds(345, 11, 75, 22);
 		panel.add(txtMax);
 
-		lblY = new JLabel("\u20AC        y ");
+		lblY = new JLabel("Mp       y ");
 		lblY.setBounds(299, 15, 46, 14);
 		panel.add(lblY);
 
-		lblNewLabel_1 = new JLabel("\u20AC");
+		lblNewLabel_1 = new JLabel("Mp");
 		lblNewLabel_1.setBounds(430, 15, 46, 14);
 		panel.add(lblNewLabel_1);
 

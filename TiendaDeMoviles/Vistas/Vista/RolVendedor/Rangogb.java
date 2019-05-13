@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class gb extends JFrame {
+public class Rangogb extends JFrame {
 
 	private JPanel contentPane;
 	private JTable jtPrecio;
@@ -37,7 +37,7 @@ public class gb extends JFrame {
 	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE CAPACIDAD EN GB Y AL
 	 * PULSAR BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
 	 */
-	public gb() {
+	public Rangogb() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 917, 562);
 		contentPane = new JPanel();

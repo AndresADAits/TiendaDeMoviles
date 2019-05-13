@@ -97,60 +97,8 @@ public class Vendedor extends JFrame {
 		JButton btnCargar = new JButton("PRECIO");
 		btnCargar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
-
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock ORDER BY precio";
-
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
-
-						Object[] filas = new Object[cantidadColumnas];
-
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
-
-						}
-
-						modelo.addRow(filas);
-					}
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
+				Precio Precio=new Precio();
+				Precio.setVisible(true);
 
 			}
 
@@ -162,252 +110,42 @@ public class Vendedor extends JFrame {
 		JButton btnMostrarAscendente = new JButton("MARCA");
 		btnMostrarAscendente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
-
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock ORDER BY marca";
-
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
-
-						Object[] filas = new Object[cantidadColumnas];
-
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
-
-						}
-
-						modelo.addRow(filas);
-					}
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
+				Marca Marca=new Marca();
+				Marca.setVisible(true);
 
 			}
 		});
-		btnMostrarAscendente.setBounds(215, 108, 108, 23);
+		btnMostrarAscendente.setBounds(161, 108, 108, 23);
 		panel.add(btnMostrarAscendente);
 
 		JButton btnBateria = new JButton("BATERIA");
 		btnBateria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
-
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock ORDER BY bateria";
-
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
-
-						Object[] filas = new Object[cantidadColumnas];
-
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
-
-						}
-
-						modelo.addRow(filas);
-					}
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
-
+				Bateria Bateria= new Bateria();
+				Bateria.setVisible(true);
 			}
 		});
-		btnBateria.setBounds(406, 108, 108, 23);
+		btnBateria.setBounds(332, 108, 108, 23);
 		panel.add(btnBateria);
 
 		JButton btnCapacidad = new JButton("CAPACIDAD");
 		btnCapacidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
-
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock ORDER BY capacidad";
-
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
-
-						Object[] filas = new Object[cantidadColumnas];
-
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
-
-						}
-
-						modelo.addRow(filas);
-					}
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
+				Capacidad Capacidad=new Capacidad();
+				Capacidad.setVisible(true);
 			}
 		});
-		btnCapacidad.setBounds(618, 108, 108, 23);
+		btnCapacidad.setBounds(518, 108, 108, 23);
 		panel.add(btnCapacidad);
 
 		JButton btnPantalla = new JButton("PANTALLA");
 		btnPantalla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
-
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock ORDER BY pantalla";
-
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
-
-						Object[] filas = new Object[cantidadColumnas];
-
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
-
-						}
-
-						modelo.addRow(filas);
-					}
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
+				Pantalla  Pantalla= new Pantalla();
+				Pantalla.setVisible(true);
 			}
 		});
-		btnPantalla.setBounds(833, 108, 108, 23);
+		btnPantalla.setBounds(688, 108, 108, 23);
 		panel.add(btnPantalla);
 
 		JButton btnCamara = new JButton("C\u00C1MARA");
@@ -441,7 +179,7 @@ public class Vendedor extends JFrame {
 					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT * FROM stock ORDER BY camara";
+					String sql = "SELECT * FROM stock ORDER BY Rangocamara";
 
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -738,7 +476,7 @@ public class Vendedor extends JFrame {
 		JButton button = new JButton("PRECIO");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RPrecio Precio = new RPrecio();
+				RangoPrecio Precio = new RangoPrecio();
 				Precio.setVisible(true);
 			}
 		});
@@ -748,49 +486,49 @@ public class Vendedor extends JFrame {
 		JButton button_1 = new JButton("MARCA");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Marca Marca = new Marca();
-				Marca.setVisible(true);
+				RangoMarca RangoMarca = new RangoMarca();
+				RangoMarca.setVisible(true);
 			}
 		});
-		button_1.setBounds(215, 206, 108, 23);
+		button_1.setBounds(161, 207, 108, 23);
 		panel.add(button_1);
 
 		JButton button_2 = new JButton("BATERIA");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mAmperios mAmperios = new mAmperios();
-				mAmperios.setVisible(true);
+				RangomAmperios RangomAmperios = new RangomAmperios();
+				RangomAmperios.setVisible(true);
 
 			}
 		});
-		button_2.setBounds(406, 206, 108, 23);
+		button_2.setBounds(332, 207, 108, 23);
 		panel.add(button_2);
 
 		JButton button_3 = new JButton("CAPACIDAD");
 		button_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gb gb = new gb();
-				gb.setVisible(true);
+				Rangogb Rangogb = new Rangogb();
+				Rangogb.setVisible(true);
 			}
 		});
-		button_3.setBounds(618, 207, 108, 23);
+		button_3.setBounds(518, 207, 108, 23);
 		panel.add(button_3);
 
 		JButton button_4 = new JButton("PANTALLA");
 		button_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				inches inches = new inches();
-				inches.setVisible(true);
+				Rangoinches Rangoinches = new Rangoinches();
+				Rangoinches.setVisible(true);
 			}
 		});
-		button_4.setBounds(833, 206, 108, 23);
+		button_4.setBounds(688, 207, 108, 23);
 		panel.add(button_4);
 
 		JButton button_5 = new JButton("C\u00C1MARA");
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				camara camara = new camara();
-				camara.setVisible(true);
+				Rangocamara Rangocamara = new Rangocamara();
+				Rangocamara.setVisible(true);
 			}
 		});
 		button_5.setBounds(1033, 206, 108, 23);
@@ -829,64 +567,33 @@ public class Vendedor extends JFrame {
 		btnOrdenar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-					/**
-					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
-					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
-					 */
-					Object[][] data = new Object[0][0];
-					String[] datos = { "ID", "STOCK", "MARCA", "MODELO", "PRECIO", "GB", "PANTALA INCH", "BATERIA",
-							"CÁMARA" };
-					DefaultTableModel modelo = new DefaultTableModel(data, datos);
-					jtPrecio.setModel(modelo);
-					JScrollPane scroll = new JScrollPane(jtPrecio);
-					getContentPane().add(scroll, BorderLayout.NORTH);
-
-					/**
-					 * HACEMOS CONEXIÓN CON LA BBDD USUARIOSTIENDAMOVILES
-					 */
-					PreparedStatement ps = null;
-					ResultSet rs = null;
-					Conexion conn = new Conexion();
-					Connection con = conn.getConexion();
-					/**
-					 * VAMOS A PASARLE LA SIGUIENTE SELECT, METIENDOLE EL TEXTO QUE SE HA
-					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
-					 * RANGO DE PRECIO
-					 */
-					String sql = "SELECT * FROM stock ORDER BY idmovil";
-
-					ps = con.prepareStatement(sql);
-					rs = ps.executeQuery();
-
-					ResultSetMetaData rsMd = rs.getMetaData();
-					int cantidadColumnas = rsMd.getColumnCount();
-					/**
-					 * MIENTRAS EXISTA UN SIGUIENTE SE SEGUIRA INSERTARNDO EN LA TABLA QUE SE VA A
-					 * MOSTRAR
-					 */
-					while (rs.next()) {
-
-						Object[] filas = new Object[cantidadColumnas];
-
-						for (int i = 0; i < cantidadColumnas; i++) {
-							filas[i] = rs.getObject(i + 1);
-
-						}
-
-						modelo.addRow(filas);
-					}
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
+				Ordenar Ordenar=new Ordenar();
+				Ordenar.setVisible(true);
 
 			}
 		});
-		btnOrdenar.setBounds(802, 4, 139, 56);
+		btnOrdenar.setBounds(812, 4, 139, 56);
 		panel.add(btnOrdenar);
+		
+		JButton btnCmara_1 = new JButton("C\u00C1MARA");
+		btnCmara_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Camara Camara=new Camara();
+				Camara.setVisible(true);
+			}
+		});
+		btnCmara_1.setBounds(843, 108, 108, 23);
+		panel.add(btnCmara_1);
+		
+		JButton btnCmara = new JButton("C\u00C1MARA");
+		btnCmara.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Rangocamara RangoCamara= new Rangocamara();
+				RangoCamara.setVisible(true);
+			}
+		});
+		btnCmara.setBounds(843, 207, 108, 23);
+		panel.add(btnCmara);
 
 	}
 }

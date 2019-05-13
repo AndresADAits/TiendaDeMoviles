@@ -172,7 +172,7 @@ public class NuevoModelo extends JFrame {
 						con = getConexion();
 
 						ps = con.prepareStatement(
-								"INSERT INTO stock (cantidad,marca,modelo,precio,capacidad,pantalla,bateria,camara) VALUES(?,?,?,?,?,?,?,?)");
+								"INSERT INTO stock (cantidad,marca,modelo,precio,capacidad,pantalla,bateria,Rangocamara) VALUES(?,?,?,?,?,?,?,?)");
 
 						ps.setInt(1, Integer.parseInt(txtCantidad.getText()));
 						ps.setString(2, (txtMarca.getText()));

@@ -1,5 +1,6 @@
 package Vista.RolVendedor;
 
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,42 +21,42 @@ import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 
-public class Marca extends JFrame {
-	private JPanel contentPane;
 
-	private JTable jtPrecio;
+
+public class Precio extends JFrame {private JPanel contentPane;
+private JTable jtPrecio;
+
+/**
+ * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y AL PULSAR
+ * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
+ */
+public Precio() {
+	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	setBounds(100, 100, 919, 653);
+	contentPane = new JPanel();
+	contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
+	setContentPane(contentPane);
+	contentPane.setLayout(new BorderLayout(0, 0));
+
+	JPanel panel = new JPanel();
+	contentPane.add(panel, BorderLayout.CENTER);
+	panel.setLayout(null);
+	setLocationRelativeTo(null);
 
 	/**
-	 * SE MUESTRA EL JFRAME EN EL QUE INTRODUCIMOS EL RANGO DE PRECIO Y AL PULSAR
-	 * BUSCAR APARECEN LOS MOVILES CON LAS CONDICIONES QUE ESTAMOS BUSCANDO
+	 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
+	 * CARACTERISTICAS QUE BUSCAMOS
 	 */
-	public Marca() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 919, 653);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setIconImage(new ImageIcon(getClass().getResource("/imagenes/ICON.png")).getImage());
-		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
-		panel.setLayout(null);
-		setLocationRelativeTo(null);
-
-		/**
-		 * AL PULSAR EL JBUTTON NOS APARECE UNA JTABLE CON LOS MOVILES CON LAS
-		 * CARACTERISTICAS QUE BUSCAMOS
-		 */
-		JButton btnCargar = new JButton("Ordenado por Marca");
-		btnCargar.setIcon(new ImageIcon(Marca.class.getResource("/imagenes/MARCA.png")));
-		btnCargar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				jtPrecio = new JTable();
-				jtPrecio.setBounds(22, 22, 561, 338);
-				panel.add(jtPrecio);
-				try {
-
+	JButton btnCargar = new JButton("Ordenado por Precio");
+	btnCargar.setIcon(new ImageIcon(Precio.class.getResource("/imagenes/VENDER.png")));
+	btnCargar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+			jtPrecio = new JTable();
+			jtPrecio.setBounds(22, 22, 561, 338);
+			panel.add(jtPrecio);
+			try {
+			
 					/**
 					 * OBJETO CON LAS COLUMNAS QUE VAMOS A MOSTAR Y COINCIDEN CON LA DE NUESTRA
 					 * TABLA STOCK EN BBDD USUARIOSTIENDAMOVILES
@@ -81,7 +82,7 @@ public class Marca extends JFrame {
 					 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 					 * RANGO DE PRECIO
 					 */
-					String sql = "SELECT * FROM stock  ORDER BY marca";
+					String sql = "SELECT * FROM stock  ORDER BY precio";
 
 					ps = con.prepareStatement(sql);
 					rs = ps.executeQuery();
@@ -103,16 +104,17 @@ public class Marca extends JFrame {
 
 						modelo.addRow(filas);
 					}
-
-				} catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
-				}
-
+				
+			} catch (SQLException ex) {
+				JOptionPane.showMessageDialog(null, "No se puede mostrar la tabla stock");
 			}
 
-		});
+		}
 
-		btnCargar.setBounds(275, 13, 315, 126);
-		panel.add(btnCargar);
-	}
+	});
+
+	btnCargar.setBounds(311, 13, 261, 81);
+	panel.add(btnCargar);
+
+}
 }
