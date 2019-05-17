@@ -71,11 +71,12 @@ public class Gerente extends JFrame {
 		contentPane.add(btnEliminar);
 
 		JButton btnVerltimoAcceso = new JButton("\u00DAltimo Acceso");
-		btnVerltimoAcceso.setIcon(new ImageIcon(Gerente.class.getResource("/imagenes/icons8-hombre-men\u00FA-de-usuario-32.png")));
+		btnVerltimoAcceso.setIcon(
+				new ImageIcon(Gerente.class.getResource("/imagenes/icons8-hombre-men\u00FA-de-usuario-32.png")));
 		btnVerltimoAcceso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				ControlAcceso ControlAcceso=new ControlAcceso();
+
+				ControlAcceso ControlAcceso = new ControlAcceso();
 				ControlAcceso.setVisible(true);
 			}
 		});
@@ -106,7 +107,10 @@ public class Gerente extends JFrame {
 		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblAcceso.setBounds(686, 122, 264, 43);
 		contentPane.add(lblAcceso);
-		
+		/**
+		 * BOTON QUE GUARDA BASE DE DATOS EN CSV
+		 */
+
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -114,34 +118,60 @@ public class Gerente extends JFrame {
 				Connection con = conn.getConexion();
 				String sql2 = "SELECT * FROM usuario";
 
-				
 				try {
-					PreparedStatement ps = con.prepareStatement(sql2);;
+					/**
+					 * GUARDA BASE DE DATOS USUARIO EN VISTAS/CSV/USUARIOSBBDD
+					 */
+					PreparedStatement ps = con.prepareStatement(sql2);
+					;
 					ResultSet rs2 = ps.executeQuery();
-					
+
 					String extension = ".csv";
 					String ruta = "Vistas/csv/usuariosBBDD" + extension;
 					FileWriter writer = new FileWriter(ruta);
 					writer.write("Id;Usuario;Password;Nombre;Correo;Ultima Sesion;Tipo de ID\n");
 					/* Siguiente linea escribe bbdd en fichero */
 					while (rs2.next()) {
-						
-						writer.write(rs2.getInt("id") +";"+rs2.getString("usuario")+";"
-								+rs2.getString("password") + ";"+rs2.getString("nombre")+";"
-								+rs2.getString("correo") + ";"+rs2.getString("last_session")+";"
-								+rs2.getString("id_tipo")+"\n");
+
+						writer.write(rs2.getInt("id") + ";" + rs2.getString("usuario") + ";" + rs2.getString("password")
+								+ ";" + rs2.getString("nombre") + ";" + rs2.getString("correo") + ";"
+								+ rs2.getString("last_session") + ";" + rs2.getString("id_tipo") + "\n");
 					}
 					writer.close();
-					JOptionPane.showMessageDialog(null, "Fichero creado con éxito");
-				} catch (Exception e2) {
+					/**
+					 * GUARDA BASE DE DATOS STOCK EN VISTAS/CSV/STOCKBBDD
+					 */
+					String sql3 = "SELECT * FROM stock";
+						PreparedStatement ps2 = con.prepareStatement(sql3);
+						;
+						ResultSet rs3 = ps2.executeQuery();
+					
+
+						String extension2 = ".csv";
+						String ruta2 = "Vistas/csv/stockBBDD" + extension2;
+						FileWriter writer2 = new FileWriter(ruta2);
+						writer2.write("idmovil;cantidad;marca;modelo;precio;capacidad;pantalla;bateria;camara\n");
+						/* Siguiente linea escribe bbdd en fichero */
+						while (rs3.next()) {
+
+							writer2.write(rs3.getInt("idmovil") + ";" + rs3.getInt("cantidad") + ";" + rs3.getString("marca")
+									+ ";" + rs3.getString("modelo") + ";" + rs3.getInt("precio") + ";"
+									+ rs3.getInt("capacidad") + ";" + rs3.getInt("pantalla") +";" + rs3.getInt("bateria") +";" + rs3.getInt("camara") + "\n");
+
+					}
+					writer2.close();
+					
+					
+					JOptionPane.showMessageDialog(null, "Bases de datos guardadas con éxito");
+						} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "Error");
-}
+				}
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon(Gerente.class.getResource("/imagenes/CSV2.png")));
 		btnNewButton.setBounds(312, 40, 65, 69);
 		contentPane.add(btnNewButton);
-		
+
 		JLabel lblGuardarBbdd = new JLabel("Guardar BBDD");
 		lblGuardarBbdd.setBounds(312, 14, 83, 14);
 		contentPane.add(lblGuardarBbdd);
