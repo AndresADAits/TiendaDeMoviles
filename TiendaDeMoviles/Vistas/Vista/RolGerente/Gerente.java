@@ -8,12 +8,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Modelo.Conexion;
 import Modelo.Usuarios;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class Gerente extends JFrame {
@@ -46,7 +52,7 @@ public class Gerente extends JFrame {
 				CambiarPrecio.setVisible(true);
 			}
 		});
-		btnCambiarPrecioMoviles.setBounds(46, 25, 196, 62);
+		btnCambiarPrecioMoviles.setBounds(12, 47, 176, 62);
 		contentPane.add(btnCambiarPrecioMoviles);
 
 		JLabel lblGestinDeEmpleados = new JLabel("Gesti\u00F3n de Empleados");
@@ -100,5 +106,44 @@ public class Gerente extends JFrame {
 		lblAcceso.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
 		lblAcceso.setBounds(686, 122, 264, 43);
 		contentPane.add(lblAcceso);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Conexion conn = new Conexion();
+				Connection con = conn.getConexion();
+				String sql2 = "SELECT * FROM usuario";
+
+				
+				try {
+					PreparedStatement ps = con.prepareStatement(sql2);;
+					ResultSet rs2 = ps.executeQuery();
+					
+					String extension = ".csv";
+					String ruta = "Vistas/csv/usuariosBBDD" + extension;
+					FileWriter writer = new FileWriter(ruta);
+					writer.write("Id;Usuario;Password;Nombre;Correo;Ultima Sesion;Tipo de ID\n");
+					/* Siguiente linea escribe bbdd en fichero */
+					while (rs2.next()) {
+						
+						writer.write(rs2.getInt("id") +";"+rs2.getString("usuario")+";"
+								+rs2.getString("password") + ";"+rs2.getString("nombre")+";"
+								+rs2.getString("correo") + ";"+rs2.getString("last_session")+";"
+								+rs2.getString("id_tipo")+"\n");
+					}
+					writer.close();
+					JOptionPane.showMessageDialog(null, "Fichero creado con éxito");
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "Error");
+}
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(Gerente.class.getResource("/imagenes/CSV2.png")));
+		btnNewButton.setBounds(312, 40, 65, 69);
+		contentPane.add(btnNewButton);
+		
+		JLabel lblGuardarBbdd = new JLabel("Guardar BBDD");
+		lblGuardarBbdd.setBounds(312, 14, 83, 14);
+		contentPane.add(lblGuardarBbdd);
 	}
 }
