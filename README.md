@@ -3,7 +3,9 @@
 > Autor: José Andrés Fernández Francisco
 
 
-Aplicación  JAVA  en arquitectura MVC para  tres diferentes roles registrados en una base de datos mysql. Se pueden hacer diferentes tipos de consultas sobre otra base de datos (de móviles),  información de la aplicación y otros usuarios (según sus  privilegios).Exporta a CSV la base de datos para copia de seguridad (Persistencia en memoria) También incluye  impresión de facturas, pedidos y lista de empleados en activo.
+Aplicación  JAVA con interfaz gráfica en arquitectura MVC que gestiona tres roles en una base de datos mysql, que tambien contiene un registro de usuarios, tipos de usuarios, stock de moviles y registro de acceso a la aplicación. Se pueden realizar multitud de consultas, compras, ventas, altas y bajas, tanto de moviles como de usuarios, y dependiendo del rol del usuario.Exporta a CSV tabla stock y tabla de usuarios de la base de datos para copia de seguridad. También incluye  impresión de facturas, pedidos y lista de empleados en activo.
+
+
 #### Estructura:
 
  1. Vistas.
