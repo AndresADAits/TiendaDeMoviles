@@ -209,8 +209,8 @@ public class Rangocamara extends JFrame {
 						 * INTRODUCIDO EN EL JTEXT, QUE LLAMAMOS TXTMIN Y TXT MAX RESPECTIVAMENTE PARA
 						 * RANGO DE PRECIO
 						 */
-						String sql = "SELECT * FROM stock WHERE precio BETWEEN " + txtMin.getText() + " AND "
-								+ txtMax.getText() + " ORDER BY precio DESC";
+						String sql = "SELECT * FROM stock WHERE camara BETWEEN " + txtMin.getText() + " AND "
+								+ txtMax.getText() + " ORDER BY camara DESC";
 
 						ps = con.prepareStatement(sql);
 						rs = ps.executeQuery();

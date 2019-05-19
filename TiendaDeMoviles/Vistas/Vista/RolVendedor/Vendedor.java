@@ -419,7 +419,6 @@ public class Vendedor extends JFrame {
 												" FACTURA X " + txtCantidad.getText() + " DE MOVILES");
 										try {
 
-											JOptionPane.showMessageDialog(null, "HAY QUE RELLENAR  LOS DOS CAMPOS");
 
 											jtPrecio.print(JTable.PrintMode.FIT_WIDTH, header, pie);
 
