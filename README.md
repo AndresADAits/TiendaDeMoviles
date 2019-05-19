@@ -10,6 +10,7 @@ Aplicación  JAVA con interfaz gráfica en arquitectura MVC que gestiona tres ro
 ### Instalación:
 Esta aplicación  se podria ejecutar tanto desde eclipse, netbeans, o desde un ejecutable a través de un simbolo de sistema de Windows. Solo habira que añadir el conector al build path ( desde add external jar ) e importar la base de datos a mysql y hacer coincidir el localhost, usuario y contraseña con el vuestro.
 
+[Video de Presentación](https://youtu.be/rCcbHJaWe3I)
 
 ### Estructura:
 #### Vistas
@@ -41,4 +42,4 @@ Esta aplicación  se podria ejecutar tanto desde eclipse, netbeans, o desde un e
 | Ejecutable.|
 
 
-[Video de Presentación](https://youtu.be/rCcbHJaWe3I)
+
